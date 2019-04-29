@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import Menu from '@/components/Menu'
+import Footer from '@/components/Footer'
 import router from './router'
 
 Vue.config.productionTip = false
@@ -11,6 +12,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App, Menu },
+  components: { App, Menu, Footer },
   template: '<App/>'
 })

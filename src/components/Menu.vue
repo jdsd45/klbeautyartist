@@ -8,16 +8,18 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" v-on:click.prevent="open('accueil')">
-                <a class="nav-link" href="#">Accueil</a>
+            <li class="nav-item">
+                <router-link to="/"><a class="nav-link">Accueil</a></router-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Prestations</a>
+                <router-link to="/prestations"><a class="nav-link">Prestations</a></router-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Me contacter</a>
+                <router-link to="/contact"><a class="nav-link">Me contacter</a></router-link>
             </li>
-
+            <li class="nav-item">
+                <router-link to="/keslene"><a class="nav-link">A propos</a></router-link>
+            </li>
         </ul>
     </div>
 </nav>
