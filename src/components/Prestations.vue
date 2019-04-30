@@ -1,52 +1,23 @@
 <template>
-    <div id="list-prestations" class="row">
-        <div class="col-md-4 cont-prestation"
-            v-bind:id="'prestation-' + prestation.id"
-            v-for="prestation in prestations"
-            v-bind:key="prestation.id">
-            <h3>{{ prestation.titre }} </h3>
-            <div class="row">
-                <div class="col-md">
-                    <div class="cont-prest-img">
-                        <img src="https://via.placeholder.com/400" class="img-prestations">
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="cont-prest-infos">
-                        <span>Prix: {{ prestation.prix }} $ </span>
-                    </div>
-                    <div class="cont-prest-infos">
-                        <span>Temps: {{ prestation.temps }}</span>
-                    </div>
-                </div>
-            </div>
-            <p>{{ prestation.detail }}</p>
-        </div>
+    <div>
+        <PrestationsMenu></PrestationsMenu>
+        <PrestationsItems></PrestationsItems>
     </div>
 </template>
 
 <script>
+import PrestationsMenu from '@/components/PrestationsMenu'
+import PrestationsItems from '@/components/PrestationsItems'
 import prestations from '@/assets/prestations.json'
 export default {
     name: 'Prestations',
-    data () {
-        return {
-            prestations: prestations
-        }
-    }                                                
+    components: {
+        PrestationsMenu,
+        PrestationsItems
+    }
 }
 </script>
 
 <style>
-.cont-prest-img {
-    text-align:left;
-}
-.cont-prest-infos {
-    text-align: left;
-}
-.img-prestations {
-    max-width:100%;
-}
+
 </style>
-
-
