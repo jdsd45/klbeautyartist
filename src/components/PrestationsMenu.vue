@@ -6,7 +6,7 @@
             v-bind:categorie="categorie"
             v-bind:index="index"
             v-bind:key="index"
-            v-bind:class="{ catSelected: currentCat === categorie.name }"
+            v-bind:class="{ catSelected: currentcat === categorie.name }"
             v-on:click.stop="display(index)">
                 {{categorie.name}}
             </li>
@@ -24,14 +24,21 @@ export default {
                 {name: 'Maquillage professionnel'}, 
                 {name: 'Beauté des cils'}
             ],
-            currentCat: false
+            currentcat: 'Maquillage semi-permanent'
         }
     },
     methods: {
         display: function(i) {
-            this.currentCat = this.categories[i].name
-            
+            this.currentcat = this.categories[i].name
+            this.sendcat()
+        },
+        sendcat: function(event){
+            console.log('sendcat: ' + this.currentcat)
+            this.$emit('updatecategorie', this.currentcat)
         }
+    },
+    mounted() {
+        this.sendcat()
     }
 }
 </script>
