@@ -30,6 +30,7 @@ export default {
     methods: {
         display: function(i) {
             this.currentCat = this.categories[i].name
+            
         }
     }
 }
