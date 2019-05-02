@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md">
                     <div class="cont-prest-img">
-                        <img src="https://via.placeholder.com/400" class="img-prestations">
+                        <img src="https://picsum.photos/300/400" class="img-prestations">
                     </div>
                 </div>
                 <div class="col-md">
