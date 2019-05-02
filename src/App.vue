@@ -26,11 +26,11 @@ export default {
 <style>
 
 #main-content {
-  margin-top:10px;
+  margin-top:60px;
 }
 
 .push {
-  height:60px
+  height:50px
 }
 
 #app {

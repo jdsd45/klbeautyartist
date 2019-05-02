@@ -1,10 +1,12 @@
 <template>
     <div>
-        <PrestationsMenu></PrestationsMenu>
-        <div>
-            <!-- <p>cat niveau parent : {{ curentcat }}</p> -->
-        </div>
-        <PrestationsItems></PrestationsItems>
+        <PrestationsMenu
+        v-bind:currentcategory="currentcategory"
+        v-on:updatecategorie="updatecategorie"
+        ></PrestationsMenu>
+        <PrestationsItems
+        v-bind:currentcategory="currentcategory"
+        ></PrestationsItems>
     </div>
 </template>
 
@@ -14,9 +16,9 @@ import PrestationsItems from '@/components/PrestationsItems'
 import prestations from '@/assets/prestations.json'
 export default {
     name: 'Prestations',
-    data() {
+    data () {
         return {
-            currentcat: ''
+            currentcategory: 'Maquillage semi-permanent'
         }
     },
     components: {
@@ -24,7 +26,8 @@ export default {
         PrestationsItems
     },
     methods: {
-        updatecategorie(val) {
+        updatecategorie: function(newVal) {
+            this.currentcategory = newVal
             console.log('updateCurrentCat')
         }       
     }

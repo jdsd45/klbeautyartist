@@ -5,7 +5,7 @@
             v-for="prestation in prestationsFiltrees"
             v-bind:key="prestation.id">
             <h3>{{ prestation.titre }} </h3>
-            <h4>categorie : {{ currentcat }} </h4>
+            <h4>categorie : {{ currentcategory }} </h4>
             <div class="row">
                 <div class="col-md">
                     <div class="cont-prest-img">
@@ -30,16 +30,16 @@
 import prestations from '@/assets/prestations.json'
 export default {
     name: 'PrestationsItems',
+    props: ['currentcategory'],    
     data () {
         return {
             prestations: prestations,
-            currentCata: 'Maquillage professionnel'
+            currentCata: this.currentcategory
         }
     },
-    props: ['currentcat'],    
     methods: {
         selectInCategories: function(prestation) {
-            return prestation.categorie == this.currentCata
+            return prestation.categorie == this.currentcategory
         }
     },
     computed : {
