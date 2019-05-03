@@ -46,11 +46,7 @@ export default {
         prestationsFiltrees: function(prestations) {
             return this.prestations.filter(this.selectInCategories)
         }
-    },
-    mounted() {
-        //console.log('test 3')
-        //console.log(this.currentcat)
-    }                                    
+    }                                
 }
 </script>
 

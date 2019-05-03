@@ -1,18 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import VueCarousel from 'vue-carousel'
+import Home from '@/components/Home'
 import Prestations from '@/components/Prestations'
 import Contact from '@/components/Contact'
 import Keslene from '@/components/Keslene'
 
+Vue.use(VueCarousel)
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
     },
     {
       path: '/prestations',

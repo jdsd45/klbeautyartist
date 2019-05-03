@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" id="cont-contact">
         <div class="col-md-7">
             <h2>Me contacter</h2>
             <div class="row">

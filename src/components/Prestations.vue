@@ -4,7 +4,8 @@
         v-bind:currentcategory="currentcategory"
         v-on:updatecategorie="updatecategorie"
         ></PrestationsMenu>
-        <PrestationsItems
+        <PrestationsItems 
+        id="cont-prestations"
         v-bind:currentcategory="currentcategory"
         ></PrestationsItems>
     </div>
@@ -35,5 +36,8 @@ export default {
 </script>
 
 <style>
-
+/*     #cont-prestations {
+        padding-left:10px;
+        padding-right:10px;
+    } */
 </style>
