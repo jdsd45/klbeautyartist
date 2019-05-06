@@ -3,7 +3,7 @@
         <div>
             <Menu></Menu>
         </div>
-        <div class="container-fluid" id="main-content">
+        <div class="" id="main-content">
             <router-view/>
         </div>
         <div class="push"></div>
@@ -39,8 +39,8 @@ export default {
 
 }
 
-#cont-prestations, #cont-contact {
-    padding-left:8px;
-    padding-right:8px;
+#cont-prestations, #cont-contact, #bloc-2-Home {
+/*     padding-left:8px;
+    padding-right:8px; */
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <PrestationsMenu
         v-bind:currentcategory="currentcategory"
         v-on:updatecategorie="updatecategorie"
@@ -19,25 +19,39 @@ export default {
     name: 'Prestations',
     data () {
         return {
-            currentcategory: 'Maquillage semi-permanent'
+            currentcategory: ''
         }
     },
     components: {
         PrestationsMenu,
         PrestationsItems
     },
+    created: function() {
+        let url = document.location.href;
+        url = url.split('/');
+        switch (url[url.length -1 ]) {
+            case 'maquillage-semi-permanent':
+                this.currentcategory = 'Maquillage semi-permanent';
+            break;
+            case 'maquillage-professionnel':
+                this.currentcategory = 'Maquillage professionnel';
+            break;
+            case 'beaute-cils':
+                this.currentcategory = 'Beauté des cils';
+            break;
+            default:
+                this.currentcategory = 'Maquillage semi-permanent'
+            break;
+        }
+    },
     methods: {
         updatecategorie: function(newVal) {
             this.currentcategory = newVal
-            console.log('updateCurrentCat')
         }       
     }
 }
 </script>
 
 <style>
-/*     #cont-prestations {
-        padding-left:10px;
-        padding-right:10px;
-    } */
+
 </style>

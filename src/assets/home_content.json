@@ -3,18 +3,21 @@
         "id":1,
         "categorie":"item-gauche",
         "titre":"Maquillage semi-permanent",
-        "lien_img":"https://picsum.photos/id/231/300/400"
+        "url":"maquillage-semi-permanent",
+        "lien_img":"https://picsum.photos/id/231/300/300"
     },
     {
         "id":2,
         "categorie":"item-gauche",
         "titre":"Maquillage professionnel",
-        "lien_img":"https://picsum.photos/id/234/300/400"
+        "url":"maquillage-professionnel",
+        "lien_img":"https://picsum.photos/id/234/300/300"
     },
     {
         "id":3,
         "categorie":"item-gauche",
         "titre":"Beauté des cils",
-        "lien_img":"https://picsum.photos/id/233/300/400"
+        "url":"beaute-cils",
+        "lien_img":"https://picsum.photos/id/233/300/300"
     }     
 ]

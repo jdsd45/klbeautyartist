@@ -1,11 +1,10 @@
 <template>
     <div id="list-prestations" class="row">
         <div class="col-md-4 cont-prestation"
-            v-bind:id="'prestation-' + prestation.id"
             v-for="prestation in prestationsFiltrees"
+            v-bind:id="'prestation-' + prestation.id"
             v-bind:key="prestation.id">
             <h3>{{ prestation.titre }} </h3>
-            <h4>categorie : {{ currentcategory }} </h4>
             <div class="row">
                 <div class="col-md">
                     <div class="cont-prest-img">

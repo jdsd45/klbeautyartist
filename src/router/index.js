@@ -17,6 +17,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/prestations/*',
+      name: 'Prestations',
+      component: Prestations
+    },
+    {
       path: '/prestations',
       name: 'Prestations',
       component: Prestations
@@ -31,5 +36,8 @@ export default new Router({
       name: 'Keslene',
       component: Keslene    
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
