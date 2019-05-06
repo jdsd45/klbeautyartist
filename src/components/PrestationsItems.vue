@@ -9,7 +9,8 @@
             <div class="row">
                 <div class="col-md">
                     <div class="cont-prest-img">
-                        <img src="https://picsum.photos/300/400" class="img-prestations">
+                        <img class="img-prestations" 
+                        :src="prestation.lien_img">
                     </div>
                 </div>
                 <div class="col-md">
