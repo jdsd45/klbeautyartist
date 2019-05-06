@@ -2,24 +2,26 @@
 
 class MessageManager extends BddManager {
 
-	public static function insertMessage(string $nom, string $email, string $message) {
+	public static function insertMessage(string $nom, string $prenom, string $email, string $telephone, string $message) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
-			INSERT INTO table_messages (nom, email, message, date_message) 
-			VALUES (:nom, :email, :message, NOW())');
+			INSERT INTO messages (date_message, prenom, nom, email, telephone, message) 
+			VALUES (NOW(), :prenom, :nom, :email, :telephone :message)');
 		
 		$req->execute(array(
+			'prenom' => $prenom,
 			'nom' => $nom,
 			'email' => $email,
+			'telephone' => $telephone,
 			'message' => $message
 		));
 		
-		if ($req == true) {
+/* 		if ($req == true) {
 			echo 'Votre message a bien été envoyé, je vous répondrai rapidement!';
 			self::envoyerMail($nom, $email, $message);
 		} else {
 			echo 'Erreur dans l\'envoi du message';
-		}
+		} */
 	}
 
 	public static function envoyerMail(string $nom, string $email, string $message) {

@@ -1,23 +1,23 @@
 <template>
 
-<form action="">
+<form action="" v-on:submit.prevent="onSubmit">
     <div class="form-group">
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="First name">
+                <input type="text" class="form-control" placeholder="Nom" v-model="form.nom">
             </div>
                 <div class="col">
-            <input type="text" class="form-control" placeholder="Last name">
+            <input type="text" class="form-control" placeholder="Prénom" v-model="form.prenom">
             </div>
         </div>
     </div> 
     <div class="form-group">
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" placeholder="First name">
+                <input type="text" class="form-control" placeholder="Téléphone" v-model="form.telephone">
             </div>
                 <div class="col">
-            <input type="text" class="form-control" placeholder="Last name">
+            <input type="email" class="form-control" placeholder="Email" v-model="form.email">
             </div>
         </div>  
     </div>
@@ -29,7 +29,7 @@
         </div>                                             
     </div>
     <div>
-        <button type="button" class="btn btn-dark" id="btn_valider">Envoyer</button>
+        <button type="submit" class="btn btn-dark" id="btn_valider" >Envoyer</button>
     </div>
 </form>
 
@@ -37,7 +37,36 @@
 
 <script>
 export default {
-    name: 'FormContact'
+    name: 'FormContact',
+    data () {
+        return {
+            form: {
+                prenom: '',
+                nom: '',
+                telephone: '',
+                email: '',
+                message: ''
+            }
+        }
+    },
+    methods: {
+        onSubmit: function() {
+            console.log('sendForm');
+            let json = JSON.stringify(this.form);
+        },
+        postForm: function(){
+            let json = JSON.stringify(this.form);
+            axios.post('@/back-php/message_controler.php', {
+                dataForm: json
+            })
+                .then(function(response){
+                    console.log('reponse');
+                })
+                .catch(function(error){
+                    console.log('error');
+                })
+        }
+    }
 }
 </script>
 

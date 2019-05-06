@@ -1,40 +1,61 @@
 <?php
 
+require 'MessageManager.php';
+require 'BddManager.php';
+
+$tab = [
+    'erreur' => false,
+    'logs' => []
+];
+
 function envoyerMessage() {
+    
+    if (isset($_POST['dataForm']) && !empty($_POST['dataForm'])) {
+        global $tab;
+        $json = htmlspecialchars($_POST['dataForm']);
+        $data = json_decode($json);
 
-    if (isset($_POST['email']) && isset($_POST['nom']) && isset($_POST['message']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['message'])) {
-        $email = htmlspecialchars($_POST['email']);
-        $nom = htmlspecialchars($_POST['nom']);	
-        $message = htmlspecialchars($_POST['message']);
+        $prenom = $data['prenom'];
+        $nom = $data['nom'];
+        $email = $data['email'];
+        $telephone = $data['telephone'];
+        $message = $data['message'];
 
-        if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,8}$#i", $email) && strlen($email)<100) {
-            $emailIsOk = true;
+        $prenomOk = checkString($prenom, 'prenom', 100);
+        $nomOk = checkString($nom, 'nom', 100);
+        $emailOk = checkString($email, 'email', 100); 
+        //manque numéro de téléphone
+        $messageOk = checkString($message, 'message', 5000);
+
+        echo $tab;
+        if ($prenomOk && $nomOk && $emailOk && $messageOk) {
+            MessageManager::insertMessage($prenom, $nom, $email, $telephone, $message);
         } else {
-            echo "Format de l'email non valide!";
             exit();
         }
 
-        if(strlen($nom)<100) {
-            $nomIsOk = true;
-        } else {
-            echo "Je n'ai encore jamais vu de nom dépassant 100 caractères;)";
-            exit();		
-        }
+}
 
-        if(strlen($message)<3000) {
-            $messageIsOk = true;
-        } else {
-            echo "3000 caractères pour un message devraient être suffisants ;)";
-            exit();		
-        }
-
-        if ($emailIsOk && $nomIsOk && $messageIsOk) {
-            MessageManager::insertMessage($nom, $email, $message);
-        }
-
+function checkString(string $string, string $field, int $length) : bool {
+    if(strlen($string) <= $length) {
+        return true;
     } else {
-        echo "Tous les champs ne sont pas remplis.";
-        exit();	
-    }
+        push("Contenu du champ " . $field . " trop long (max : " . $length . " caractères.)");
+        return false;
+    }    
+}
 
+function checkEmail(string $email, int $length) : bool {
+    if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,8}$#i", $email) && checkString($email, 'email', $length)) {
+        return true;
+    } else {
+        push("Format de l'email non valide.");
+        return false;
+    }
+}
+
+function error(string $log) {
+    global $tab;
+    array_push($tab['logs'], $log);
+    $tab['erreur'] = true;
 }
