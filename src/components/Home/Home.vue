@@ -6,7 +6,7 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel'
-import CarouselHome from '@/components/CarouselHome.vue'
+import CarouselHome from '@/components/Home/CarouselHome.vue'
 
 export default {
     name: 'Home',

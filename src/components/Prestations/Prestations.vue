@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import PrestationsMenu from '@/components/PrestationsMenu'
-import PrestationsItems from '@/components/PrestationsItems'
+import PrestationsMenu from '@/components/Prestations/PrestationsMenu'
+import PrestationsItems from '@/components/Prestations/PrestationsItems'
 import prestations from '@/assets/prestations.json'
 export default {
     name: 'Prestations',

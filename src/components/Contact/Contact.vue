@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import Carte from '@/components/Carte'
-import FormContact from '@/components/FormContact'
+import Carte from '@/components/Contact/Carte'
+import FormContact from '@/components/Contact/FormContact'
 
 export default {
     name: 'Contact',
