@@ -1,12 +1,15 @@
 <?php
 
+require 'BddManager.php';
+
+
 class MessageManager extends BddManager {
 
-	public static function insertMessage(string $nom, string $prenom, string $email, string $telephone, string $message) {
+	public static function insertMessage(string $prenom, string $nom, string $email, string $telephone, string $message) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
-			INSERT INTO messages (date_message, prenom, nom, email, telephone, message) 
-			VALUES (NOW(), :prenom, :nom, :email, :telephone :message)');
+			INSERT INTO messages (prenom, nom, email, telephone, message, date_message) 
+			VALUES (:prenom, :nom, :email, :telephone, :message, NOW())');
 		
 		$req->execute(array(
 			'prenom' => $prenom,
@@ -22,6 +25,8 @@ class MessageManager extends BddManager {
 		} else {
 			echo 'Erreur dans l\'envoi du message';
 		} */
+
+		return $req;
 	}
 
 	public static function envoyerMail(string $nom, string $email, string $message) {

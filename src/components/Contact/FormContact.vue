@@ -24,7 +24,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-12">
-                <textarea class="form-control" id="champ_message" placeholder="Votre message" rows="12"></textarea>
+                <textarea class="form-control" id="champ_message" placeholder="Votre message" rows="12" v-model="form.message"></textarea>
             </div>
         </div>                                             
     </div>
@@ -53,10 +53,11 @@ export default {
         onSubmit: function() {
             console.log('sendForm');
             let json = JSON.stringify(this.form);
+            this.postForm();
         },
         postForm: function(){
             let json = JSON.stringify(this.form);
-            axios.post('@/back-php/message_controler.php', {
+            axios.post('back-php/message_controler.php', {
                 dataForm: json
             })
                 .then(function(response){

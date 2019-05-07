@@ -2,15 +2,15 @@
 
 class BddManager {
 
-/* private const DB_NAME = 'jdsdfrcjkmjojo';
+private const DB_NAME = 'jdsdfrcjkmjojo';
 private const DB_HOST = 'jdsdfrcjkmjojo.mysql.db';
 private const DB_USER = 'jdsdfrcjkmjojo';
-private const DB_MDP = 'Adramyttium1908Geomorpho191'; */
+private const DB_MDP = 'Adramyttium1908Geomorpho191'; 
 
-private const DB_NAME = 'keslene';
+/* private const DB_NAME = 'keslene';
 private const DB_HOST = 'localhost';
 private const DB_USER = 'root';
-private const DB_MDP = '';
+private const DB_MDP = ''; */
 
 protected function bddConnect() 
 {
