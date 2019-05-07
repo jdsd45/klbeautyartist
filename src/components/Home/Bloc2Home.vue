@@ -38,4 +38,8 @@ export default {
         color: black;
         text-decoration:none;
     }
+
+    .img-home-bloc2 {
+        max-width: 100%;
+    }
 </style>
