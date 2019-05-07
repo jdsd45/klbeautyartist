@@ -1,18 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Prestations from '@/components/Prestations'
-import Contact from '@/components/Contact'
+import VueCarousel from 'vue-carousel'
+import Home from '@/components/Home/Home'
+import Prestations from '@/components//Prestations/Prestations'
+import Contact from '@/components/Contact/Contact'
 import Keslene from '@/components/Keslene'
 
+Vue.use(VueCarousel)
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/prestations/*',
+      name: 'Prestations',
+      component: Prestations
     },
     {
       path: '/prestations',
@@ -29,5 +36,8 @@ export default new Router({
       name: 'Keslene',
       component: Keslene    
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
