@@ -2,7 +2,6 @@
 
 require 'BddManager.php';
 
-
 class MessageManager extends BddManager {
 
 	public static function insertMessage(string $prenom, string $nom, string $email, string $telephone, string $message) {

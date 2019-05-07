@@ -2,12 +2,6 @@
 
 require 'MessageManager.php';
 
-$tab = array(
-    'erreur' => false,
-    'logs' => array()
-);
-
-$keys = ['prenom', 'nom', 'email', 'telephone', 'message'];
 
 envoyerMessage();
 
@@ -77,31 +71,6 @@ function envoyerMessage() {
     }
 }
 
-function checkString(string $string, string $field, int $length) : bool {
-    if(strlen($string) <= $length) {
-        return true;
-    } else {
-        push("Contenu du champ " . $field . " trop long (max : " . $length . " caractères.)");
-        return false;
-    }    
-}
 
-function checkEmail(string $email, int $length) : bool {
-    if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,8}$#i", $email) && checkString($email, 'email', $length)) {
-        return true;
-    } else {
-        push("Format de l'email non valide.");
-        return false;
-    }
-}
 
-function setError(bool $continue=true, string $log) {
-    global $tab;
-    array_push($tab['logs'], $log);
-    $tab['error'] = true;
 
-    if(!$continue) {
-        echo $tab;
-        exit();
-    }
-}
