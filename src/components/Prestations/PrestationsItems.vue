@@ -1,15 +1,15 @@
 <template>
     <div id="list-prestations" class="row">
         <div class="col-md-4 cont-prestation"
-            v-bind:id="'prestation-' + prestation.id"
             v-for="prestation in prestationsFiltrees"
+            v-bind:id="'prestation-' + prestation.id"
             v-bind:key="prestation.id">
             <h3>{{ prestation.titre }} </h3>
-            <h4>categorie : {{ currentcategory }} </h4>
             <div class="row">
                 <div class="col-md">
                     <div class="cont-prest-img">
-                        <img src="https://picsum.photos/300/400" class="img-prestations">
+                        <img class="img-prestations" 
+                        :src="prestation.lien_img">
                     </div>
                 </div>
                 <div class="col-md">
@@ -46,11 +46,7 @@ export default {
         prestationsFiltrees: function(prestations) {
             return this.prestations.filter(this.selectInCategories)
         }
-    },
-    mounted() {
-        //console.log('test 3')
-        //console.log(this.currentcat)
-    }                                    
+    }                                
 }
 </script>
 

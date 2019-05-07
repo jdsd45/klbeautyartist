@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    <div>
-      <Menu></Menu>
+    <div id="app">
+        <div>
+            <Menu></Menu>
+        </div>
+        <div class="" id="main-content">
+            <router-view/>
+        </div>
+        <div class="push"></div>
+        <Footer></Footer>
     </div>
-    <div class="container-fluid" id="main-content">
-      <router-view/>
-    </div>
-    <div class="push"></div>
-    <Footer></Footer>
-  </div>
 </template>
 
 <script>
@@ -26,7 +26,9 @@ export default {
 <style>
 
 #main-content {
-  margin-top:60px;
+  margin-top:56px;
+  padding:0;  
+  overflow-x: hidden;
 }
 
 .push {
@@ -35,5 +37,10 @@ export default {
 
 #app {
 
+}
+
+#cont-prestations, #cont-contact, #bloc-2-Home {
+/*     padding-left:8px;
+    padding-right:8px; */
 }
 </style>
