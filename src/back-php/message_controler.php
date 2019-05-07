@@ -2,14 +2,38 @@
 
 require 'MessageManager.php';
 
-$tab = [
+$tab = array(
     'erreur' => false,
-    'logs' => []
-];
+    'logs' => array()
+);
+
+$keys = ['prenom', 'nom', 'email', 'telephone', 'message'];
 
 envoyerMessage();
 
 function envoyerMessage() {
+    global $tab;
+    global $keys;
+    $request_body = file_get_contents("php://input");
+
+    if(isset($request_body)) {    
+        $data = json_decode($request_body);
+
+        $nbFieldsCorrect = (count((array)$data) == count($keys)) ? true : setError(false, "Les champs ne correspondent pas");
+
+        if($nbFieldsCorrect) {
+
+        }
+
+        foreach ($data as $key => $value) {
+            if(!in_array($key, $keys)) {
+                setError("Les champs ne correspondent pas (champ inexistant)");
+            }
+        }
+
+    }
+    
+
     if (isset($_POST['dataForm']) && !empty($_POST['dataForm'])) {
         global $tab;
         $json = htmlspecialchars($_POST['dataForm']);
@@ -33,17 +57,23 @@ function envoyerMessage() {
         if ($prenomOk && $nomOk && $emailOk && $messageOk) {
             $rep = MessageManager::insertMessage($prenom, $nom, $email, $telephone, $message);
             if($rep) {
-                echo 'requete ok';
+                //echo 'requete ok';
             } else {
-                echo 'pas ok!!';
+                //echo 'pas ok!!';
             }
         } else {
             
         }
-
         echo $tab;
     } else {
-        
+        if(isset($_POST)){
+            echo '<br/>';
+            echo 'php post';
+            echo '<br/>';
+            $var = $_POST;
+            var_dump($var);
+            echo '<br/>';
+        }
     }
 }
 
@@ -65,8 +95,13 @@ function checkEmail(string $email, int $length) : bool {
     }
 }
 
-function error(string $log) {
+function setError(bool $continue=true, string $log) {
     global $tab;
     array_push($tab['logs'], $log);
-    $tab['erreur'] = true;
+    $tab['error'] = true;
+
+    if(!$continue) {
+        echo $tab;
+        exit();
+    }
 }
