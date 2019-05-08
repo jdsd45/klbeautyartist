@@ -2,7 +2,7 @@
 
 require 'BddManager.php';
 
-class MessageManager extends BddManager {
+class FormManager extends BddManager {
 
 	public static function insertMessage($data) {
 		$bdd = parent::bddConnect();
