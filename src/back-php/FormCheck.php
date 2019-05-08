@@ -28,47 +28,51 @@ class FormCheck {
     ];
 
 
-    public static function addError(string $log) : void {
-        self::setErrors($log);
-    }
-
-    public static function fatalError(string $log) : void {
-        self::setErrors($log);
-        echo self::$errors;
-        exit();
+    public static function formNotEmpty($form) : bool {
+        $result = !empty($form) ? true : false;
+        $result == true ? null : self::setErrors("Formulaire vide"); 
+        return $result;
     }
 
     public static function checkNbFields($data) : bool {
+        echo 'checkNbFields<br/>';
         if(count((array)$data) == count(self::FIELDS)) {
+            echo 'checkNbFields OK<br/>';
             return true;
         } else {
-            fatalError("Les champs ne correspondent pas");
+            self::setErrors("Le nombre de champs ne correspond pas");
             return false;
         }
     }
 
     public static function checkFieldName(string $field) : bool {
+        echo 'checkNbFieldName : ' .$field. '<br/>';
         if(in_array($field, self::FIELDS)) {
+            echo 'checkNbFieldName : ' .$field. ' OK <br/>';
             return true;
         } else {
-            fatalError("Les champs ne correspondent pas (le champ" . $field . " est inexistant)");
+            self::setErrors("Le champ '" . $field . "' est inexistant)");
             return false;
         }
     }
 
     public static function checkFieldContent(string $string, string $field) : bool {
-        return $result = (lengthIsOk($string, $field) && lengthIsOk($string, $field)) ? true : false;
+        $result = self::lengthIsOk($string, $field) && self::regexIsOk($string, $field) ? true : false;
+        echo 'checkFieldContent : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';
+        return $result;
     }
 
     public static function lengthIsOk(string $string, string $field) : bool {
         $result = (strlen($string) <= self::LENGTHS[$field]) ? true : false;
-        $result == false ? : self::addError("Contenu du champ " . $field . " trop long (max : " . self::LENGTHS[$field] . " caractères.)");
+        $result == true ? null : self::setErrors("Contenu du champ " . $field . " trop long (max : " . self::LENGTHS[$field] . " caractères.)");
+        echo 'lengthIsOk : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';
         return $result;
     }
 
     public static function regexIsOk(string $string, string $field) : bool {
         $result = (self::REGEX[$field] == null) ? true : preg_match(self::REGEX[$field], $string);
-        $result == false ? : self::addError("Format du champ " . $field . " invalide.");
+        $result == true ? null : self::setErrors("Format du champ " . $field . " invalide.");
+        echo 'regexIsOk : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';        
         return $result;
     }
     
