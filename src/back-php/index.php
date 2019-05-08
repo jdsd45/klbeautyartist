@@ -32,6 +32,7 @@ if(sizeof(FormCheck::getErrors()) == 0) {
     echo $e;
     echo 'TOUT EST OK';
     echo $e;
+    FormManager::insertMessage($data);
 } else {
     echo $e;
     echo 'pas bon du tout';
