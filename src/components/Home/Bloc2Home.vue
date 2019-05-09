@@ -23,14 +23,12 @@
 <script>
 export default {
     name: 'Bloc2Home',
-    props: ['baseurl'],    
     data() {
         return {
             homeContent: null
         }
     },
     created: function() {
-        console.log('composant enfant : ' + this.baseurl);
         axios
             //.get('http://jdsd.fr/static/home_content.json')
             //.get('http://localhost:8080/static/home_content.json')
