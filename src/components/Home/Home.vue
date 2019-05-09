@@ -3,7 +3,9 @@
         <CarouselHome></CarouselHome>
         <div id="separateurHome" class="container"></div>
         <div class="container-fluid">
-            <Bloc2Home></Bloc2Home>
+            <Bloc2Home
+            v-bind:baseurl="baseurl"
+            ></Bloc2Home>
         </div>
     </div>
 </template>
@@ -15,11 +17,20 @@ import Bloc2Home from '@/components/Home/Bloc2Home.vue'
 
 export default {
     name: 'Home',
+    props: ['baseurl'],
+/*     data() {
+        return {
+            baseurl: 'lorem ipsum'
+        }
+    },  */   
     components: {
         Carousel,
         Slide,
         CarouselHome,
         Bloc2Home
+    },
+    mounted: function() {
+        console.log('composant parent : ' + this.baseurl)
     }    
 }
 </script>

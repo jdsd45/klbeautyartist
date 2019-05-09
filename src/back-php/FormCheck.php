@@ -35,9 +35,7 @@ class FormCheck {
     }
 
     public static function checkNbFields($data) : bool {
-        echo 'checkNbFields<br/>';
         if(count((array)$data) == count(self::FIELDS)) {
-            echo 'checkNbFields OK<br/>';
             return true;
         } else {
             self::setErrors("Le nombre de champs ne correspond pas");
@@ -46,9 +44,7 @@ class FormCheck {
     }
 
     public static function checkFieldName(string $field) : bool {
-        echo 'checkNbFieldName : ' .$field. '<br/>';
         if(in_array($field, self::FIELDS)) {
-            echo 'checkNbFieldName : ' .$field. ' OK <br/>';
             return true;
         } else {
             self::setErrors("Le champ '" . $field . "' est inexistant)");
@@ -58,25 +54,22 @@ class FormCheck {
 
     public static function checkFieldContent(string $string, string $field) : bool {
         $result = self::lengthIsOk($string, $field) && self::regexIsOk($string, $field) ? true : false;
-        echo 'checkFieldContent : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';
         return $result;
     }
 
     public static function lengthIsOk(string $string, string $field) : bool {
         $result = (strlen($string) <= self::LENGTHS[$field]) ? true : false;
         $result == true ? null : self::setErrors("Contenu du champ " . $field . " trop long (max : " . self::LENGTHS[$field] . " caractères.)");
-        echo 'lengthIsOk : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';
         return $result;
     }
 
     public static function regexIsOk(string $string, string $field) : bool {
         $result = (self::REGEX[$field] == null) ? true : preg_match(self::REGEX[$field], $string);
         $result == true ? null : self::setErrors("Format du champ " . $field . " invalide.");
-        echo 'regexIsOk : ' .$field. ' : ' .$string. ' : ' .$result. '<br/>';        
         return $result;
     }
     
-    private static function setErrors(string $log) : void {
+    public static function setErrors(string $log) : void {
         array_push(self::$errors, $log);
     }
 

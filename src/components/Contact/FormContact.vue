@@ -52,21 +52,18 @@ export default {
     methods: {
         onSubmit: function() {
             console.log('sendForm');
-            let json = JSON.stringify(this.form);
-            //console.log(json);
             this.postForm();
         },
         postForm: function(){
             console.log('postForm');
-
              axios({
                 method:'post',
-                url: 'back-php/message_controler.php',
+                url: 'back-php/index.php',
                 data: this.form
             })
                 .then(function(response){
                     console.log('reponse : ');
-                    console.log(response);
+                    console.log(response.data);
                 })
                 .catch(function(error){
                     console.log('error');

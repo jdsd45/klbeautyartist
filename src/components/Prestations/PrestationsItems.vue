@@ -27,24 +27,29 @@
 </template>
 
 <script>
-import prestations from '@/assets/prestations.json'
 export default {
     name: 'PrestationsItems',
-    props: ['currentcategory'],    
+    props: ['currentcategory'],       
     data () {
         return {
-            prestations: prestations,
-            currentCata: this.currentcategory
+            prestations: null
         }
     },
     methods: {
         selectInCategories: function(prestation) {
             return prestation.categorie == this.currentcategory
-        }
+        },
+
     },
+    created: function() {
+        axios
+            //.get('http://jdsd.fr/static/prestations.json')
+            .get('http://localhost:8080/static/prestations.json')
+            .then(response => (this.prestations = response.data))
+    }, 
     computed : {
-        prestationsFiltrees: function(prestations) {
-            return this.prestations.filter(this.selectInCategories)
+        prestationsFiltrees: function() {
+            if(this.prestations != null) return this.prestations.filter(this.selectInCategories)
         }
     }                                
 }

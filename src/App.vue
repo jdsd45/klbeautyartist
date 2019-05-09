@@ -4,7 +4,9 @@
             <Menu></Menu>
         </div>
         <div class="" id="main-content">
-            <router-view/>
+            <router-view
+                v-bind:baseurl="baseurl"
+            ></router-view>
         </div>
         <div class="push"></div>
         <Footer></Footer>
@@ -16,10 +18,15 @@ import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 export default {
     name: 'App',
+    data() {
+        return {
+            baseurl: 'lorem ipsum'
+        }
+    },     
     components: {
         'Menu' : Menu,
         'Footer' : Footer
-    }
+    }, 
 }
 </script>
 

@@ -30,7 +30,7 @@
 <script>
 import { Carousel, Slide } from 'vue-carousel'
 export default {
-    name: 'CarouselHome'
+    name: 'CarouselHome', 
 }
 </script>
 
