@@ -18,7 +18,7 @@
                 <router-link to="/contact"><a class="nav-link">Me contacter</a></router-link>
             </li>
             <li class="nav-item">
-                <router-link to="/keslene"><a class="nav-link">A propos</a></router-link>
+                <router-link to="/about"><a class="nav-link">A propos</a></router-link>
             </li>
         </ul>
     </div>

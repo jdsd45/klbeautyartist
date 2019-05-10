@@ -4,22 +4,23 @@
             <div class="col-md-7">
                 <h2>Me contacter</h2>
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-7" id="carte">
                         <Carte></Carte>
                     </div>
-                    <div class="col-md-5">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!</p>
+                    <div class="col-md-5" id="contact_haut_droite">
+                        <p v-for="content in donnees.contents.haut_droite" :key="content.index">
+                            {{ content }}
+                        </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-7">
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!</p>
+                    <div class="col-md-7" id="contact_bas_gauche">
+                        <p v-for="content in donnees.contents.bas_gauche" :key="content.index"> 
+                            {{ content }}
+                        </p>
                     </div>
                     <div class="col-md-5">
-                        <img src="https://via.placeholder.com/500x300" id="img-salon">
+                        <img :src="donnees.lien_img" alt="Photographie du salon où je réalise mes prestations" id="img-salon">
                     </div>
                 </div>
             </div>
@@ -37,9 +38,19 @@ import FormContact from '@/components/Contact/FormContact'
 
 export default {
     name: 'Contact',
+    data() {
+        return {
+            donnees : ''
+        }
+    },
     components: {
         Carte, 
         FormContact
+    },
+    created: function() {
+        axios
+            .get(this.$store.state.baseUrl + 'static/contact_content.json')
+            .then(response => (this.donnees = response.data))
     }
 }
 </script>
