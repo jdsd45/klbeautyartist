@@ -15,14 +15,10 @@
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 export default {
-    name: 'App',    
+    name: 'App',   
     components: {
         'Menu' : Menu,
         'Footer' : Footer
-    }, 
-    mounted: function() {
-        console.log('test app')
-        console.log(this.$store.state.count)
     }
 }
 </script>

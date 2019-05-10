@@ -43,8 +43,7 @@ export default {
     },
     created: function() {
         axios
-            //.get('http://jdsd.fr/static/prestations.json')
-            .get('http://localhost:8080/static/prestations.json')
+            .get(this.$store.state.baseUrl + 'static/prestations.json')
             .then(response => (this.prestations = response.data))
     }, 
     computed : {

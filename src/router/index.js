@@ -19,7 +19,7 @@ export default new Router({
     },
     {
       path: '/prestations/*',
-      name: 'Prestations',
+      name: 'Prestations/*',
       component: Prestations
     },
     {
