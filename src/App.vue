@@ -14,7 +14,8 @@
 <script>
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
-export default {
+
+export default {    
     name: 'App',   
     components: {
         'Menu' : Menu,

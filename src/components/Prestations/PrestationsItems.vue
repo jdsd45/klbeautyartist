@@ -43,7 +43,7 @@ export default {
     },
     created: function() {
         axios
-            .get(this.$store.state.baseUrl + 'static/prestations.json')
+            .get('/static/prestations.json')
             .then(response => (this.prestations = response.data))
     }, 
     computed : {

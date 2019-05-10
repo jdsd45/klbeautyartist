@@ -49,7 +49,7 @@ export default {
     },
     created: function() {
         axios
-            .get(this.$store.state.baseUrl + 'static/contact_content.json')
+            .get('static/contact_content.json')
             .then(response => (this.donnees = response.data))
     }
 }

@@ -24,7 +24,7 @@ export default {
     },
     created: function() {
         axios
-            .get(this.$store.state.baseUrl + 'static/a-propos_content.json')
+            .get('static/a-propos_content.json')
             .then(response => (this.donnees = response.data))
    }                                             
 }

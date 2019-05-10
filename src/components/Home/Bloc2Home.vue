@@ -30,7 +30,7 @@ export default {
     },
     created: function() {
         axios
-            .get(this.$store.state.baseUrl + 'static/home_content.json')
+            .get('static/home_content.json')
             .then(response => (this.homeContent = response.data))        
     }
 }
