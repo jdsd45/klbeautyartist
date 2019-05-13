@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row" id="cont-contact">
-            <div class="col-md-7">
+            <div class="col-md-7" v-if="donnees != null">
                 <h2>Me contacter</h2>
                 <div class="row">
                     <div class="col-md-7" id="carte">
@@ -9,6 +9,7 @@
                     </div>
                     <div class="col-md-5" id="contact_haut_droite">
                         <p v-for="content in donnees.contents.haut_droite" :key="content.index">
+        
                             {{ content }}
                         </p>
                     </div>
@@ -40,7 +41,7 @@ export default {
     name: 'Contact',
     data() {
         return {
-            donnees : ''
+            donnees : null
         }
     },
     components: {
