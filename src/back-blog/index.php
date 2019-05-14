@@ -52,6 +52,14 @@ var btn = document.getElementById('btn');
     
     })
     
+let article : {
+    titre: "Titre de l'article",
+    resume: "Resume de l'Article.",
+    miniature: {
+        description: "Titre de la miniature",
+        fichier: 
+    }
+}
 
 </script>
 
