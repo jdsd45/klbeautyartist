@@ -1,0 +1,28 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Message de {{ message.nom }}</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>
+            Message de {{ message.nom|upper }} {{ message.prenom|capitalize }} 
+        </h3>
+        <p>
+            Mail: {{ message.email }} 
+        </p>
+        <p>
+            Téléphone: {{ message.telephone }}   
+        </p>                
+        <p>
+            Le {{ message.date_message|date("d/m/Y") }} à {{ message.date_message|date("H:i") }}
+        </p>
+        <p>
+            {{ message.message }} 
+        </p>       
+    </div>
+
+{% endblock %}
+

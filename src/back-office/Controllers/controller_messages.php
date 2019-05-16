@@ -14,29 +14,32 @@ function controller_messages($twig) {
     switch ($action) {
         case 'show':
             if(isset($_GET['id'])) {
-                showMessage($_GET['id']);
+                $data['message'] = MessagesManager::getMessage($_GET['id']);
+                $vue = "Vue_Message.twig";
             } else {
-                showMessages();
+                $data['messages'] = MessagesManager::getMessages();
+                $vue = "Vue_Messages.twig";
             }
         break;
-        case 'bin':
-            showMessages('bin');
+        case 'del':
+            if(isset($_GET['id'])) {
+                MessagesManager::progSuppressionMessage($_GET['id']);
+                $data['messages'] = MessagesManager::getMessages();
+            } else {
+                $data['messages'] = MessagesManager::getMessagesSupprimes();
+            }        
+            $vue = "Vue_Messages.twig";
+        break;
     }
+    echo $twig->render($vue, $data);
 }
 
 function showMessages($filter = null) {
     if($filter == 'bin') {
-        MessagesManager::getMessages($filter);
-        echo 'messages supprimés';
+        return MessagesManager::getMessagesSupprimes();
     } else {
-        MessagesManager::getMessages();
-        echo 'tous les messages';
+        return MessagesManager::getMessages();
     }
-}
-
-function showMessage($id) {
-
-    echo 'message avec id : ' . $id ;
 }
 
 function delMessage($id) {
