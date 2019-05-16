@@ -1,0 +1,69 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Création d'un personnage</title>
+{% endblock %}
+
+{% block content %}
+    {% if isSession == null %}
+
+        <h1>Création d'un personnage</h1>
+
+        {% if isPersoCreate == false %}
+
+            <form action="index.php?action=creation-perso" method="post">
+                <div class="form-group row">
+                    <input type="text" name="nom_perso" id="nom_perso" placeholder="Nom du Personnage">
+                </div>
+                <div class="form-group row">
+                    <fieldset classe="form-group row" id="classe">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="classe_perso" id="fantassin" value="CLASSE_FANTASSIN">
+                            <label class="form-check-label" for="fantassin">Fantassin</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="classe_perso" id="espion" value="CLASSE_ESPION">
+                            <label class="form-check-label" for="espion">Espion</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="classe_perso" id="cavalier" value="CLASSE_CAVALIER">
+                            <label class="form-check-label" for="inlineRadio3">Cavalier</label>
+                        </div> 
+                    </fieldset>  
+                </div> 
+                <div class="form-group row">
+                    <fieldset classe="form-group row" id="faction">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="faction_perso" id="romains" value="FACTION_ROMAINS">
+                            <label class="form-check-label" for="romains">Romains</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="faction_perso" id="grecs" value="FACTION_GRECS">
+                            <label class="form-check-label" for="grecs">Grecs</label>
+                        </div>
+                    </fieldset>  
+                </div>                 
+                <div class="form-group row">
+                    <input type="text" name="mdp" id="mdp" placeholder="Mot de passe">
+                </div>
+                <div class="form-group row">
+                    <input type="text" name="mdp_conf" id="mdp_conf" placeholder="Confirmer le mot de passe">
+                </div>        
+                <div class="form-group row">
+                    <button type="submit" class="btn btn-dark">Créer un personnage</button>
+                </div>
+            </form>
+        {% endif %}
+        {% if essaiCreation == true %}
+            {% for message in tabMessages %}
+                <p> {{ message }} </p>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <h4 class="text-danger">Vous n'êtes pas autorisé !</h4>
+    {% endif %}    
+
+{% endblock %}
+
+
+

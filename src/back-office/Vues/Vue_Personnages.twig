@@ -1,0 +1,48 @@
+
+    {% extends "template.twig" %}
+
+    {% block head %}
+        <title>Personnages</title>
+    {% endblock %}
+
+    {% block content %}
+        {% if isSession == 'vrai' %}
+
+            <h1>Liste des personnages</h1>
+            {% for perso in donneesPersos if perso.nom != nomPerso %}
+                <div class="row">
+                    <div class="col-2">
+                        <p> {{ perso.nom }}</p>
+                    </div>
+                <div class="col-6">
+                    {% if perso.pv <= 25 %}
+                    <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ perso.pv }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ perso.pv }} / 100 PV</div>
+                    </div>  
+                    {% elseif perso.pv <= 50  %}   
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ perso.pv }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ perso.pv }} / 100 PV</div>
+                    </div>                                  
+                    {% else %}
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ perso.pv }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ perso.pv }} / 100 PV</div>
+                    </div>
+                    {% endif %}
+                </div>                    
+                    <div class="col-2">
+                        <form action="index.php?action=attaquer" method="post">
+                            <input type="text" name="nom_target" value={{ perso.nom }} style="display:none;">
+                            <button type="submit" class=" btn_attaque btn btn-danger">Attaquer!</button>
+                        </form>                        
+                    </div>
+                </div>  
+            {% endfor %}
+        {% else %}
+            <h4 class="text-danger">Vous n'êtes pas autorisé !</h4>
+        {% endif %}
+
+
+
+    {% endblock %}
+    
+

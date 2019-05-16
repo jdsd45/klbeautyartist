@@ -1,0 +1,31 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Connexion</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Connexion</h1>
+
+    {% if estConnecte == false %}
+        <form action="index.php?action=connexion" method="post">
+            <div class="form-group row">
+                <input type="text" name="nom_perso" id="nom_perso" placeholder="Nom du Personnage">
+            </div>
+            <div class="form-group row">
+                <input type="text" name="mdp" id="mdp" placeholder="Mot de passe">
+            </div>     
+            <div class="form-group row">
+                <button type="submit" class="btn btn-dark">Se connecter</button>
+            </div>
+        </form>
+    {% endif %}    
+
+    {% if essaiConnexion == true and estConnecte == false %} 
+        <p class="text-danger">Identifiant et/ou mot de passe incorrect(s).</p>
+    {% endif %}    
+
+
+{% endblock %}
+
