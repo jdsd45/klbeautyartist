@@ -2,7 +2,7 @@
 
 class BddManager
 {
-    private const DB_NAME = 'jeu_combat';
+    private const DB_NAME = 'keslene';
     private const DB_HOST = 'localhost';
     private const DB_USER = 'root';
     private const DB_PASS = '';
