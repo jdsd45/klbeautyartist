@@ -18,6 +18,7 @@ function controller_messages($twig) {
                 $data = MessagesManager::getMessage($_GET['id']);
                 $vue = "Vue_Message.twig";
             } else {
+                MessagesManager::supprimerMessages();
                 $data = MessagesManager::getMessages();
                 $vue = "Vue_Messages.twig";
             }
@@ -42,7 +43,7 @@ function controller_messages($twig) {
         break;
     }
     echo $twig->render($vue, [
-        'messages' => $data,
+        'data' => $data,
         'filtre'   => $filtre
         ]);
 }

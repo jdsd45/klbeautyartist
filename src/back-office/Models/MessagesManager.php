@@ -12,7 +12,6 @@ class MessagesManager extends BddManager {
             WHERE date_suppression IS NULL
             ORDER BY date_message 
             ');
-            //WHERE date_suppression IS null
         $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
         return $donnees;
     }
@@ -56,7 +55,7 @@ class MessagesManager extends BddManager {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
             DELETE FROM messages 
-            WHERE (date_suppression NOT null) AND (DATEDIFF(day, NOW(), date_suppression) >= 30)');
+            WHERE (date_suppression IS NOT NULL) AND (DATEDIFF(NOW(), date_suppression) >= 30)');
     }
 
 }
