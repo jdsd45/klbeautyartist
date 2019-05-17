@@ -13,6 +13,10 @@ $twig = new Twig_Environment($loader);
             require 'Controllers/controller_messages.php';
             controller_messages($twig);
         break;
+        case 'prestations':
+            require 'Controllers/controller_prestations.php';
+        break;
+
         default:
             echo $twig->render('Vue_Accueil.twig');
         break;
