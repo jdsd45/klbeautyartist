@@ -26,35 +26,30 @@ if (!isset($_GET['p']))
 }
 
 $p = $_GET['p'];
+$pages = ['messages', 'prestations'];
 
-switch ($p) 
-{
-    case 'messages':
-        require 'Controllers/MessageController.php';
-        $controller = new MessageController($twig);
-        $q = $controller->getParam($q);
-        $id = $controller->getParam($id);
-        
-        if ($q && $id) {
-            $controller->$q($id);
-        } elseif($q) {
-            # code...
-        } else {
-            $controller->showDefault();
-        }
-        
-
-
-    break;
-    case 'prestations':
-        //require 'Controllers/controller_prestations.php';
-        //controller_prestations($twig);
-    break;
-    default:
-        echo $twig->render('Vue_Accueil.twig');
-    break;
+if(!in_array($p, $pages)) {
+    echo $twig->render('Vue_Accueil.twig');
+    exit();
 }
 
-function getParam($param) {
-    return $q = isset($_GET[$param]) ? $_GET[$param] : false;
+$className = ucfirst($p);
+$controllerName = $className . 'Controller';
+$managerName = $className . 'Manager';
+
+require 'Controllers/Controller.php';
+require 'Controllers/' . $controllerName . '.php';
+require 'Models/' . $managerName . '.php';
+
+$controller = new $controllerName($twig);
+
+$action = $controller->getParam('q');
+$id = $controller->getParam('id');
+
+if ($action && $id) {
+    $controller->method($action, $id);
+} elseif($action) {
+    $controller->method($action);
+} else {
+    $controller->showDefault();
 }
