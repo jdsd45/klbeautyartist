@@ -35,12 +35,12 @@ switch ($p)
         $q = $controller->getParam($q);
         $id = $controller->getParam($id);
         
-        if (condition) {
-            # code...
-        } elseif(condition) {
+        if ($q && $id) {
+            $controller->$q($id);
+        } elseif($q) {
             # code...
         } else {
-            
+            $controller->showDefault();
         }
         
 
