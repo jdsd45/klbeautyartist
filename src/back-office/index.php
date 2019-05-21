@@ -41,15 +41,10 @@ require 'Controllers/Controller.php';
 require 'Controllers/' . $controllerName . '.php';
 require 'Models/' . $managerName . '.php';
 
-$controller = new $controllerName($twig);
+$controller = new $controllerName();
 
 $action = $controller->getParam('q');
 $id = $controller->getParam('id');
 
-if ($action && $id) {
-    $controller->method($action, $id);
-} elseif($action) {
-    $controller->method($action);
-} else {
-    $controller->showDefault();
-}
+$controller->hub($action, $id);
+

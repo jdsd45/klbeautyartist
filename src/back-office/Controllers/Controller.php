@@ -5,25 +5,23 @@ class Controller {
     protected $default;
     protected $data;
     protected $vue;
-    
-    public function __construct($twig)
-    {
-        $this->setTwig($twig);
-    }
+    protected $filtre;
 
-    public function setTwig($twig) {
+    protected function setTwig() {
+        $loader = new \Twig\Loader\FilesystemLoader('./Vues/');
+        $twig = new Twig_Environment($loader);
         $this->twig = $twig;
     }
 
-    public function getTwig() {
+    protected function getTwig() {
         return $this->twig;
     }
 
-    public function setVue($vue) {
+    protected function setVue($vue) {
         $this->vue = $vue;
     }
 
-    public function getVue() {
+    protected function getVue() {
         return $this->vue;
     }
 
@@ -35,19 +33,20 @@ class Controller {
     }
 
     protected function setData($data) {
-        $this->$data = $data;
+        $this->data = $data;
     }
 
     protected function getData() {
         return $this->data;
     }
 
-    public function method($method, $id=null) {
-        $method = 'action' . ucfirst($method);
-        if (method_exists($this, $method)) {
-            $this->$method();
-        } else {
-            $this->showDefault();
-        }
+    protected function setFiltre($filtre) {
+        $this->filtre = $filtre;
     }
+
+    protected function getFiltre() {
+        return $this->filtre;
+    }
+
+
 }

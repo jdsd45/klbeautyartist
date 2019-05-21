@@ -9,10 +9,10 @@
 <div>
     {% if filtre == 'bin' %}
         <h1>Corbeille</h1>
-        <a href="index.php?q=messages" />Retourner aux messages</a>
+        <a href="index.php?p=messages" />Retourner aux messages</a>
     {% else %}
         <h1>Messages</h1>
-        <a href="index.php?q=messages&ac=bin" />Voir Corbeille</a>
+        <a href="index.php?p=messages&q=bin" />Voir Corbeille</a>
     {% endif %}
     
 </div>
@@ -48,15 +48,15 @@
                 <td>
                     {{ message.message|slice(0,100) }}
                    {% if message.message|length > 100 %}...
-                        <a href="index.php?q=messages&id={{ message.id }}" />Voir plus</a>
+                        <a href="index.php?p=messages&id={{ message.id }}" />Voir plus</a>
                    {% endif %}
                    
                 </td>                         
                 <td> 
                     {% if filtre == 'bin' %}
-                        <a class="text-warning" href="index.php?q=messages&ac=del&id={{ message.id }}" />Annuler suppression</a>
+                        <a class="text-warning" href="index.php?p=messages&q=delcancel&id={{ message.id }}" />Annuler suppression</a>
                     {% else %}
-                        <a class="text-danger" href="index.php?q=messages&ac=del&id={{ message.id }}" />Supprimer message</a>
+                        <a class="text-danger" href="index.php?p=messages&q=del&id={{ message.id }}" />Supprimer message</a>
                     {% endif %}
                     
                 </td>                
