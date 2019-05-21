@@ -1,29 +1,43 @@
 <?php
 
-require 'FormCheck.php';
+if(isset($_GET['q'])) {
+    $q = $_GET['q'];
+    require 'ContentManager.php';
 
-$request_body = file_get_contents("php://input");
+    if($q == 'prestations') {
+        $data = ContentManager::getPrestations();
+        $json = json_encode($data);
+        echo $json;
+    }
 
-$formNotEmpty = (FormCheck::formNotEmpty($request_body)) ? ($data = json_decode($request_body)) : stopScript();
 
-$checkNbFields = (FormCheck::checkNbFields($data)) ? true : stopScript();
-
-$fatalError = false;
-foreach ($data as $field => $value) {
-    FormCheck::checkFieldName($field) == true ? true : ($fatalError = true);
-}
-$fatalError == false ? : stopScript();
-
-foreach ($data as $field => $value) {
-    FormCheck::checkFieldContent($value, $field);
-}
-
-if(sizeof(FormCheck::getErrors()) == 0) {
-    FormManager::insertMessage($data);
 } else {
-    FormCheck::setErrors("Erreur dans l'envoi du message");
+    require 'FormCheck.php';
+    
+    $request_body = file_get_contents("php://input");
+    
+    $formNotEmpty = (FormCheck::formNotEmpty($request_body)) ? ($data = json_decode($request_body)) : stopScript();
+    
+    $checkNbFields = (FormCheck::checkNbFields($data)) ? true : stopScript();
+    
+    $fatalError = false;
+    foreach ($data as $field => $value) {
+        FormCheck::checkFieldName($field) == true ? true : ($fatalError = true);
+    }
+    $fatalError == false ? : stopScript();
+    
+    foreach ($data as $field => $value) {
+        FormCheck::checkFieldContent($value, $field);
+    }
+    
+    if(sizeof(FormCheck::getErrors()) == 0) {
+        FormManager::insertMessage($data);
+    } else {
+        FormCheck::setErrors("Erreur dans l'envoi du message");
+    }
+    sendResponse();
+    
 }
-sendResponse();
 
 function stopScript() {
     sendResponse();

@@ -1,17 +1,17 @@
 <?php 
 
-class MessagesController extends Controller {
+class PrestationsController extends Controller {
 
-    public function __construct()
+     public function __construct()
     {
-        $this->setFiltre(null);
         $this->setTwig();
     }
 
     public function showDefault() {
-        $this->showMessages();
+        $this->showPrestations();
     }
 
+/*
     public function showMessages() {
         $this->setData(MessagesManager::getMessages());
         $this->setVue('Vue_Messages.twig');
@@ -37,16 +37,17 @@ class MessagesController extends Controller {
         $this->setData(MessagesManager::getMessagesSupprimes());
         $this->setVue('Vue_Messages.twig');
         $this->run();
-    }
+    } 
+    */
     
     protected function run() {
         $twig = $this->getTwig();
         echo $twig->render($this->getVue(), [
-            'data' => $this->getData(),
-            'filtre' => $this->getFiltre()
+            'data' => $this->getData()
         ]); 
     }
 
+    /*
     public function hub($action=null, $id=null){
         if (!$action && $id) {
             $this->showMessage($id);
@@ -60,6 +61,31 @@ class MessagesController extends Controller {
             $this->showBin();
         } else {
             $this->showDefault();
+        }
+    } */
+
+    public function modifyPrestation($id) {
+
+    }
+
+    public function showPrestations() {
+        $this->setData(PrestationsManager::getPrestations());
+        $this->setVue('Vue_Prestations.twig');
+        $this->run();
+    }
+
+    public function showPrestation($id) {
+        $this->setData(PrestationsManager::getPrestation($id));
+        $this->pushData('categories', PrestationsManager::getCategories());
+        $this->setVue('Vue_Prestation.twig');
+        $this->run();
+    }
+
+    public function hub($action=null, $id=null) {
+        if(!$action && $id) {
+            $this->showPrestation($id);
+        } else {
+            $this->showPrestations();
         }
     }
 

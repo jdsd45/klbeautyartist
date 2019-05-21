@@ -36,6 +36,10 @@ class Controller {
         $this->data = $data;
     }
 
+    protected function pushData($field, $data) {
+        $this->data->$field = $data;
+    }
+
     protected function getData() {
         return $this->data;
     }
@@ -47,6 +51,5 @@ class Controller {
     protected function getFiltre() {
         return $this->filtre;
     }
-
 
 }
