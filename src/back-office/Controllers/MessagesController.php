@@ -2,11 +2,9 @@
 
 class MessagesController extends Controller {
 
-    protected $filtre;
-
     public function __construct()
     {
-        $this->filtre = null;
+        $this->setFiltre(null);
         $this->setTwig();
     }
 

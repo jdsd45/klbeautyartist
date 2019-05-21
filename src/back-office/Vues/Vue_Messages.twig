@@ -14,6 +14,20 @@
         <h1>Messages</h1>
         <a href="index.php?p=messages&q=bin" />Voir Corbeille</a>
     {% endif %}
+
+{#     <?php 
+        if($filtre == 'bin) { 
+    ?>
+        <h1>Corbeille</h1>
+        <a href="index.php?p=messages" />Retourner aux messages</a>
+    <?php 
+        } else { 
+    ?>
+        <h1>Messages</h1>
+        <a href="index.php?p=messages&q=bin" />Voir Corbeille</a>
+    <?php 
+        } 
+    ?> #}
     
 </div>
 
@@ -35,7 +49,7 @@
                     {{ message.id }} 
                 </th>
                 <td id="date_message">
-                    Le {{ message.date_message|date("d/m/Y") }} à {{ message.date_message|date("H:i") }}
+                    {{ message.date_message|date("d/m/Y") }} à {{ message.date_message|date("H:i") }}
                 </td>
                 <td> 
                     {{ message.nom|upper }} {{ message.prenom|capitalize }} 
