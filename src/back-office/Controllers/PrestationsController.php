@@ -65,7 +65,19 @@ class PrestationsController extends Controller {
     } */
 
     public function modifyPrestation($id) {
-
+        if (isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
+            echo '  file';
+            require 'Controllers/Image.php';
+            $img = new Image($_FILES['file'], 5000);
+            $name = $img->getName();
+            $tmp_name = $img->getTmp_name();
+            $size = $img->getSize();
+            $extension = $img->getExtension();
+            $error = $img->getError();
+            var_dump($name, $tmp_name, $size, $extension, $error);
+        } else {
+            echo '  no file';
+        }
     }
 
     public function showPrestations() {
@@ -84,9 +96,12 @@ class PrestationsController extends Controller {
     public function hub($action=null, $id=null) {
         if(!$action && $id) {
             $this->showPrestation($id);
+        } elseif($action == 'modify' && $id) {
+            $this->modifyPrestation($id);
         } else {
             $this->showPrestations();
         }
+
     }
 
 }

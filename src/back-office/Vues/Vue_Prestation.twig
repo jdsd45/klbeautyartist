@@ -11,51 +11,53 @@
 </div> 
 
 
-<form action="index.php?q=prestations&action=modify&id={{ data.id }}" method="POST" id="frm">
+<form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
     <div class="form-row">
+
         <div class="form-group col-md-8">
-            <label for="titre">Titre</label>
-            <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="categorie">Catégorie</label>
-            <select class="form-control" name="categorie" id="categorie">
-                {% for categorie in data.categories %}
-                    <option value="{{ categorie }}">{{ categorie }}</option>
-                {% endfor %}        
-            </select>
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="titre">Titre</label>
+                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="categorie">Catégorie</label>
+                    <select class="form-control" name="categorie" id="categorie">
+                        {% for categorie in data.categories %}
+                            <option value="{{ categorie }}">{{ categorie }}</option>
+                        {% endfor %}        
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="form-group">
+                        <label for="prix">Prix</label>
+                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}">
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="form-group">
+                        <label for="temps">Temps</label>
+                        <input id="temps" class="form-control" type="text" name="temps" value="{{ data.temps }}">
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
-                <label for="prix">Prix</label>
-                <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}">
+                <label for="detail">Detail</label>
+                <textarea id="detail" class="form-control" type="text" name="detail" rows="10">{{ data.detail }}</textarea>
             </div>
         </div>
-        <div class="form-group col-md-6">
-            <div class="form-group">
-                <label for="temps">Temps</label>
-                <input id="temps" class="form-control" type="text" name="temps" value="{{ data.temps }}">
-            </div>
-        </div>
-    </div>
 
-    <div class="form-row">
         <div class="form-group col-md-4">
             <label for="image">Image de la prestation</label>
-            <input type="file" class="form-control-file" id="image" name="fileToUpload">
+            <input type="file" class="form-control-file" id="fichier" name="file">
             <img src="{{ data.lien_img }}" alt="">
         </div>
-        <div class="form-group col-md-8">
-            <label for="detail">Detail</label>
-            <textarea id="detail" class="form-control" type="text" name="detail" rows="10">{{ data.detail }}</textarea>
-            <hr>
-            <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
-        </div>
     </div>
+    <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+
 </form>
 
 <script>
@@ -63,11 +65,17 @@
         e.preventDefault();
         let form = $('#frm')[0];
         let formData = new FormData(form);
-        console.log(formData);
+        //formData.append('file', document.querySelector('#fichier').files[0])
 
         $.ajax({
             type: 'POST',
-            url: 'index.php?q=prestations&modify&id=' + 
+            url: 'index.php?p=prestations&q=modify&id='+{{ data.id }},
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(reponse) {
+                console.log('success reponse');
+            }
         })
     })
 </script>
