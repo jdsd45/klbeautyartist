@@ -7,18 +7,23 @@ class Image {
 
     private $file;
     private $name;
+    private $new_name;
     private $tmp_name;
     private $size;
     private $extension;
+    private $type;
     private $error = [];
+    private $path;
 
-    public function __construct($file, $size_max) {
+    public function __construct($file, $size_max, $path) {
         $this->setFile($file);
         $this->setName();
+        $this->setNew_name();
         $this->setTmp_name();
         $this->setSize($size_max);
         $this->setType();
         $this->setExtension();
+        $this->setPath($path);
     }
 
     private function setFile($file) {
@@ -26,17 +31,22 @@ class Image {
     }
 
     private function setName() {
-        $this->name = $this->getFile()['name'];
+        $name = $this->getFile()['name'];
+        $this->name = $name;
     }
-    
-    private function setTmp_name() {
-        $length = 20;
+
+    private function setNew_name() {
+        $length = 30;
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $string = '';
         for($i=0; $i<$length; $i++){
             $string .= $chars[rand(0, strlen($chars)-1)];
         }
-        $this->tmp_name = $string;
+        $this->new_name = $string;
+    }
+    
+    private function setTmp_name() {
+        $this->tmp_name = $this->getFile()['tmp_name'];
     }
     
     private function setSize($size_max) {
@@ -56,19 +66,34 @@ class Image {
             $this->extension = $extension;
         } else {
             $this->setError('Erreur dans l\'extension (extensions autorisées : ' . implode(', ', $this::EXTENSIONS_AUTORISEES) . ')');
-        }
+        } 
     }
 
     private function setType() {
-        $type = $this->getFile()['type'];
-        if(in_array($type, $this::TYPES_AUTORISEES) {
+        $name = $this->getTmp_Name();
+        $type = mime_content_type($name);
+        if(in_array($type, $this::TYPES_AUTORISES)) {
             $this->type = $type;
         } else {
-            $this->setError('Erreur dans l\'extension (extensions autorisées : ' . implode(', ', $this::EXTENSIONS_AUTORISEES) . ')');
+            $this->setError('Erreur dans le type de fichier (fichiers autorisés : ' . implode(', ', $this::TYPES_AUTORISES) . ')');
+        }
+    }
+
+    private function setPath($path) {
+        $this->path = $path;
+    }
+
+    public function register() {
+        $destination = $this->getPath() . '/' . $this->getNew_name() . '.' . $this->getExtension();
+        var_dump('destination = ' . $destination);
+        if(!move_uploaded_file($this->getTmp_name(), $destination)) {
+            $this->setError('Erreur dans l\'enregistrement du fichier');
+        } else {
+            var_dump('tout est ok !');
         }
     }
     
-    public function setError($error) {
+    private function setError($error) {
         $this->error[] = $error;
     }
 
@@ -80,6 +105,10 @@ class Image {
         return $this->name;
     }
     
+    public function getNew_name() {
+        return $this->new_name;
+    }
+
     public function getTmp_name() {
         return $this->tmp_name;
     }
@@ -92,9 +121,19 @@ class Image {
         return $this->size;
     }
 
+    public function getType() {
+        return $this->type;
+    }
+
+    public function getPath() {
+        return $this->path;
+    }
+
     public function getError() {
         return $this->error;
     }
+
+
 
 
     

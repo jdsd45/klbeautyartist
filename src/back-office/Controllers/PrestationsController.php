@@ -66,15 +66,21 @@ class PrestationsController extends Controller {
 
     public function modifyPrestation($id) {
         if (isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            echo '  file';
             require 'Controllers/Image.php';
-            $img = new Image($_FILES['file'], 5000);
+            $img = new Image($_FILES['file'], 5000, 'static');
             $name = $img->getName();
             $tmp_name = $img->getTmp_name();
             $size = $img->getSize();
             $extension = $img->getExtension();
+            $type = $img->getType();
+            $path = $img->getPath();
             $error = $img->getError();
-            var_dump($name, $tmp_name, $size, $extension, $error);
+            var_dump($name, $tmp_name, $size, $extension, $type, $path, $error);
+
+            if(count($img->getError()) == 0) {
+                var_dump('aucune erreur');
+                $img->register();
+            }
         } else {
             echo '  no file';
         }
