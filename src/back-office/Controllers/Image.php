@@ -88,12 +88,10 @@ class Image {
         var_dump('destination = ' . $destination);
         if(!move_uploaded_file($this->getTmp_name(), $destination)) {
             $this->setError('Erreur dans l\'enregistrement du fichier');
-        } else {
-            var_dump('tout est ok !');
         }
     }
     
-    private function setError($error) {
+    public function setError($error) {
         $this->error[] = $error;
     }
 
@@ -132,10 +130,6 @@ class Image {
     public function getError() {
         return $this->error;
     }
-
-
-
-
     
     
 }
