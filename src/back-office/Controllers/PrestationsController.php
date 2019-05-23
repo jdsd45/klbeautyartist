@@ -2,10 +2,12 @@
 
 class PrestationsController extends Controller {
 
-    private $error = [
+    protected $error = [
         'image' => [],
         'form' => []
     ];
+    protected $img;
+    protected $form;
 
     public function __construct()
     {
@@ -16,16 +18,15 @@ class PrestationsController extends Controller {
         if(!$action && $id) {
             $this->showPrestation($id);
         } elseif($action == 'modify' && $id) {
-            //$this->modifyPrestation($id);
-            $this->checkForm();
+            $this->modifyPrestation($id);
         } elseif($action == 'add') {
             $this->addPrestation();
         } else {
-            $this->showPrestations();
+            $this->showDefault();
         }
     }    
 
-    public function showDefault() {
+    protected function showDefault() {
         $this->showPrestations();
     }
     
@@ -36,29 +37,36 @@ class PrestationsController extends Controller {
         ]); 
     }
     
-    public function showPrestations() {
+    protected function showPrestations() {
         $this->setData(PrestationsManager::getPrestations());
         $this->setVue('Vue_Prestations.twig');
         $this->run();
     }
 
-    public function showPrestation($id) {
+    protected function showPrestation($id) {
         $this->setData(PrestationsManager::getPrestation($id));
         $this->pushData('categories', PrestationsManager::getCategories());
         $this->setVue('Vue_Prestation.twig');
         $this->run();
     }
 
-    public function modifyPrestation($id) {
+    protected function modifyPrestation($id) {
+/*         if(isset($_POST)) {
+            if($this->checkForm()) {
+                $form = $this->getForm();
+                PrestationsManager::update($id, $form);
+            }
+        } */
         if(isset($_FILES)) {
-            $errorImg = $this->checkImage();
-            if(count($errorImg) == 0) {
-
+            if($this->checkImage()) {
+                $img = $this->getImg();
+                $path = $img->getPath();
+                //PrestationsManager::updatePathImg($id, $path);
             }
         }
     }
 
-    public function addPrestation() {
+    protected function addPrestation() {
         if(isset($_POST) AND !empty($_POST)) {
 
         }
@@ -66,21 +74,28 @@ class PrestationsController extends Controller {
 
     protected function checkImage() {
         if (!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
+            $this->setError('image', 'Aucune image reçue');
             return false;
         }            
         require 'Controllers/Image.php';
         $img = new Image($_FILES['file'], 5000, 'static');
         if(count($img->getError()) == 0) {
-            $img->register();
+            $registred = $img->register();
+        }    
+        if($registred) {
+            $this->setImg($img);
+            return true;
         } else {
             $img->setError('Erreur dans le chargement du fichier');
+            $this->setError('image', $img->getError());
+            return false;
         }
-        return $img->getError();
     }
 
     protected function checkForm() {
         if(!isset($_POST) || empty($_POST)) {
-            return false;
+            $this->setError('form', 'Aucun formulaire reçu');
+            return;
         }
         require 'Controllers/Form.php';
         $fields = [
@@ -93,16 +108,34 @@ class PrestationsController extends Controller {
         $form = new Form($fields, $_POST);
         if(count($form->getError()) == 0) {
             return true;
+        } else {
+            $this->setError('form', $form->getError());
         }
-        return $form->getError();
     }
 
-    private function setError($type, $error) {
+    protected function setError($type, $error) {
         $this->error[$type] = $error;
     }
 
-    public function getError($type, $error) {
-        $this->error[$type] = $error;
+    protected function getError($type, $error) {
+        return $this->error;
     }
+
+    protected function setImg($img) {
+        $this->img = $img;
+    }
+
+    protected function getImg() {
+        return $this->img;
+    }
+
+    protected function setForm($form) {
+        $this->form = $form;
+    }
+
+    protected function getForm() {
+        return $this->form;
+    }
+
 
 }

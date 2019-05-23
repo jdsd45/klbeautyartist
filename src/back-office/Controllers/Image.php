@@ -83,12 +83,13 @@ class Image {
         $this->path = $path;
     }
 
-    public function register() {
+    public function register() : bool {
         $destination = $this->getPath() . '/' . $this->getNew_name() . '.' . $this->getExtension();
-        var_dump('destination = ' . $destination);
         if(!move_uploaded_file($this->getTmp_name(), $destination)) {
             $this->setError('Erreur dans l\'enregistrement du fichier');
+            return false;
         }
+        return true;
     }
     
     public function setError($error) {
