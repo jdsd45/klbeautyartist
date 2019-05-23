@@ -62,7 +62,13 @@ class PrestationsController extends Controller {
     }
 
     protected function checkForm() {
-        $form = new Form();
+        if(isset($_POST) AND !empty($_POST)) {
+            require 'Controllers/Form.php';
+            $fields = ['titre', 'detail', 'temps', 'prix', 'categorie'];
+            $form = new Form($fields, $_POST);
+            $form->checkFields();
+            $error = $form->getError();
+        }
 
     }
 
@@ -70,13 +76,13 @@ class PrestationsController extends Controller {
         if(!$action && $id) {
             $this->showPrestation($id);
         } elseif($action == 'modify' && $id) {
-            $this->modifyPrestation($id);
+            //$this->modifyPrestation($id);
+            $this->checkForm();
         } elseif($action == 'add') {
             $this->addPrestation();
         } else {
             $this->showPrestations();
         }
-
     }
 
 }
