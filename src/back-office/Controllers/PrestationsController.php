@@ -2,12 +2,28 @@
 
 class PrestationsController extends Controller {
 
-    const FIELDS = ['titre', 'detail', 'prix', 'categorie', 'temps'];
+    private $error = [
+        'image' => [],
+        'form' => []
+    ];
 
     public function __construct()
     {
         $this->setTwig();
     }
+
+    public function hub($action=null, $id=null) {
+        if(!$action && $id) {
+            $this->showPrestation($id);
+        } elseif($action == 'modify' && $id) {
+            //$this->modifyPrestation($id);
+            $this->checkForm();
+        } elseif($action == 'add') {
+            $this->addPrestation();
+        } else {
+            $this->showPrestations();
+        }
+    }    
 
     public function showDefault() {
         $this->showPrestations();
@@ -49,12 +65,13 @@ class PrestationsController extends Controller {
     }
 
     protected function checkImage() {
-        if (isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            require 'Controllers/Image.php';
-            $img = new Image($_FILES['file'], 5000, 'static');
-            if(count($img->getError()) == 0) {
-                $img->register();
-            }            
+        if (!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
+            return false;
+        }            
+        require 'Controllers/Image.php';
+        $img = new Image($_FILES['file'], 5000, 'static');
+        if(count($img->getError()) == 0) {
+            $img->register();
         } else {
             $img->setError('Erreur dans le chargement du fichier');
         }
@@ -62,27 +79,30 @@ class PrestationsController extends Controller {
     }
 
     protected function checkForm() {
-        if(isset($_POST) AND !empty($_POST)) {
-            require 'Controllers/Form.php';
-            $fields = ['titre', 'detail', 'temps', 'prix', 'categorie'];
-            $form = new Form($fields, $_POST);
-            $form->checkFields();
-            $error = $form->getError();
+        if(!isset($_POST) || empty($_POST)) {
+            return false;
         }
-
+        require 'Controllers/Form.php';
+        $fields = [
+            'titre'     => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null],
+            'detail'    => ['lengthMin' => 0, 'lengthMax' => 5000, 'regex' => null],
+            'temps'     => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
+            'prix'      => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
+            'categorie' => ['lengthMin' => 1, 'lengthMax' => 200, 'regex' => null]
+        ];
+        $form = new Form($fields, $_POST);
+        if(count($form->getError()) == 0) {
+            return true;
+        }
+        return $form->getError();
     }
 
-    public function hub($action=null, $id=null) {
-        if(!$action && $id) {
-            $this->showPrestation($id);
-        } elseif($action == 'modify' && $id) {
-            //$this->modifyPrestation($id);
-            $this->checkForm();
-        } elseif($action == 'add') {
-            $this->addPrestation();
-        } else {
-            $this->showPrestations();
-        }
+    private function setError($type, $error) {
+        $this->error[$type] = $error;
+    }
+
+    public function getError($type, $error) {
+        $this->error[$type] = $error;
     }
 
 }
