@@ -19,57 +19,76 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="titre">Titre</label>
-                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}">
+                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="categorie">Catégorie</label>
-                    <select class="form-control" name="categorie" id="categorie">
-                        {% for categorie in data.categories %}
-                            <option value="{{ categorie }}">{{ categorie }}</option>
-                        {% endfor %}        
+                    <select class="form-control" name="categorie" id="categorie" required>
+                        {% if data %}
+                            {% for categorie in data.categories %}
+                                <option value="{{ categorie }}">{{ categorie }}</option>
+                            {% endfor %}          
+                        {% else %}
+                                <option value="Autre">Autre</option>
+                        {% endif %}
+                        
                     </select>
                 </div>
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="prix">Prix</label>
-                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}">
+                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required>
                     </div>
                 </div>
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="temps">Temps</label>
-                        <input id="temps" class="form-control" type="text" name="temps" value="{{ data.temps }}">
+                        <input id="temps" class="form-control" type="text" name="temps" value="{{ data.temps }}" minlength="1" maxlength="10" placeholder="ex: 2h30" required>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="detail">Detail</label>
-                <textarea id="detail" class="form-control" type="text" name="detail" rows="10">{{ data.detail }}</textarea>
+                <textarea id="detail" class="form-control" type="text" name="detail" rows="10" maxlength="5000">{{ data.detail }}</textarea>
             </div>
         </div>
 
         <div class="form-group col-md-4">
             <label for="image">Image de la prestation</label>
-            <input type="file" class="form-control-file" id="fichier" name="file">
+            <input type="file" class="form-control-file" id="fichier" name="file" required>
             <img src="{{ data.lien_img }}" alt="">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+
+    {% if filtre == 'addPrestation' %}
+        <button type="submit" class="btn btn-primary mb-2">Ajouter une nouvelle prestation</button>
+    {% else %}
+        <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+    {% endif %}
+        
+    
 
 </form>
 
 <script>
+
+    {% if filtre == 'addPrestation' %}
+        let url = 'index.php?p=prestations&q=add'
+    {% else %}
+        let url = 'index.php?p=prestations&q=modify&id='+{{ data.id }}
+    {% endif %}
+    
+
     $('#frm').submit(function(e) {
         e.preventDefault();
         let form = $('#frm')[0];
         let formData = new FormData(form);
-        //formData.append('file', document.querySelector('#fichier').files[0])
 
         $.ajax({
             type: 'POST',
-            url: 'index.php?p=prestations&q=modify&id='+{{ data.id }},
+            url: url,
             data: formData,
             processData: false,
             contentType: false,

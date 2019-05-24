@@ -2,12 +2,19 @@
 
 class PrestationsController extends Controller {
 
+    protected $img;
+    protected $dataForm;
     protected $error = [
         'image' => [],
         'form' => []
     ];
-    protected $img;
-    protected $form;
+    const FIELDS_REF = [
+        'titre'     => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null],
+        'detail'    => ['lengthMin' => 0, 'lengthMax' => 5000, 'regex' => null],
+        'temps'     => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
+        'prix'      => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
+        'categorie' => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null]
+    ];
 
     public function __construct()
     {
@@ -20,7 +27,7 @@ class PrestationsController extends Controller {
         } elseif($action == 'modify' && $id) {
             $this->modifyPrestation($id);
         } elseif($action == 'add') {
-            $this->addPrestation();
+            $this->addPrestation2();
         } else {
             $this->showDefault();
         }
@@ -30,33 +37,26 @@ class PrestationsController extends Controller {
         $this->showPrestations();
     }
     
-    protected function run() {
-        $twig = $this->getTwig();
-        echo $twig->render($this->getVue(), [
-            'data' => $this->getData()
-        ]); 
-    }
-    
     protected function showPrestations() {
-        $this->setData(PrestationsManager::getPrestations());
+        $this->setData(PrestationsManager::selectPrestations());
         $this->setVue('Vue_Prestations.twig');
         $this->run();
     }
 
     protected function showPrestation($id) {
-        $this->setData(PrestationsManager::getPrestation($id));
+        $this->setData(PrestationsManager::selectPrestation($id));
         $this->pushData('categories', PrestationsManager::getCategories());
         $this->setVue('Vue_Prestation.twig');
         $this->run();
     }
 
     protected function modifyPrestation($id) {
-/*         if(isset($_POST)) {
+        if(isset($_POST) AND !empty($_POST)) {
             if($this->checkForm()) {
-                $form = $this->getForm();
-                PrestationsManager::update($id, $form);
+                $data = $this->getDataForm();
+                PrestationsManager::update($id, $data);
             }
-        } */
+        } 
         if(isset($_FILES)) {
             if($this->checkImage()) {
                 $img = $this->getImg();
@@ -68,7 +68,40 @@ class PrestationsController extends Controller {
 
     protected function addPrestation() {
         if(isset($_POST) AND !empty($_POST)) {
+            if($this->checkForm() AND $this->checkImage()) {
+                $data = $this->getDataForm();
+                PrestationsManager::insertPrestation($data);
+            } else {
+                var_dump('kk - erreur');
+            }           
+        } else {
+            $this->setFiltre('addPrestation');
+            $this->setVue('Vue_prestation.twig');
+            $this->run();
+        } 
+    }
 
+    protected function addPrestation2() {
+        if(!isset($_POST) || empty($_POST)) {
+            $this->setFiltre('addPrestation');
+            $this->setVue('Vue_prestation.twig');
+            $this->run();
+            exit();
+        } 
+        if(!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
+            $this->setError('image', 'Aucune image reçue');
+            $error = json_encode($this->getError());
+            echo $error;
+            exit();
+        }
+        require 'Controllers/Form.php';
+        require 'Controllers/Image.php';
+
+        $form = new Form($this::FIELDS_REF, $_POST);   
+        $img = new Image($_FILES['file'], 5000, 'static');
+        if(count($form->getError()) == 0 AND count($img->getError()) == 0) {
+            PrestationsManager::insertPrestation($form->getFields(), $img->getPath());
+            $img->register();
         }
     }
 
@@ -95,29 +128,35 @@ class PrestationsController extends Controller {
     protected function checkForm() {
         if(!isset($_POST) || empty($_POST)) {
             $this->setError('form', 'Aucun formulaire reçu');
-            return;
+            var_dump('test 2');
+            return false;
         }
         require 'Controllers/Form.php';
-        $fields = [
-            'titre'     => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null],
-            'detail'    => ['lengthMin' => 0, 'lengthMax' => 5000, 'regex' => null],
-            'temps'     => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
-            'prix'      => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
-            'categorie' => ['lengthMin' => 1, 'lengthMax' => 200, 'regex' => null]
-        ];
-        $form = new Form($fields, $_POST);
+        $form = new Form($this::FIELDS_REF, $_POST);   
+        $form->runCheck();  
+        var_dump($form->getError());   
         if(count($form->getError()) == 0) {
+            $this->setDataForm($form->getFields());
             return true;
         } else {
             $this->setError('form', $form->getError());
+            return false;
         }
     }
+
+    protected function run() {
+        $twig = $this->getTwig();
+        echo $twig->render($this->getVue(), [
+            'data' => $this->getData(),
+            'filtre' => $this->getFiltre()
+        ]); 
+    }    
 
     protected function setError($type, $error) {
         $this->error[$type] = $error;
     }
 
-    protected function getError($type, $error) {
+    protected function getError() {
         return $this->error;
     }
 
@@ -129,12 +168,12 @@ class PrestationsController extends Controller {
         return $this->img;
     }
 
-    protected function setForm($form) {
-        $this->form = $form;
+    protected function setDataForm($fields) {
+        $this->dataForm = $fields;
     }
 
-    protected function getForm() {
-        return $this->form;
+    protected function getDataForm() {
+        return $this->dataForm;
     }
 
 

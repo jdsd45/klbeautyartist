@@ -9,15 +9,16 @@ class Form {
     public function __construct(array $fields_ref, $fields) {
         $this->setFields_ref($fields_ref);
         $this->setFields($fields);
+        $this->runCheck();
     }
 
-    public function dechainerLaBete() {
+    public function runCheck() {
         if($this->fieldsNamesCorrect()) {
             $this->checkFieldContent();
         }
     }
 
-    public function fieldsNamesCorrect() {
+    private function fieldsNamesCorrect() {
         $check1 = array_diff_key($this->getFields_ref(), $this->getFields());
         $check2 = array_diff_key($this->getFields(), $this->getFields_ref());
         if(count($check1) != 0 || count($check2) != 0){
@@ -27,7 +28,7 @@ class Form {
         return true;
     }
 
-    public function checkFieldContent() {
+    private function checkFieldContent() {
         foreach ($this->getFields() as $fieldName => $value) {
             $this->lengthIsCorrect($value, $fieldName);
         }
@@ -44,16 +45,16 @@ class Form {
         $this->fields_ref = $fields_ref;
     }
 
-    public function getFields_ref() {
+    private function getFields_ref() {
         return $this->fields_ref;
     }
 
     private function setFields($fields) {
         foreach ($fields as $fieldName => $value) {
-            $fields[$fieldName] = htmlspecialchars($value, ENT_NOQUOTES); 
+            $fields[$fieldName] = htmlspecialchars($value, ENT_NOQUOTES);
+            $fields[$fieldName] = trim($value); 
         }
         $this->fields = $fields;
-        var_dump($this->fields);
     }
 
     public function getFields() {

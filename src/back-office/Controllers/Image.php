@@ -13,9 +13,10 @@ class Image {
     private $extension;
     private $type;
     private $error = [];
+    private $folderDestination;
     private $path;
 
-    public function __construct($file, $size_max, $path) {
+    public function __construct($file, $size_max, $folderDestination) {
         $this->setFile($file);
         $this->setName();
         $this->setNew_name();
@@ -23,7 +24,8 @@ class Image {
         $this->setSize($size_max);
         $this->setType();
         $this->setExtension();
-        $this->setPath($path);
+        $this->setFolderDestination($folderDestination);
+        $this->setPath();
     }
 
     private function setFile($file) {
@@ -79,13 +81,18 @@ class Image {
         }
     }
 
-    private function setPath($path) {
+    
+    private function setFolderDestination($folderDestination) {
+        $this->folderDestination = $folderDestination;
+    }
+    
+    private function setPath() {
+        $path = $this->getFolderDestination() . '/' . $this->getNew_name() . '.' . $this->getExtension();
         $this->path = $path;
     }
 
     public function register() : bool {
-        $destination = $this->getPath() . '/' . $this->getNew_name() . '.' . $this->getExtension();
-        if(!move_uploaded_file($this->getTmp_name(), $destination)) {
+        if(!move_uploaded_file($this->getTmp_name(), $this->getPath())) {
             $this->setError('Erreur dans l\'enregistrement du fichier');
             return false;
         }
@@ -126,6 +133,10 @@ class Image {
 
     public function getPath() {
         return $this->path;
+    }
+
+    public function getFolderDestination() {
+        return $this->folderDestination;
     }
 
     public function getError() {

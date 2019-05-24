@@ -37,7 +37,7 @@ class Controller {
     }
 
     protected function pushData($field, $data) {
-        $this->data->$field = $data;
+        $this->data[$field] = $data;
     }
 
     protected function getData() {
