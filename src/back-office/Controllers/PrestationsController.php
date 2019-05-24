@@ -2,6 +2,7 @@
 
 class PrestationsController extends Controller {
 
+    protected $categories;
     protected $img;
     protected $dataForm;
     protected $error = [
@@ -19,6 +20,7 @@ class PrestationsController extends Controller {
     public function __construct()
     {
         $this->setTwig();
+        $this->setCategories();
     }
 
     public function hub($action=null, $id=null) {
@@ -45,8 +47,11 @@ class PrestationsController extends Controller {
 
     protected function showPrestation($id) {
         $this->setData(PrestationsManager::selectPrestation($id));
-        $this->pushData('categories', PrestationsManager::getCategories());
+        //$this->pushData('categories', PrestationsManager::selectCategories());
+        $this->pushData('categories', $this->getCategories());
         $this->setVue('Vue_Prestation.twig');
+        var_dump($this->getData());
+
         $this->run();
     }
 
@@ -66,7 +71,7 @@ class PrestationsController extends Controller {
         }
     }
 
-    protected function addPrestation() {
+/*     protected function addPrestation() {
         if(isset($_POST) AND !empty($_POST)) {
             if($this->checkForm() AND $this->checkImage()) {
                 $data = $this->getDataForm();
@@ -79,11 +84,12 @@ class PrestationsController extends Controller {
             $this->setVue('Vue_prestation.twig');
             $this->run();
         } 
-    }
+    } */
 
     protected function addPrestation2() {
         if(!isset($_POST) || empty($_POST)) {
             $this->setFiltre('addPrestation');
+            $this->pushData('categories', $this->getCategories());
             $this->setVue('Vue_prestation.twig');
             $this->run();
             exit();
@@ -176,5 +182,12 @@ class PrestationsController extends Controller {
         return $this->dataForm;
     }
 
+    protected function getCategories() {
+        return $this->categories;
+    }
+
+    protected function setCategories() {
+        $this->categories = PrestationsManager::getCategories();
+    }
 
 }

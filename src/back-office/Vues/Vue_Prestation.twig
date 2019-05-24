@@ -26,13 +26,17 @@
                 <div class="form-group col-md-8">
                     <label for="categorie">Catégorie</label>
                     <select class="form-control" name="categorie" id="categorie" required>
-                        {% if data %}
+                        {# {% if data %} #}
                             {% for categorie in data.categories %}
-                                <option value="{{ categorie }}">{{ categorie }}</option>
+                                {% if categorie == data.categorie %}
+                                    <option value="{{ categorie }}" selected="selected">{{ categorie }}</option>
+                                {% else %}
+                                    <option value="{{ categorie }}">{{ categorie }}</option>
+                                {% endif %}
                             {% endfor %}          
-                        {% else %}
+                        {# {% else %}
                                 <option value="Autre">Autre</option>
-                        {% endif %}
+                        {% endif %} #}
                         
                     </select>
                 </div>
