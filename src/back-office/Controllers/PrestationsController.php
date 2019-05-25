@@ -64,7 +64,8 @@ class PrestationsController extends Controller {
 
         require 'Controllers/Form.php';
         $form = new Form($this::FIELDS_REF, $_POST);
-        if(count($form->getError())) {
+        var_dump('test');
+        if(count($form->getError()) == 0) {
             PrestationsManager::updatePrestation($id, $form->getFields());
         }
 

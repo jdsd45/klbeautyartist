@@ -61,8 +61,12 @@
 
         <div class="form-group col-md-4">
             <label for="image">Image de la prestation</label>
-            <input type="file" class="form-control-file" id="fichier" name="file" required>
-            <img src="{{ data.lien_img }}" alt="">
+            {% if data.lien_img %}
+                <input type="file" class="form-control-file" id="fichier" name="file">
+                <img src="{{ data.lien_img }}" alt="">
+            {% else %}
+                <input type="file" class="form-control-file" id="fichier" name="file" required>
+            {% endif %}
         </div>
     </div>
 
