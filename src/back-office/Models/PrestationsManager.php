@@ -39,6 +39,27 @@ class PrestationsManager extends BddManager {
         return $donnees;        
     }
 
+    public static function updatePrestation($id, $data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('
+            UPDATE prestations
+            SET titre=:titre, categorie=:categorie, prix=:prix, temps=:temps, detail=:detail
+            WHERE id=:id
+        ');
+        $req->execute(array(
+            'id'        => $id,
+            'categorie' => $data['categorie'],
+            'titre'     => $data['titre'],
+            'prix'      => $data['prix'],
+            'temps'     => $data['temps'],
+            'detail'    => $data['detail']            
+        ));
+    }
+
+    public static function deletePrestation($id) {
+        //todo
+    }
+
     public static function insertPrestation($data, $path) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
@@ -67,26 +88,17 @@ class PrestationsManager extends BddManager {
 		));
     }
 
-    public static function updatePrestation($id, $data) {
+    public static function selectPathImg($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            UPDATE prestations
-            SET titre=:titre, categorie=:categorie, prix=:prix, temps=:temps, detail=:detail
-            WHERE id=:id
-        ');
-        $req->execute(array(
-            'categorie' => $data['categorie'],
-            'titre'     => $data['titre'],
-            'prix'      => $data['prix'],
-            'temps'     => $data['temps'],
-            'lien_img'  => $data['lien_img'],
-            'detail'    => $data['detail']            
-        ));
-    }
+            SELECT lien_img
+            FROM prestations 
+            WHERE id = ?');
+        $req->execute(array($id));
+        $data = $req->fetch();
+        return $data['lien_img'];        
+    }    
 
-    public static function deletePrestation($id) {
-        //todo
-    }
 
     public static function getCategories() {
         $data = file_get_contents('static/categories.json');

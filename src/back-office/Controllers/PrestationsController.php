@@ -29,7 +29,9 @@ class PrestationsController extends Controller {
         } elseif($action == 'modify' && $id) {
             $this->modifyPrestation($id);
         } elseif($action == 'add') {
-            $this->addPrestation2();
+            $this->addPrestation();
+        } elseif($action == 'del' && $id) {
+            $this->deletePrestation($id);
         } else {
             $this->showDefault();
         }
@@ -50,43 +52,37 @@ class PrestationsController extends Controller {
         //$this->pushData('categories', PrestationsManager::selectCategories());
         $this->pushData('categories', $this->getCategories());
         $this->setVue('Vue_Prestation.twig');
-        var_dump($this->getData());
-
         $this->run();
     }
 
     protected function modifyPrestation($id) {
-        if(isset($_POST) AND !empty($_POST)) {
-            if($this->checkForm()) {
-                $data = $this->getDataForm();
-                PrestationsManager::update($id, $data);
-            }
+        if(!isset($_POST) || empty($_POST)) {
+            $this->setError('form', 'Aucune formulaire reçu');
+            echo (json_encode($this->getError()));
+            exit();
         } 
-        if(isset($_FILES)) {
-            if($this->checkImage()) {
-                $img = $this->getImg();
-                $path = $img->getPath();
-                //PrestationsManager::updatePathImg($id, $path);
-            }
+
+        require 'Controllers/Form.php';
+        $form = new Form($this::FIELDS_REF, $_POST);
+        if(count($form->getError())) {
+            PrestationsManager::updatePrestation($id, $form->getFields());
         }
+
+        if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
+            require 'Controllers/Image.php';
+            $img = new Image($_FILES['file'], 5000, 'static');
+            if(count($img->getError()) == 0) {
+                if(unlink(PrestationsManager::selectPathImg($id))) {
+                    $img->register();
+                    PrestationsManager::updatePathImage($id, $img->getPath());
+                }
+            }
+        }    
+        echo (json_encode($this->getError()));        
     }
 
-/*     protected function addPrestation() {
-        if(isset($_POST) AND !empty($_POST)) {
-            if($this->checkForm() AND $this->checkImage()) {
-                $data = $this->getDataForm();
-                PrestationsManager::insertPrestation($data);
-            } else {
-                var_dump('kk - erreur');
-            }           
-        } else {
-            $this->setFiltre('addPrestation');
-            $this->setVue('Vue_prestation.twig');
-            $this->run();
-        } 
-    } */
 
-    protected function addPrestation2() {
+    protected function addPrestation() {
         if(!isset($_POST) || empty($_POST)) {
             $this->setFiltre('addPrestation');
             $this->pushData('categories', $this->getCategories());
@@ -96,8 +92,7 @@ class PrestationsController extends Controller {
         } 
         if(!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
             $this->setError('image', 'Aucune image reçue');
-            $error = json_encode($this->getError());
-            echo $error;
+            echo (json_encode($this->getError()));
             exit();
         }
         require 'Controllers/Form.php';
@@ -109,45 +104,16 @@ class PrestationsController extends Controller {
             PrestationsManager::insertPrestation($form->getFields(), $img->getPath());
             $img->register();
         }
+        echo (json_encode($this->getError()));
     }
 
-    protected function checkImage() {
-        if (!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
-            $this->setError('image', 'Aucune image reçue');
-            return false;
-        }            
-        require 'Controllers/Image.php';
-        $img = new Image($_FILES['file'], 5000, 'static');
-        if(count($img->getError()) == 0) {
-            $registred = $img->register();
-        }    
-        if($registred) {
-            $this->setImg($img);
-            return true;
+    protected function deletePrestation($id) {
+        if(unlink(PrestationsManager::selectPathImg($id))) {
+            PrestationManager::deletePrestation($id);
         } else {
-            $img->setError('Erreur dans le chargement du fichier');
-            $this->setError('image', $img->getError());
-            return false;
+            $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
         }
-    }
-
-    protected function checkForm() {
-        if(!isset($_POST) || empty($_POST)) {
-            $this->setError('form', 'Aucun formulaire reçu');
-            var_dump('test 2');
-            return false;
-        }
-        require 'Controllers/Form.php';
-        $form = new Form($this::FIELDS_REF, $_POST);   
-        $form->runCheck();  
-        var_dump($form->getError());   
-        if(count($form->getError()) == 0) {
-            $this->setDataForm($form->getFields());
-            return true;
-        } else {
-            $this->setError('form', $form->getError());
-            return false;
-        }
+        echo (json_encode($this->getError()));
     }
 
     protected function run() {
