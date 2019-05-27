@@ -30,6 +30,8 @@ export default {
     margin-top:56px;
     padding:0;  
     overflow-x: hidden;
+/*     position:relative;
+    min-height:100%;  */
 }
 
 .push {

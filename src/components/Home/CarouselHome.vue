@@ -4,8 +4,8 @@
             :perPage="1"
             :perPageCustom="[[1024,2]]"
             :paginationEnabled="true"
-            :paginationSize="10"
-            :paginationActiveColor="'#FF0831'"
+            :paginationSize="15"
+            :paginationActiveColor="'#C5A164'"
             :paginationPosition="'bottom-overlay'"
             >
             <slide class="slide-carousel-home">

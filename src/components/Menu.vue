@@ -36,21 +36,18 @@ export default {
 
 <style>
 
-/*     
-    #BF215B
-    #0D0000 
 
-    #C5A164
-    #64C5A1
-    #A164C5
-    */
+#menu {
+    background-color : black;
+}
+.nav-item a, .navbar-brand {
+    color: #C5A164;
+}
 
-    #menu {
-        background-color : #A164C5;
-    }
-    .nav-item a, .navbar-brand {
-        color: white;
-    }
+.nav-item a:hover, .navbar-brand:hover {
+    text-decoration: none;
+    color: white;
+}
 
 .custom-toggler.navbar-toggler {
     border: none;

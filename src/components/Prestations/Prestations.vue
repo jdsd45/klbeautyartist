@@ -3,11 +3,14 @@
         <PrestationsMenu
         v-bind:currentcategory="currentcategory"
         v-on:updatecategorie="updatecategorie"
-        ></PrestationsMenu>
-        <PrestationsItems 
-        id="cont-prestations"
-        v-bind:currentcategory="currentcategory"
-        ></PrestationsItems>
+        >
+        </PrestationsMenu>
+        <div class="container">
+            <PrestationsItems 
+            id="cont-prestations"
+            v-bind:currentcategory="currentcategory"
+            ></PrestationsItems>
+        </div>
     </div>
 </template>
 

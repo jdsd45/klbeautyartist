@@ -49,7 +49,7 @@ export default {
 
     .rubrique-home h2{
         color: #C5A164;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
     .rubrique-home:hover h2{

@@ -37,8 +37,8 @@ export default {
         text-align: center;
         padding-left: 0;
         padding-right: 0;
-        padding-top: 10px;
-        padding-bottom: 8px;
+        padding-top: 15px;
+        padding-bottom: 10px;
         margin-bottom:0;
         white-space: nowrap;  
         overflow-x: auto;
@@ -51,8 +51,8 @@ export default {
         text-align: center;
         padding-left: 3%;
         padding-right: 3%;  
-        padding-bottom: 5px;
-        padding-top: 5px;
+        padding-bottom: 8px;
+        padding-top: 8px;
         background-color: #C5A164;
         border-radius: 5px;
         margin-right:6px;
@@ -65,8 +65,8 @@ export default {
 
     .catSelected {
         background-color: white;
-        border-bottom: 3px solid #A164C5;  
-        color: #A164C5;
-        box-shadow: inset 0 0 3px #A164C5;
+        border-bottom: 3px solid #C5A164;  
+        color: #C5A164;
+        box-shadow: inset 0 0 3px #C5A164;
     }
 </style>
