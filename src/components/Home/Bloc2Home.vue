@@ -7,9 +7,9 @@
                     :key="content.id"
                     :id="'home-cont' + content.id"
                 >
-                <router-link :to="'/prestations/'+content.url" class="test">
+                <router-link :to="'/prestations/'+content.url" class="rubrique-home">
                     <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-                    <h2 class="titres-rubriques"> {{ content.titre }} </h2>
+                    <h2 class="rubrique-titre"> {{ content.titre }} </h2>
                 </router-link>
                 </div>
             </div>
@@ -47,16 +47,27 @@ export default {
         max-width: 100%;
     }
 
-    a .titres-rubriques {
-        color: #BF215B;
+    .rubrique-home h2{
+        color: #C5A164;
         font-size: 1.8rem;
     }
 
-     .test:hover h2{
-        color: white;
+    .rubrique-home:hover h2{
+        color: #A164C5;
     }
 
-    .test:hover{
+    .rubrique-home:hover{
         text-decoration:none;
     }
+
+    .img-home-bloc2 {
+        opacity: 0.9;
+        filter: grayscale(100%);
+    }
+
+    .rubrique-home:hover .img-home-bloc2 {
+        opacity: 1;
+        filter: grayscale(0%);
+    }
+
 </style>

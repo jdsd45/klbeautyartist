@@ -46,7 +46,7 @@ export default {
     */
 
     #menu {
-        background-color : #64C5A1;
+        background-color : #A164C5;
     }
     .nav-item a, .navbar-brand {
         color: white;
