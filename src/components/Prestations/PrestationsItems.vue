@@ -69,6 +69,7 @@ export default {
     .img-prestations {
         max-width:100%;
     }
+
 </style>
 
 

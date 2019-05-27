@@ -27,21 +27,33 @@ export default {
 <style>
 
 #main-content {
-  margin-top:56px;
-  padding:0;  
-  overflow-x: hidden;
+    margin-top:56px;
+    padding:0;  
+    overflow-x: hidden;
 }
 
 .push {
-  height:50px
+    height:50px
 }
+
+/* body {
+    background-color: #D9AA8F;
+} */
 
 #app {
 
 }
 
-#cont-prestations, #cont-contact, #bloc-2-Home {
-/*     padding-left:8px;
-    padding-right:8px; */
+p, span, li {
+    font-family: 'Source Sans Pro', sans-serif;
+
 }
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+    color: #C5A164;
+}
+
+
+
 </style>

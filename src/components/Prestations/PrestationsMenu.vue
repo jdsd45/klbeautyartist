@@ -37,7 +37,7 @@ export default {
         text-align: center;
         padding-left: 0;
         padding-right: 0;
-        padding-top: 5px;
+        padding-top: 10px;
         padding-bottom: 8px;
         margin-bottom:0;
         white-space: nowrap;  
@@ -52,13 +52,21 @@ export default {
         padding-left: 3%;
         padding-right: 3%;  
         padding-bottom: 5px;
+        padding-top: 5px;
+        background-color: #C5A164;
+        border-radius: 5px;
+        margin-right:6px;
+        margin-left: 6px;
+        color:white;
 
-        /* word-wrap: break-word; */
-        /* border: 1px solid green; */
+        box-shadow: inset 0 0 3px white;
+
         }
 
     .catSelected {
-        background-color: #DEF3FF;
-        border-bottom: 2px solid #33B5FF;  
+        background-color: white;
+        border-bottom: 3px solid #A164C5;  
+        color: #A164C5;
+        box-shadow: inset 0 0 3px #A164C5;
     }
 </style>

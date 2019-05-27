@@ -7,9 +7,9 @@
                     :key="content.id"
                     :id="'home-cont' + content.id"
                 >
-                <router-link :to="'/prestations/'+content.url">
+                <router-link :to="'/prestations/'+content.url" class="test">
                     <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-                    <h2 class=""> {{ content.titre }} </h2>
+                    <h2 class="titres-rubriques"> {{ content.titre }} </h2>
                 </router-link>
                 </div>
             </div>
@@ -45,5 +45,18 @@ export default {
 
     .img-home-bloc2 {
         max-width: 100%;
+    }
+
+    a .titres-rubriques {
+        color: #BF215B;
+        font-size: 1.8rem;
+    }
+
+     .test:hover h2{
+        color: white;
+    }
+
+    .test:hover{
+        text-decoration:none;
     }
 </style>

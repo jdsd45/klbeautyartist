@@ -1,9 +1,11 @@
 <template>
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top" id="menu">
     <a class="navbar-brand" href="#">Keslène</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">   
+
+        </span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,4 +36,27 @@ export default {
 
 <style>
 
+/*     
+    #BF215B
+    #0D0000 
+
+    #C5A164
+    #64C5A1
+    #A164C5
+    */
+
+    #menu {
+        background-color : #64C5A1;
+    }
+    .nav-item a, .navbar-brand {
+        color: white;
+    }
+
+.custom-toggler.navbar-toggler {
+    border: none;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
 </style>
