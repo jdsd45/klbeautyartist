@@ -1,0 +1,14 @@
+{
+	"lien_img" : "http://via.placeholder.com/500x300",
+	"contents" : {
+		"haut_droite": [
+			"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!",
+			"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!"
+		],
+		"bas_gauche" : [
+			"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!",
+			"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!",
+			"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, itaque incidunt nihil deserunt, facere aliquid accusantium quo et magnam placeat ducimus eaque? Soluta voluptas sunt cumque placeat accusantium itaque. Accusantium!"
+		]
+	}
+}

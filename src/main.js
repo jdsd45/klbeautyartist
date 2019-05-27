@@ -5,13 +5,27 @@ import App from './App'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import router from './router'
+import store from '@/components/Store'
+import axiosApi from 'axios'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
+const axios = axiosApi.create({
+/*     baseURL: process.env.BASE_URL,
+    headers: {"Access-Control-Allow-Origin": "*"},
+    withCredentials: true */
+});
+
+//Use the window object to make it available globally.
+window.axios = axios;
+
 new Vue({
-  el: '#app',
-  router,
-  components: { App, Menu, Footer },
-  template: '<App/>'
+    el: '#app',
+    store,
+    router,
+    components: { App, Menu, Footer },
+    template: '<App/>'
 })
+

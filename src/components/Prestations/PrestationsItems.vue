@@ -27,24 +27,33 @@
 </template>
 
 <script>
-import prestations from '@/assets/prestations.json'
 export default {
     name: 'PrestationsItems',
-    props: ['currentcategory'],    
+    props: ['currentcategory'],       
     data () {
         return {
-            prestations: prestations,
-            currentCata: this.currentcategory
+            prestations: null
         }
     },
     methods: {
         selectInCategories: function(prestation) {
             return prestation.categorie == this.currentcategory
-        }
+        },
+
     },
+    created: function() {
+        axios
+            .get('/static/prestations.json')
+            .then(response => (this.prestations = response.data))
+    },
+/*     created: function() {
+        axios
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
+            .then(response => (this.prestations = response.data))
+    },  */
     computed : {
-        prestationsFiltrees: function(prestations) {
-            return this.prestations.filter(this.selectInCategories)
+        prestationsFiltrees: function() {
+            if(this.prestations != null) return this.prestations.filter(this.selectInCategories)
         }
     }                                
 }
@@ -60,6 +69,7 @@ export default {
     .img-prestations {
         max-width:100%;
     }
+
 </style>
 
 

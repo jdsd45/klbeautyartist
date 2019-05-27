@@ -23,7 +23,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 40px;
-  background-color: black;
+  background-color: #A164C5;
   color: white;
   text-align: center;
 }

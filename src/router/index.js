@@ -4,12 +4,13 @@ import VueCarousel from 'vue-carousel'
 import Home from '@/components/Home/Home'
 import Prestations from '@/components//Prestations/Prestations'
 import Contact from '@/components/Contact/Contact'
-import Keslene from '@/components/Keslene'
+import About from '@/components/About'
 
 Vue.use(VueCarousel)
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   routes: [
     {
       path: '/',
@@ -18,7 +19,7 @@ export default new Router({
     },
     {
       path: '/prestations/*',
-      name: 'Prestations',
+      name: 'Prestations/*',
       component: Prestations
     },
     {
@@ -32,9 +33,9 @@ export default new Router({
       component: Contact
     },
     {
-      path: '/keslene',
-      name: 'Keslene',
-      component: Keslene    
+      path: '/About',
+      name: 'About',
+      component: About    
     }
   ],
   scrollBehavior (to, from, savedPosition) {

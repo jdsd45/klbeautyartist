@@ -14,13 +14,13 @@ import CarouselHome from '@/components/Home/CarouselHome.vue'
 import Bloc2Home from '@/components/Home/Bloc2Home.vue'
 
 export default {
-    name: 'Home',
+    name: 'Home', 
     components: {
         Carousel,
         Slide,
         CarouselHome,
         Bloc2Home
-    }    
+    }
 }
 </script>
 

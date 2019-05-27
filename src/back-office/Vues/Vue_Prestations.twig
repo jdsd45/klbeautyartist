@@ -1,0 +1,59 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Prestations</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Prestations</h1>
+</div> 
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Titre</th>    
+                <th scope="col">Prix</th>    
+                <th scope="col">Temps</th>    
+                <th scope="col">Detail</th>    
+                <th scope="col"></th>    
+            </tr>
+        </thead>
+        {% for prestation in data %}
+            <tr>
+                <th scope="row"> 
+                    {{ loop.index }} 
+                </th>
+                <td>
+                    {{ prestation.categorie }}
+                </td>                            
+                <td>
+                    {{ prestation.titre }}
+                </td>                            
+                <td>
+                    {{ prestation.prix }}
+                </td>                            
+                <td>
+                    {{ prestation.temps }}
+                </td>                            
+                <td>
+                    {{ prestation.detail }}
+                </td>     
+                <td> 
+                    <p>index : {{ loop.index }} </p>
+                    <a class="text-primary" href="index.php?p=prestations&id={{ loop.index }}" />Modifier</a>
+                </td>                                         
+            </tr>
+        {% endfor %}
+    </table>
+        <a class="btn btn-primary" href="index.php?p=prestations&q=add">
+            Ajouter une nouvelle prestation
+        </a>
+</div>
+
+{% endblock %}
+

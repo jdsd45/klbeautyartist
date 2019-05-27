@@ -14,7 +14,7 @@
 <script>
 import PrestationsMenu from '@/components/Prestations/PrestationsMenu'
 import PrestationsItems from '@/components/Prestations/PrestationsItems'
-import prestations from '@/assets/prestations.json'
+//import prestations from '@/assets/prestations.json'
 export default {
     name: 'Prestations',
     data () {
@@ -47,7 +47,7 @@ export default {
     methods: {
         updatecategorie: function(newVal) {
             this.currentcategory = newVal
-        }       
+        }                
     }
 }
 </script>

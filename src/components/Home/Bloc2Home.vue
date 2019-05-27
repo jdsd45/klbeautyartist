@@ -7,9 +7,9 @@
                     :key="content.id"
                     :id="'home-cont' + content.id"
                 >
-                <router-link :to="'/prestations/'+content.url">
+                <router-link :to="'/prestations/'+content.url" class="rubrique-home">
                     <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-                    <h2 class=""> {{ content.titre }} </h2>
+                    <h2 class="rubrique-titre"> {{ content.titre }} </h2>
                 </router-link>
                 </div>
             </div>
@@ -21,13 +21,17 @@
 </template>
 
 <script>
-import homeContent from '@/assets/home_content.json'
 export default {
     name: 'Bloc2Home',
     data() {
         return {
-            homeContent: homeContent
+            homeContent: null
         }
+    },
+    created: function() {
+        axios
+            .get('static/home_content.json')
+            .then(response => (this.homeContent = response.data))        
     }
 }
 </script>
@@ -42,4 +46,28 @@ export default {
     .img-home-bloc2 {
         max-width: 100%;
     }
+
+    .rubrique-home h2{
+        color: #C5A164;
+        font-size: 1.8rem;
+    }
+
+    .rubrique-home:hover h2{
+        color: #A164C5;
+    }
+
+    .rubrique-home:hover{
+        text-decoration:none;
+    }
+
+    .img-home-bloc2 {
+        opacity: 0.9;
+        filter: grayscale(100%);
+    }
+
+    .rubrique-home:hover .img-home-bloc2 {
+        opacity: 1;
+        filter: grayscale(0%);
+    }
+
 </style>
