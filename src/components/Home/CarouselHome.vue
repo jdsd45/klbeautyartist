@@ -4,7 +4,7 @@
             :perPage="1"
             :perPageCustom="[[1024,2]]"
             :paginationEnabled="true"
-            :paginationSize="15"
+            :paginationSize="13"
             :paginationActiveColor="'#C5A164'"
             :paginationPosition="'bottom-overlay'"
             >

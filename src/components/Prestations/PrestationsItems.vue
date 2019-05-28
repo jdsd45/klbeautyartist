@@ -87,10 +87,9 @@ export default {
 }
 
     .infos-prix, .infos-temps {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
         color: #C5A164;
-        margin-right: 10px;
-        margin-left: 10px;
+        margin-right: 20px;
     }
 
     .cont-prestation {

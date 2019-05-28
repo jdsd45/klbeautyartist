@@ -1,14 +1,14 @@
 <template>
-    <div id="app">
-        <div>
-            <Menu></Menu>
-        </div>
-        <div class="" id="main-content">
-            <router-view></router-view>
-        </div>
-        <div class="push"></div>
-        <Footer></Footer>
+
+<div id="app">
+    <Menu></Menu>
+    <div class="" id="main-content">
+        <router-view></router-view>
     </div>
+    <div class="push"></div>
+    <Footer></Footer>
+</div>
+
 </template>
 
 <script>
@@ -35,16 +35,9 @@ export default {
 }
 
 .push {
-    height:50px
+    height:130px
 }
 
-/* body {
-    background-color: #D9AA8F;
-} */
-
-#app {
-
-}
 
 p, span, li {
     font-family: 'Source Sans Pro', sans-serif;
@@ -54,6 +47,17 @@ p, span, li {
 h1, h2, h3, h4, h5 {
     font-family: 'Open Sans', sans-serif;
     color: #C5A164;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 

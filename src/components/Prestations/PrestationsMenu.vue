@@ -58,7 +58,6 @@ export default {
         margin-right:6px;
         margin-left: 6px;
         color:white;
-
         box-shadow: inset 0 0 3px white;
 
         }
@@ -67,6 +66,12 @@ export default {
         background-color: white;
         border-bottom: 3px solid #C5A164;  
         color: #C5A164;
-        box-shadow: inset 0 0 3px #C5A164;
+        box-shadow: inset 0 0 5px #C5A164;
     }
+
+    .item-cat-prestations:not(.catSelected):hover {
+        border-bottom: 3px solid #C5A164;  
+        background-color: rgb(169,169,169);
+    }
+
 </style>

@@ -1,10 +1,10 @@
 <template>
-    <div class="container-fluid">
+    <div>
         <PrestationsMenu
-        v-bind:currentcategory="currentcategory"
-        v-on:updatecategorie="updatecategorie"
-        >
-        </PrestationsMenu>
+            v-bind:currentcategory="currentcategory"
+            v-on:updatecategorie="updatecategorie"
+            >
+            </PrestationsMenu>
         <div class="container">
             <PrestationsItems 
             id="cont-prestations"
