@@ -53,7 +53,7 @@ export default {
     }
 
     .rubrique-home:hover h2{
-        color: #A164C5;
+        color: black;
     }
 
     .rubrique-home:hover{

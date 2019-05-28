@@ -29,7 +29,7 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 offset-md-1">
                 <h2>Formulaire de contact</h2>
                 <FormContact></FormContact>
             </div>

@@ -17,6 +17,9 @@
                 <router-link to="/prestations"><a class="nav-link">Prestations</a></router-link>
             </li>
             <li class="nav-item">
+                <router-link to="/portfolio"><a class="nav-link">Portfolio</a></router-link>
+            </li>
+            <li class="nav-item">
                 <router-link to="/contact"><a class="nav-link">Me contacter</a></router-link>
             </li>
             <li class="nav-item">

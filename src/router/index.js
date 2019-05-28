@@ -5,6 +5,7 @@ import Home from '@/components/Home/Home'
 import Prestations from '@/components//Prestations/Prestations'
 import Contact from '@/components/Contact/Contact'
 import About from '@/components/About'
+import Portfolio from '@/components/Portfolio/Portfolio'
 
 Vue.use(VueCarousel)
 Vue.use(Router)
@@ -25,6 +26,11 @@ export default new Router({
       path: '/prestations',
       name: 'Prestations',
       component: Prestations
+    },
+    {
+      path: '/portfolio',
+      name: 'Portfolio',
+      component: Portfolio
     },
     {
       path: '/contact',

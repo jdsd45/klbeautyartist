@@ -23,12 +23,13 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-12">
+            <div class="col">
                 <textarea class="form-control" id="champ_message" placeholder="Votre message" rows="" v-model="form.message" required></textarea>
             </div>
         </div>                                             
     </div>
-    <div>
+    <hr>
+    <div id="cont-btn-submit">
         <button type="submit" class="btn btn-dark" id="btn_valider" >Envoyer</button>
     </div>
 </form>
@@ -54,7 +55,7 @@ export default {
         if(window.screen.width < 576) {
             champ_message.rows = "6"
         } else {
-            champ_message.rows = "10"
+            champ_message.rows = "8"
         }
     },
     methods: {
@@ -83,6 +84,23 @@ export default {
 
 <style>
 
+#btn_valider{
+    background-color: #C5A164;
+    border: none;
+    width:50%;
+    box-shadow: inset 0 0 2px black;
+}
+
+#btn_valider:hover{
+    background-color: rgb(169,169,169);
+    box-shadow: inset 0 0 2px black;
+
+}
+
+#cont-btn-submit {
+    margin-top: 30px;
+    text-align: center;
+}
 
 </style>
 
