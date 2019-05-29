@@ -5,9 +5,9 @@
             v-on:updatecategorie="updatecategorie"
             >
             </PrestationsMenu>
-        <div class="container">
+        <div class="container" id="cont-prestations">
             <PrestationsItems 
-            id="cont-prestations"
+            id="cont-prestation"
             v-bind:currentcategory="currentcategory"
             ></PrestationsItems>
         </div>
@@ -30,9 +30,7 @@ export default {
         PrestationsItems
     },
     created: function() {
-        let url = document.location.href;
-        url = url.split('/');
-        switch (url[url.length -1 ]) {
+        switch (this.$route.params.categorie) {
             case 'maquillage-semi-permanent':
                 this.currentcategory = 'Maquillage semi-permanent';
             break;
@@ -56,5 +54,9 @@ export default {
 </script>
 
 <style>
+
+#cont-prestations {
+    padding-bottom: 10px;
+}
 
 </style>

@@ -4,14 +4,21 @@
         <div class="portfolio-dossier-cont-img"
             v-for="dossier in dossiers"
             v-bind:key="dossier.id">
-            <div class="portfolio-dossier-txt">
-                {{ dossier.titre }} 
-            </div>
-            <img class="portfolio-dossier-img" 
-                v-bind:src="dossier.lien_img" 
-                v-bind:style="{height: heightContImgPortfolio}">
+            <router-link :to="'/portfolio/'+dossier.link">
+                <div class="portfolio-dossier-txt">
+                    {{ dossier.titre }} 
+                </div>
+                <img class="portfolio-dossier-img" 
+                    v-bind:src="dossier.lien_img" 
+                    v-bind:style="{height: heightContImgPortfolio}">
+            </router-link>         
         </div>
     </div>
+
+  <!--   <router-link :to="'/prestations/'+content.url" class="rubrique-home">
+        <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
+        <h2 class="rubrique-titre"> {{ content.titre }} </h2>
+    </router-link>   -->  
 
 </template>
 
@@ -76,15 +83,15 @@ export default {
         transform: translate(-50%, -50%);
         font-size: 2rem;
         text-align: center;
-        opacity: 0;
+/*         opacity: 0;
         transition-property: opacity;
-        transition-duration: 0.7s;
+        transition-duration: 0.7s; */
         z-index: 1000;
     } 
 
-    .portfolio-dossier-cont-img:hover .portfolio-dossier-txt {
+/*     .portfolio-dossier-cont-img:hover .portfolio-dossier-txt {
         opacity: 1;
-    }
+    } */
 
     .portfolio-dossier-cont-img:hover .portfolio-dossier-img {
         filter: grayscale(0%);
@@ -110,7 +117,6 @@ export default {
         font-size: 2rem;
     }
     .portfolio-dossier-img {
-        /* height: calc(100vh - 38px - 56px);    */
         width: calc(100vw / 3);
 
     }    

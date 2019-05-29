@@ -6,6 +6,7 @@ import Prestations from '@/components//Prestations/Prestations'
 import Contact from '@/components/Contact/Contact'
 import About from '@/components/About'
 import Portfolio from '@/components/Portfolio/Portfolio'
+import PortfolioAlbum from '@/components/Portfolio/PortfolioAlbum'
 
 Vue.use(VueCarousel)
 Vue.use(Router)
@@ -18,8 +19,8 @@ export default new Router({
       component: Home
     },
     {
-      path: '/prestations/*',
-      name: 'Prestations/*',
+      path: '/prestations/:categorie',
+      name: 'Prestation-Categorie',
       component: Prestations
     },
     {
@@ -31,6 +32,11 @@ export default new Router({
       path: '/portfolio',
       name: 'Portfolio',
       component: Portfolio
+    },
+    {
+      path: '/portfolio/:album',
+      name: 'Portfolio-Album',
+      component: PortfolioAlbum
     },
     {
       path: '/contact',
