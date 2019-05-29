@@ -44,7 +44,7 @@ export default {
     }
 
     .img-home-bloc2 {
-        max-width: 100%;
+        max-width: 35vh;
     }
 
     .rubrique-home h2{

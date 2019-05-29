@@ -1,7 +1,7 @@
 <template>
     <div id="portfolio-cont">
         <div class="container-fluid">
-            <h2>Portfolio</h2>
+            <h2>Maquillage beauté</h2>
         </div>
         <PortfolioMenu></PortfolioMenu>
     </div>
@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style>
+
 
 </style>
 

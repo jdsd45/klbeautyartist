@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="row" id="cont-contact">
+    <div class="container" id="cont-contact">
+        <div class="row" id="">
             <div class="col-md-12" v-if="donnees != null">
                 <h2>Me contacter</h2>
                 <div class="row">
@@ -65,6 +65,10 @@ export default {
 
 #img-salon {
     max-width:100%;
+}
+
+#cont-contact {
+    padding-bottom: 10px;
 }
 
 </style>

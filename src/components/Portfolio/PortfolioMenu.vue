@@ -40,7 +40,6 @@ export default {
     }
 
     .portfolio-dossier-img {
-        width: calc(100vw / 3);
         object-fit: cover;
         filter: grayscale(100%);
         transition-property: filter;
@@ -71,12 +70,18 @@ export default {
     }
 
 @media(max-width:767px){
+    .portfolio-dossier-cont {
+        flex-direction: column;
+
+    }    
+
     .portfolio-dossier-txt { 
         width: 100%;
         font-size: 1.2rem;
     }
     .portfolio-dossier-img {
-        height: 30vh;    
+        height: 50vh;    
+        width: 100vw;
     }
 }
 @media(min-width:767.1px){
@@ -85,7 +90,9 @@ export default {
         font-size: 2rem;
     }
     .portfolio-dossier-img {
-        height: 60vh;    
+        height: calc(100vh - 38px - 56px);   
+        width: calc(100vw / 3);
+
     }    
 }
 

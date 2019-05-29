@@ -40,7 +40,7 @@ export default {
     }
     .slide-carousel-home img {
         width:100%; 
-        height:40vh;
+        height:50vh;
         object-fit: cover;
     }
 
