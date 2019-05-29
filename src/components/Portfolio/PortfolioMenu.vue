@@ -1,13 +1,15 @@
 <template>
 
-    <div class="portfolio-dossier-cont">
+    <div id="portfolio-dossier-cont">
         <div class="portfolio-dossier-cont-img"
             v-for="dossier in dossiers"
             v-bind:key="dossier.id">
             <div class="portfolio-dossier-txt">
                 {{ dossier.titre }} 
             </div>
-            <img class="portfolio-dossier-img" v-bind:src="dossier.lien_img">
+            <img class="portfolio-dossier-img" 
+                v-bind:src="dossier.lien_img" 
+                v-bind:style="{height: heightContImgPortfolio}">
         </div>
     </div>
 
@@ -18,20 +20,40 @@ export default {
     name: 'PortfolioMenu',
     data() {
         return {
-            dossiers: null
+            dossiers: null,
+            heightContImgPortfolio: '20vh'
         }
+    },
+    methods: {
+        setHeightContImgPortfolio () {
+            let height;
+            if(window.outerWidth > 991.98) {
+                let heightMenu = document.getElementById('menu').offsetHeight;
+                let heightTitre = document.getElementById('portfolio-dossier-cont').previousElementSibling.offsetHeight;
+                height = "calc(100vh - " + (heightMenu + heightTitre) + "px)"
+            } else {
+                height = "60vh";
+            }
+            this.heightContImgPortfolio = height;
+        }
+    },
+    mounted: function (){
+        this.setHeightContImgPortfolio();
+        window.addEventListener('resize', () => {
+            this.setHeightContImgPortfolio();
+        })
     },
     created: function() {
         axios
             .get('/static/portfolio-dossier.json')
             .then(response => (this.dossiers = response.data))
-    },    
+    } 
 }
 </script>
 
 <style>
 
-    .portfolio-dossier-cont {
+    #portfolio-dossier-cont {
         display: flex;
     }
 
@@ -58,7 +80,6 @@ export default {
         transition-property: opacity;
         transition-duration: 0.7s;
         z-index: 1000;
-
     } 
 
     .portfolio-dossier-cont-img:hover .portfolio-dossier-txt {
@@ -69,28 +90,27 @@ export default {
         filter: grayscale(0%);
     }
 
-@media(max-width:767px){
-    .portfolio-dossier-cont {
+@media(max-width:991.98px){
+    #portfolio-dossier-cont {
         flex-direction: column;
-
     }    
 
     .portfolio-dossier-txt { 
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 2.2rem;
     }
     .portfolio-dossier-img {
-        height: 50vh;    
+/*         height: 50vh;     */
         width: 100vw;
     }
 }
-@media(min-width:767.1px){
+@media(min-width:992px){
     .portfolio-dossier-txt { 
         width:60%;
         font-size: 2rem;
     }
     .portfolio-dossier-img {
-        height: calc(100vh - 38px - 56px);   
+        /* height: calc(100vh - 38px - 56px);    */
         width: calc(100vw / 3);
 
     }    
