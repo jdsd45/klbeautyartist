@@ -20,8 +20,10 @@ class PrestationsManager extends BddManager {
     public static function selectPrestations() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT id, categorie, titre, prix, temps, lien_img, detail
-            FROM prestations
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            FROM prestations p
+            LEFT JOIN prestations_categories cat
+            ON cat.id = p.fk_categorie
             ORDER BY categorie
         ');
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -31,9 +33,11 @@ class PrestationsManager extends BddManager {
     public static function selectPrestation($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT id, categorie, titre, prix, temps, lien_img, detail
-            FROM prestations 
-            WHERE id = ?');
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            FROM prestations p
+            LEFT JOIN prestations_categories cat
+            ON cat.id = p.fk_categorie            
+            WHERE p.id = ?');
         $req->execute(array($id));
         $donnees = $req->fetch(PDO::FETCH_ASSOC);
         return $donnees;        
