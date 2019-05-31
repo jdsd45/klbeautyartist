@@ -9,6 +9,7 @@
 <div>
     <h1>Prestation : {{ data.titre }}</h1>
 </div> 
+
 <a href="index.php?p=prestations">Retour</a>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
@@ -28,10 +29,10 @@
                     <select class="form-control" name="categorie" id="categorie" required>
                         {# {% if data %} #}
                             {% for categorie in data.categories %}
-                                {% if categorie == data.categorie %}
-                                    <option value="{{ categorie }}" selected="selected">{{ categorie }}</option>
+                                {% if categorie.nom == data.categorie.nom %}
+                                    <option value="{{ categorie }}" selected="selected">{{ categorie.nom }}</option>
                                 {% else %}
-                                    <option value="{{ categorie }}">{{ categorie }}</option>
+                                    <option value="{{ categorie }}">{{ categorie.nom }}</option>
                                 {% endif %}
                             {% endfor %}          
                         {# {% else %}

@@ -107,10 +107,10 @@ class PrestationsManager extends BddManager {
     }    
 
 
-    public static function getCategories() {
+/*     public static function getCategories() {
         $data = file_get_contents('static/categories.json');
         $data = json_decode($data);
         return $data;
     } 
-
+ */
 }

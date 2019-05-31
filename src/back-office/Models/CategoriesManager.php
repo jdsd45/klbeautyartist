@@ -9,7 +9,7 @@ class CategoriesManager extends BddManager {
         $req = $bdd->query('
             SELECT id, nom
             FROM prestations_categories
-            ORDER BY id
+            ORDER BY nom
         ');
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
         return $data;
@@ -28,11 +28,11 @@ class CategoriesManager extends BddManager {
 
     public static function updateCategorie($id, $data) {
         $bdd = parent::bddConnect();
-        $req = $bdd->prepare('
+        $req = $bdd->prepare("
             UPDATE prestations_categories
             SET nom=:nom
-            WHERE id=:id
-        ');
+            WHERE id=:id AND nom != 'Autre'
+            ");
         $req->execute(array(
             'id'    => $id,
             'nom'   => $data['nom'],          
@@ -42,8 +42,24 @@ class CategoriesManager extends BddManager {
     public static function deleteCategorie($id)
     {
         $bdd = parent::bddConnect();
-        $requete = $bdd->prepare('DELETE FROM prestations_categories WHERE id = ?');
-        $requete->execute(array($id));
+        $req = $bdd->prepare("DELETE FROM prestations_categories WHERE id = ? AND nom != 'Autre'");
+        $req->execute(array($id));
+        $req->closeCursor();
+
+        $req = $bdd->prepare("
+            UPDATE prestations
+            SET fk_categorie=(
+                SELECT id
+                FROM prestations_categories
+                WHERE nom='Autre'
+            )
+            WHERE fk_categorie =:idCatDelete
+        ");
+        $req->execute(array(
+            'idCatDelete' => $id
+        ));
+        $req->closeCursor();    
+
     }
 
     public static function insertCategorie($data) {

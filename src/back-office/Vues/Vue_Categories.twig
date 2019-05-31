@@ -27,19 +27,29 @@
                 <th scope="row"> 
                     {{ loop.index }} 
                 </th>
-                <form action="index.php?p=categories&q=modify&id={{ categorie.id }}" method="post">
+            {% if categorie.nom == 'Autre' %}
                 <td>
-                    <input id="nom_categorie" class="form-control" type="text" value="{{ categorie.nom }}" name="nom" minlength="1" maxlength="200" placeholder="ex: Beauté des mains" required>
+                    {{ categorie.nom }}
                 </td>                            
                 <td>
-                    <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
                 </td>  
+                <td>
+                </td>   
+            {% else %}                                                                                           
+                <form action="index.php?p=categories&q=modify&id={{ categorie.id }}" method="post">
+                    <td>
+                        <input id="nom_categorie" class="form-control" type="text" value="{{ categorie.nom }}" name="nom" minlength="1" maxlength="200" placeholder="ex: Beauté des mains" required>
+                    </td>                            
+                    <td>
+                            <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+                    </td>  
                 </form>                            
                 <td>
-                    <a class="text-danger" href="index.php?p=categories&q=del&id={{ categorie.id }}" />Supprimer</a>   
-                </td>                                                                                              
+                    <a class="text-danger" href="index.php?p=categories&q=del&id={{ categorie.id }}" />Supprimer</a>    
+                </td>   
+            {% endif %}
             </tr>
-            {% endfor %}
+        {% endfor %}
             <tr>
                 <th scope="row"> 
                 </th>

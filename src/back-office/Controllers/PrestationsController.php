@@ -154,7 +154,8 @@ class PrestationsController extends Controller {
     }
 
     protected function setCategories() {
-        $this->categories = PrestationsManager::getCategories();
+        require 'Models/CategoriesManager.php';
+        $this->categories = CategoriesManager::selectCategories();
     }
 
 }
