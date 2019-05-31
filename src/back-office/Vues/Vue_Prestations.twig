@@ -21,6 +21,7 @@
                 <th scope="col">Temps</th>    
                 <th scope="col">Detail</th>    
                 <th scope="col"></th>    
+                <th scope="col"></th>    
             </tr>
         </thead>
         {% for prestation in data %}
@@ -44,14 +45,19 @@
                     {{ prestation.detail }}
                 </td>     
                 <td> 
-                    <p>index : {{ loop.index }} </p>
-                    <a class="text-primary" href="index.php?p=prestations&id={{ loop.index }}" />Modifier</a>
+                    <a class="text-primary" href="index.php?p=prestations&id={{ prestation.id }}" />Modifier</a>
+                </td>                                         
+                <td> 
+                    <a class="text-danger" href="index.php?p=prestations&q=delete&id={{ prestation.id }}" />Supprimer</a>
                 </td>                                         
             </tr>
         {% endfor %}
     </table>
         <a class="btn btn-primary" href="index.php?p=prestations&q=add">
             Ajouter une nouvelle prestation
+        </a>
+        <a class="btn btn-primary" href="index.php?p=categories">
+            Gérer les catégories
         </a>
 </div>
 

@@ -66,7 +66,7 @@ export default {
     visibility: hidden;
     background-color: rgb(255, 255, 255, 0);
     transition-property: top, background-color;
-    transition-duration: 0.4s;   
+    transition-duration: 0.3s;   
 }
 
 .album-img-cont:hover .album-img-txt{

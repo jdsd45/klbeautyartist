@@ -9,7 +9,7 @@
 <div>
     <h1>Prestation : {{ data.titre }}</h1>
 </div> 
-
+<a href="index.php?p=prestations">Retour</a>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
@@ -61,11 +61,9 @@
 
         <div class="form-group col-md-4">
             <label for="image">Image de la prestation</label>
+            <input type="file" class="form-control-file" id="fichier" name="file">
             {% if data.lien_img %}
-                <input type="file" class="form-control-file" id="fichier" name="file">
                 <img src="{{ data.lien_img }}" alt="">
-            {% else %}
-                <input type="file" class="form-control-file" id="fichier" name="file" required>
             {% endif %}
         </div>
     </div>

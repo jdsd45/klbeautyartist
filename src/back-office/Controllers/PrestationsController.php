@@ -91,7 +91,7 @@ class PrestationsController extends Controller {
             $this->run();
             exit();
         } 
-        if(!isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
+        if(isset($_FILES['file']) || $_FILES['file']['error'] != 0) {
             $this->setError('image', 'Aucune image reçue');
             echo (json_encode($this->getError()));
             exit();

@@ -58,7 +58,7 @@ class PrestationsManager extends BddManager {
 
     public static function deletePrestation($id)
     {
-        $bdd = PersonnageManager::bddConnect();
+        $bdd = parent::bddConnect();
         $requete = $bdd->prepare('DELETE FROM prestations WHERE id = ?');
         $requete->execute(array($id));
     }
