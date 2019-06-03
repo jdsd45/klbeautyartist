@@ -48,7 +48,6 @@ class CategoriesController extends Controller {
             echo (json_encode($this->getError()));
             exit();
         } 
-        require 'Controllers/Form.php';
         $form = new Form($this::FIELDS_REF, $_POST);
         if(count($form->getError()) == 0) {
             CategoriesManager::updateCategorie($id, $form->getFields());
@@ -61,7 +60,6 @@ class CategoriesController extends Controller {
             $this->run();
             exit();
         } 
-        require 'Controllers/Form.php';
         $form = new Form($this::FIELDS_REF, $_POST);   
         if(count($form->getError()) == 0) {
             CategoriesManager::insertCategorie($form->getFields());

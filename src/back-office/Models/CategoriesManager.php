@@ -1,7 +1,5 @@
 <?php
 
-require 'BddManager.php';
-
 class CategoriesManager extends BddManager {
 
     public static function selectCategories() {

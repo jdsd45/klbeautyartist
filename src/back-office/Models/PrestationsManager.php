@@ -1,21 +1,6 @@
 <?php
 
-require 'BddManager.php';
-
 class PrestationsManager extends BddManager {
-
-/*     public static function selectCategories(){
-        $bdd = parent::bddConnect();
-        $req = $bdd->query('
-            SELECT DISTINCT categorie 
-            FROM prestations
-            ORDER BY categorie
-        ');
-        while($data = $req->fetch()) {
-            $result[] = $data['categorie'];
-        }   
-        return $result;
-    } */
 
     public static function selectPrestations() {
         $bdd = parent::bddConnect();
@@ -45,11 +30,15 @@ class PrestationsManager extends BddManager {
 
     public static function updatePrestation($id, $data) {
         $bdd = parent::bddConnect();
-        $req = $bdd->prepare('
+        $req = $bdd->prepare("
             UPDATE prestations
-            SET titre=:titre, categorie=:categorie, prix=:prix, temps=:temps, detail=:detail
+            SET titre=:titre, 
+                fk_categorie=(SELECT id FROM prestations_categories WHERE nom=:categorie), 
+                prix=:prix, 
+                temps=:temps, 
+                detail=:detail
             WHERE id=:id
-        ');
+        ");
         $req->execute(array(
             'id'        => $id,
             'categorie' => $data['categorie'],
@@ -106,11 +95,4 @@ class PrestationsManager extends BddManager {
         return $data['lien_img'];        
     }    
 
-
-/*     public static function getCategories() {
-        $data = file_get_contents('static/categories.json');
-        $data = json_decode($data);
-        return $data;
-    } 
- */
 }

@@ -49,7 +49,6 @@ class PrestationsController extends Controller {
 
     protected function showPrestation($id) {
         $this->setData(PrestationsManager::selectPrestation($id));
-        //$this->pushData('categories', PrestationsManager::selectCategories());
         $this->pushData('categories', $this->getCategories());
         $this->setVue('Vue_Prestation.twig');
         $this->run();
@@ -62,7 +61,6 @@ class PrestationsController extends Controller {
             exit();
         } 
 
-        require 'Controllers/Form.php';
         $form = new Form($this::FIELDS_REF, $_POST);
         var_dump('test');
         if(count($form->getError()) == 0) {
@@ -70,7 +68,6 @@ class PrestationsController extends Controller {
         }
 
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            require 'Controllers/Image.php';
             $img = new Image($_FILES['file'], 5000, 'static');
             if(count($img->getError()) == 0) {
                 if(unlink(PrestationsManager::selectPathImg($id))) {
@@ -96,8 +93,6 @@ class PrestationsController extends Controller {
             echo (json_encode($this->getError()));
             exit();
         }
-        require 'Controllers/Form.php';
-        require 'Controllers/Image.php';
 
         $form = new Form($this::FIELDS_REF, $_POST);   
         $img = new Image($_FILES['file'], 5000, 'static');
@@ -154,7 +149,6 @@ class PrestationsController extends Controller {
     }
 
     protected function setCategories() {
-        require 'Models/CategoriesManager.php';
         $this->categories = CategoriesManager::selectCategories();
     }
 

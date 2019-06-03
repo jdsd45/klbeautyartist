@@ -1,7 +1,5 @@
 <?php
 
-require 'BddManager.php';
-
 class MessagesManager extends BddManager {
 
     public static function getMessages() {
