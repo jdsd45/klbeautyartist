@@ -52,24 +52,47 @@ class PrestationsManager extends BddManager {
     public static function deletePrestation($id)
     {
         $bdd = parent::bddConnect();
-        $requete = $bdd->prepare('DELETE FROM prestations WHERE id = ?');
-        $requete->execute(array($id));
+        $req = $bdd->prepare('DELETE FROM prestations WHERE id = ?');
+        $req->execute(array($id));
     }
 
-    public static function insertPrestation($data, $path) {
+    public static function insertPrestation($data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            INSERT INTO prestations(categorie, titre, prix, temps, lien_img, detail)
-            VALUES(:categorie, :titre, :prix, :temps, :lien_img, :detail)    
+            INSERT INTO prestations(fk_categorie, titre, prix, temps, detail)
+            VALUES(:categorie, :titre, :prix, :temps, :detail)    
         ');
         $req->execute(array(
             'categorie' => $data['categorie'],
             'titre'     => $data['titre'],
             'prix'      => $data['prix'],
             'temps'     => $data['temps'],
-            'lien_img'  => $path,
             'detail'    => $data['detail']
         ));
+        var_dump($req);
+    }
+
+    public static function selectIdLastPrestation() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT id
+            FROM prestations
+            ORDER BY id DESC LIMIT 0, 1
+        ');
+        $data = $req->fetch();
+        return $data['id'];
+    }
+
+    public static function insertPathImg($id, $path) {
+		$bdd = parent::bddConnect();
+		$req = $bdd->prepare('
+            INSERT INTO prestations(lien_img)
+            VALUES (lien_img=:path)
+            WHERE id=:id');
+		$req->execute(array(
+			'path' => $path
+		));
+
     }
 
 	public static function updatePathImg($id, $path) {

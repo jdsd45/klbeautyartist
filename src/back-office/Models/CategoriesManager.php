@@ -13,6 +13,22 @@ class CategoriesManager extends BddManager {
         return $data;
     }
 
+    public static function categerieNameNotExist($data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('
+            SELECT nom
+            FROM prestations_categories
+            WHERE nom=:nom
+        ');
+        $req->execute(array(
+            'nom'   => $data['nom']
+        ));
+        if($req->fetch()) {
+            return false;
+        } 
+        return true;
+    }
+
     public static function selectCategorie($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('

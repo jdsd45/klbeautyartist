@@ -12,6 +12,8 @@
 
 <a href="index.php?p=prestations">Retour</a>
 
+<div id="alert-prestation" class="alert" role="alert"></div>
+
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
     <div class="form-row">
@@ -29,9 +31,9 @@
                     <select class="form-control" name="categorie" id="categorie" required>
                             {% for categorie in data.categories %}
                                 {% if categorie.nom == data.categorie.nom %}
-                                    <option value="{{ categorie.nom }}" selected="selected">{{ categorie.nom }}</option>
+                                    <option value="{{ categorie.id }}" selected="selected">{{ categorie.nom }}</option>
                                 {% else %}
-                                    <option value="{{ categorie.nom }}">{{ categorie.nom }}</option>
+                                    <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
                                 {% endif %}
                             {% endfor %}          
                         
@@ -96,7 +98,8 @@
             processData: false,
             contentType: false,
             success: function(reponse) {
-                console.log('success reponse');
+                console.log(reponse);
+                
             }
         })
     })
