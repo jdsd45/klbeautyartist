@@ -12,7 +12,7 @@
 
 <a href="index.php?p=prestations">Retour</a>
 
-<div id="alert-prestation" class="alert" role="alert"></div>
+<div class="alert" role="alert" id="alert_prestation_modifyadd"></div>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
@@ -22,7 +22,8 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="titre">Titre</label>
-                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required>
+{#                     <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required> #}
+                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}">
                 </div>
             </div>
             <div class="form-row">
@@ -36,13 +37,13 @@
                                     <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
                                 {% endif %}
                             {% endfor %}          
-                        
                     </select>
                 </div>
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="prix">Prix</label>
-                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required>
+                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" placeholder="ex: 80.00">
+{#                         <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required> #}
                     </div>
                 </div>
                 <div class="form-group col-md-2">
@@ -98,11 +99,42 @@
             processData: false,
             contentType: false,
             success: function(reponse) {
-                console.log(reponse);
-                
+                let rep = JSON.parse(reponse);
+                displayResponse(rep)
             }
         })
     })
+
+    function displayResponse(rep) {
+        let fenetre = document.getElementById('alert_prestation_modifyadd');
+        fenetre.style.display = 'block';
+        fenetre.textContent = "";
+        if(rep.form.length == 0 & rep.image.length == 0) {
+            fenetre.classList.remove('alert-danger');
+            fenetre.classList.add('alert-success');
+            fenetre.textContent = "La prestation a bien été ajoutée/modifiée";
+            $('#frm')[0].reset();
+        } else {
+            let errors = [];
+            let listErrors = document.createElement('ul');
+            for(let i=0; i<rep.form.length; i++){
+                errors.push(rep.form[i]);
+            }
+            for(let i=0; i<rep.image.length; i++){
+                errors.push(rep.image[i]);
+            }
+
+            for(let i=0; i<errors.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = errors[i];
+                listErrors.appendChild(li);
+            }
+            fenetre.appendChild(listErrors);
+            fenetre.classList.remove('alert-success');
+            fenetre.classList.add('alert-danger');
+        }
+    }
+
 </script>
 
 

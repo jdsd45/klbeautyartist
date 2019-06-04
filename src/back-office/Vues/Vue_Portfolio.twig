@@ -1,0 +1,72 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Portfolio</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Portofolio</h1>
+</div> 
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Album</th>
+                <th scope="col">Titre</th>    
+                <th scope="col">Mots clés</th>    
+                <th scope="col">Image</th>    
+                <th scope="col">En Ligne</th>    
+                <th scope="col"></th>    
+                <th scope="col"></th>    
+                <th scope="col"></th>    
+            </tr>
+        </thead>
+        {% for prestation in data %}
+            <tr>
+                <th scope="row"> 
+                    {{ loop.index }} 
+                </th>
+                <td>
+                    {{ photo.album }}
+                </td>                            
+                <td>
+                    {{ photo.titre }}
+                </td>                            
+                <td>
+                    {{ photos.keywords }}
+                </td>                            
+                <td>
+                    {{ photo.image }}
+                </td>                            
+                <td>
+                    {{ photo.visible }}
+                </td>   
+                {% if photographie.visible == true %}
+                    <a class="text-primary" href="index.php?p=portfolio&q=visibility&id={{ prestation.id }}" />Mettre hors-ligne</a>
+                {% else %}
+                    <a class="text-primary" href="index.php?p=portfolio&q=visibility&id={{ prestation.id }}" />Mettre en ligne</a>
+                {% endif %}
+                </td>                                         
+                <td> 
+                    <a class="text-primary" href="index.php?p=portfolio&id={{ prestation.id }}" />Modifier</a>
+                </td>                                         
+                <td> 
+                    <a class="text-danger" href="index.php?p=portfolio&q=delete&id={{ prestation.id }}" />Supprimer</a>
+                </td>                                         
+            </tr>
+        {% endfor %}
+    </table>
+        <a class="btn btn-primary" href="index.php?p=portfolio&q=add">
+            Ajouter une nouvelle photographie
+        </a>
+        <a class="btn btn-primary" href="index.php?p=albums">
+            Gérer les albums
+        </a>
+</div>
+
+{% endblock %}
+

@@ -69,7 +69,6 @@ class PrestationsManager extends BddManager {
             'temps'     => $data['temps'],
             'detail'    => $data['detail']
         ));
-        var_dump($req);
     }
 
     public static function selectIdLastPrestation() {
@@ -83,17 +82,18 @@ class PrestationsManager extends BddManager {
         return $data['id'];
     }
 
-    public static function insertPathImg($id, $path) {
+/*     public static function insertPathImg($id, $path) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
             INSERT INTO prestations(lien_img)
             VALUES (lien_img=:path)
             WHERE id=:id');
 		$req->execute(array(
+            'id'   => $id,
 			'path' => $path
 		));
 
-    }
+    } */
 
 	public static function updatePathImg($id, $path) {
 		$bdd = parent::bddConnect();
@@ -103,6 +103,7 @@ class PrestationsManager extends BddManager {
             WHERE id=:id');
 		
 		$req->execute(array(
+            'id'   => $id,
 			'path' => $path
 		));
     }

@@ -30,7 +30,7 @@ class PrestationsController extends Controller {
             $this->modifyPrestation($id);
         } elseif($action == 'add') {
             $this->addPrestation();
-        } elseif($action == 'del' && $id) {
+        } elseif($action == 'delete' && $id) {
             $this->deletePrestation($id);
         } else {
             $this->showDefault();
@@ -87,28 +87,37 @@ class PrestationsController extends Controller {
             $this->run();
             exit();
         } 
-        $form = new Form($this::FIELDS_REF, $_POST);   
-        if(count($form->getError()) == 0) {
-            PrestationsManager::insertPrestation($form->getFields());
-        }
+
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
+            $form = new Form($this::FIELDS_REF, $_POST);   
             $img = new Image($_FILES['file'], 5000, 'static');
-            PrestationsManager::insertPathImg(PrestationsManager::selectIdLastPrestation(), $img->getPath());
             if(count($form->getError()) == 0 AND count($img->getError()) == 0) {
+                PrestationsManager::insertPrestation($form->getFields());
+                PrestationsManager::updatePathImg(PrestationsManager::selectIdLastPrestation(), $img->getPath());
                 $img->register();
             }
+            $this->setErrors('image', $img->getError());
+        } else {
+            $form = new Form($this::FIELDS_REF, $_POST);   
+            if(count($form->getError()) == 0) {
+                PrestationsManager::insertPrestation($form->getFields());
+            }
         }
-
+        $this->setErrors('form', $form->getError());
         echo (json_encode($this->getError()));
     }
 
     protected function deletePrestation($id) {
-        if(unlink(PrestationsManager::selectPathImg($id))) {
-            PrestationManager::deletePrestation($id);
-        } else {
-            $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
+        if(PrestationsManager::selectPathImg($id)) {
+            if(unlink(PrestationsManager::selectPathImg($id))) {
+                PrestationsManager::deletePrestation($id);
+            } else {
+                $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
+            }
         }
-        echo (json_encode($this->getError()));
+        PrestationsManager::deletePrestation($id);
+        $this->showPrestations();
+        //echo (json_encode($this->getError()));
     }
 
     protected function run() {
@@ -121,6 +130,12 @@ class PrestationsController extends Controller {
 
     protected function setError($type, $error) {
         $this->error[$type] = $error;
+    }
+
+    protected function setErrors($type, $errors) {
+        foreach ($errors as $error) {
+            $this->error[$type][] = $error;
+        }
     }
 
     protected function getError() {
