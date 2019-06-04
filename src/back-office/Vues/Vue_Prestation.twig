@@ -22,16 +22,15 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="titre">Titre</label>
-{#                     <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required> #}
-                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}">
+                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label for="categorie">Catégorie</label>
                     <select class="form-control" name="categorie" id="categorie" required>
-                            {% for categorie in data.categories %}
-                                {% if categorie.nom == data.categorie.nom %}
+                            {% for categorie in categories %}
+                                {% if categorie.nom == data.categorie %}
                                     <option value="{{ categorie.id }}" selected="selected">{{ categorie.nom }}</option>
                                 {% else %}
                                     <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
@@ -42,8 +41,7 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="prix">Prix</label>
-                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" placeholder="ex: 80.00">
-{#                         <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required> #}
+                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required>
                     </div>
                 </div>
                 <div class="form-group col-md-2">
@@ -63,7 +61,9 @@
             <label for="image">Image de la prestation</label>
             <input type="file" class="form-control-file" id="fichier" name="file">
             {% if data.lien_img %}
-                <img src="{{ data.lien_img }}" alt="">
+                <hr>
+                <span>Image actuelle</span>
+                <img class="img_prestation_frm" src="{{ data.lien_img }}" alt="">
             {% endif %}
         </div>
     </div>
@@ -110,6 +110,9 @@
         fenetre.style.display = 'block';
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
+            setTimeout(function() {
+                document.location.reload(true)
+            }, 1500);
             fenetre.classList.remove('alert-danger');
             fenetre.classList.add('alert-success');
             fenetre.textContent = "La prestation a bien été ajoutée/modifiée";

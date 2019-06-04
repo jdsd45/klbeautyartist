@@ -35,11 +35,12 @@ if(!in_array($p, $pages)) {
     exit();
 }
 
+
 $controllerName = ucfirst($p) . 'Controller';
 $controller = new $controllerName();
-
 $action = $controller->getParam('q');
 $id     = $controller->getParam('id');
-
 $controller->hub($action, $id);
+
+
 

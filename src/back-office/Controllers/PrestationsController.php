@@ -4,7 +4,6 @@ class PrestationsController extends Controller {
 
     protected $categories;
     protected $img;
-    protected $dataForm;
     protected $error = [
         'image' => [],
         'form' => []
@@ -49,18 +48,16 @@ class PrestationsController extends Controller {
 
     protected function showPrestation($id) {
         $this->setData(PrestationsManager::selectPrestation($id));
-        $this->pushData('categories', $this->getCategories());
         $this->setVue('Vue_Prestation.twig');
         $this->run();
     }
 
     protected function modifyPrestation($id) {
         if(!isset($_POST) || empty($_POST)) {
-            $this->setError('form', 'Aucune formulaire reçu');
+            $this->setError('form', 'Aucun formulaire reçu');
             echo (json_encode($this->getError()));
             exit();
         } 
-
         $form = new Form($this::FIELDS_REF, $_POST);
         if(count($form->getError()) == 0) {
             PrestationsManager::updatePrestation($id, $form->getFields());
@@ -69,25 +66,27 @@ class PrestationsController extends Controller {
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $img = new Image($_FILES['file'], 5000, 'static');
             if(count($img->getError()) == 0) {
-                if(unlink(PrestationsManager::selectPathImg($id))) {
-                    $img->register();
-                    PrestationsManager::updatePathImage($id, $img->getPath());
-                }
+                if(file_exists(PrestationsManager::selectPathImg($id))) {
+                    unlink(PrestationsManager::selectPathImg($id));
+                } 
+                $img->register();
+                PrestationsManager::updatePathImg($id, $img->getPath());
             }
+            $this->setErrors('image', $img->getError());
         }    
+        
         echo (json_encode($this->getError()));        
     }
 
 
     protected function addPrestation() {
         if(!isset($_POST) || empty($_POST)) {
+            $this->setData(false);
             $this->setFiltre('addPrestation');
-            $this->pushData('categories', $this->getCategories());
-            $this->setVue('Vue_prestation.twig');
-            $this->run();
+            $this->setVue('Vue_Prestation.twig');
+            $this->run();                
             exit();
         } 
-
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $form = new Form($this::FIELDS_REF, $_POST);   
             $img = new Image($_FILES['file'], 5000, 'static');
@@ -108,22 +107,22 @@ class PrestationsController extends Controller {
     }
 
     protected function deletePrestation($id) {
-        if(PrestationsManager::selectPathImg($id)) {
-            if(unlink(PrestationsManager::selectPathImg($id))) {
-                PrestationsManager::deletePrestation($id);
-            } else {
-                $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
-            }
+        if(file_exists(PrestationsManager::selectPathImg($id))) {
+            unlink(PrestationsManager::selectPathImg($id));
+        } else {
+            $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
         }
+        
         PrestationsManager::deletePrestation($id);
         $this->showPrestations();
         //echo (json_encode($this->getError()));
     }
 
     protected function run() {
-        $twig = $this->getTwig();
+        $twig = $this->getTwig();;
         echo $twig->render($this->getVue(), [
             'data' => $this->getData(),
+            'categories' => $this->getCategories(),
             'filtre' => $this->getFiltre()
         ]); 
     }    
@@ -148,14 +147,6 @@ class PrestationsController extends Controller {
 
     protected function getImg() {
         return $this->img;
-    }
-
-    protected function setDataForm($fields) {
-        $this->dataForm = $fields;
-    }
-
-    protected function getDataForm() {
-        return $this->dataForm;
     }
 
     protected function getCategories() {

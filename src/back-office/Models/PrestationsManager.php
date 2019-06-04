@@ -33,7 +33,7 @@ class PrestationsManager extends BddManager {
         $req = $bdd->prepare("
             UPDATE prestations
             SET titre=:titre, 
-                fk_categorie=(SELECT id FROM prestations_categories WHERE nom=:categorie), 
+                fk_categorie=(SELECT id FROM prestations_categories WHERE id=:categorie), 
                 prix=:prix, 
                 temps=:temps, 
                 detail=:detail
