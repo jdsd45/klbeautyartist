@@ -19,11 +19,12 @@ class ContentManager extends BddManager {
 
     public static function getCategories() {
         $bdd = parent::bddConnect();
-        $req = $bdd->query('
-            SELECT id, nom
+        $req = $bdd->query("
+            SELECT id, nom, url
             FROM prestations_categories
+            WHERE nom!='Autre'
             ORDER BY nom
-        ');
+        ");
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }

@@ -32,7 +32,7 @@ class CategoriesManager extends BddManager {
         ');
         $req->execute(array(
             'nom' => $data['nom'],
-            'url' => Regex::tr
+            'url' => Regex::transformInUrl($data['nom'])
         ));
     }    
 
@@ -40,12 +40,13 @@ class CategoriesManager extends BddManager {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare("
             UPDATE prestations_categories
-            SET nom=:nom
+            SET nom=:nom, url=:url
             WHERE id=:id AND nom != 'Autre'
             ");
         $req->execute(array(
             'id'    => $id,
-            'nom'   => $data['nom'],          
+            'nom'   => $data['nom'],     
+            'url'   => Regex::transformInUrl($data['nom'])
         ));
     }
 

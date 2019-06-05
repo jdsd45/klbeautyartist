@@ -6,9 +6,9 @@
             v-bind:categorie="categorie"
             v-bind:index="index"
             v-bind:key="index"
-            v-bind:class="{ catSelected: currentcategory === categorie.name }"
-            v-on:click="$emit('updatecategorie', categorie.name)">
-                {{categorie.name}}
+            v-bind:class="{ catSelected: currentcategory === categorie.nom }"
+            v-on:click="$emit('updatecategorie', categorie.nom)">
+                {{categorie.nom}}
             </li>
         </ul>
     </div>
@@ -17,8 +17,9 @@
 <script>
 export default {
     name: 'PrestationsMenu',
-    props: ['currentcategory'],
-    data () {
+    props: ['currentcategory', 'categories'],
+    //props: ['currentcategory'],
+/*     data () {
         return {
             categories: [
                 {name: 'Maquillage semi-permanent'}, 
@@ -26,6 +27,10 @@ export default {
                 {name: 'Beauté des cils'}
             ]        
         }
+    } */
+    mounted: function() {
+/*         console.log('test ');
+        console.log(this.currentcategory); */
     }
 }
 </script>

@@ -2,7 +2,7 @@
 
 class Regex {
 
-    public static function transformInstr($str) : string
+    public static function transformInUrl($str) : string
     {
         $str = trim($str);
         $str = self::str_to_no_accent($str);

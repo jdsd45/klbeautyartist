@@ -2,6 +2,7 @@
     <div>
         <PrestationsMenu
             v-bind:currentcategory="currentcategory"
+            v-bind:categories="categories"
             v-on:updatecategorie="updatecategorie"
             >
             </PrestationsMenu>
@@ -22,14 +23,46 @@ export default {
     name: 'Prestations',
     data () {
         return {
-            currentcategory: ''
+            currentcategory: '',
+            categories: null
         }
     },
     components: {
         PrestationsMenu,
         PrestationsItems
     },
-    created: function() {
+    async created() {
+        try {
+            let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            this.categories = response.data
+
+            let route = this.$route.params.categorie;
+            if(this.$route.params.categorie) {
+                this.categories.forEach(element => {
+                    if(element.url == this.$route.params.categorie) {
+                        this.currentcategory = element.nom
+                    }
+                });
+            } else {
+                this.currentcategory = 'maquillage-semi-permanent'
+            }
+
+
+/* 
+            if(this.$route.params.categorie) {
+                this.currentcategory = this.$route.params.categorie
+            } else {
+                this.currentcategory = 'maquillage-semi-permanent'
+            }    */         
+        } catch (error) {
+            console.log(error)
+        }
+/*         axios
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            .then(response => (this.categories = response.data)) */
+    },
+/*     mounted: function() {
+        //console.log(this.categories);
         switch (this.$route.params.categorie) {
             case 'maquillage-semi-permanent':
                 this.currentcategory = 'Maquillage semi-permanent';
@@ -37,14 +70,23 @@ export default {
             case 'maquillage-professionnel':
                 this.currentcategory = 'Maquillage professionnel';
             break;
-            case 'beaute-cils':
+            case 'beaute-des-cils':
                 this.currentcategory = 'Beauté des cils';
             break;
             default:
                 this.currentcategory = 'Maquillage semi-permanent'
             break;
+        }        
+    }, */
+/*     computed: {
+        currentcategory: function() {
+            if(this.$route.params.categorie) {
+                return this.$route.params.categorie
+            } else {
+                return 'maquillage-semi-permanent'
+            }
         }
-    },
+    }, */
     methods: {
         updatecategorie: function(newVal) {
             this.currentcategory = newVal

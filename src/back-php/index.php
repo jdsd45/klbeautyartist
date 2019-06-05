@@ -8,6 +8,9 @@ if(isset($_GET['q'])) {
         case 'prestations':
             $data = ContentManager::getPrestations();
         break;
+        case 'categories';
+            $data = ContentManager::getCategories();
+        break;
         default:
             exit();
         break;

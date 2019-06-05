@@ -2,14 +2,14 @@
     <div id="bloc-2-Home" class="row">
         <div class="col-md-8">
             <div class="row">
-                <div class="col-sm-4 home-cont-item"
-                    v-for="content in homeContent"
-                    :key="content.id"
-                    :id="'home-cont' + content.id"
+                <div class="col-sm home-cont-item"
+                    v-for="categorie in categoriesPrestations"
+                    :key="categorie.id"
+                    :id="'home-cont' + categorie.id"
                 >
-                <router-link :to="'/prestations/'+content.url" class="rubrique-home">
-                    <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-                    <h2 class="rubrique-titre"> {{ content.titre }} </h2>
+                <router-link :to="'/prestations/'+categorie.url" class="rubrique-home">
+                    <img class="img-home-bloc2 rounded mx-auto d-block" :src="categorie.lien_img">
+                    <h2 class="rubrique-titre"> {{ categorie.nom }} </h2>
                 </router-link>
                 </div>
             </div>
@@ -25,14 +25,19 @@ export default {
     name: 'Bloc2Home',
     data() {
         return {
-            homeContent: null
+            categoriesPrestations: null
         }
     },
-    created: function() {
+/*     created: function() {
         axios
             .get('static/home_content.json')
             .then(response => (this.homeContent = response.data))        
-    }
+    } */
+    created: function() {
+        axios
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            .then(response => (this.categoriesPrestations = response.data))
+    },     
 }
 </script>
 
