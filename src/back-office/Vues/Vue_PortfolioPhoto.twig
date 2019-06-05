@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label for="image">Image de la prestation</label>
+            <label for="image">Image</label>
             <input type="file" class="form-control-file" id="fichier" name="file">
             {% if data.lien_img %}
                 <hr>
@@ -58,8 +58,8 @@
         </div>
     </div>
 
-    {% if filtre == 'addPrestation' %}
-        <button type="submit" class="btn btn-primary mb-2">Ajouter une nouvelle prestation</button>
+    {% if filtre == 'addPhoto' %}
+        <button type="submit" class="btn btn-primary mb-2">Ajouter une nouvelle photo</button>
     {% else %}
         <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
     {% endif %}
@@ -68,10 +68,10 @@
 
 <script>
 
-    {% if filtre == 'addPrestation' %}
-        let url = 'index.php?p=prestations&q=add'
+    {% if filtre == 'addPhoto' %}
+        let url = 'index.php?p=portfolio&q=add'
     {% else %}
-        let url = 'index.php?p=prestations&q=modify&id='+{{ data.id }}
+        let url = 'index.php?p=portfolio&q=modify&id='+{{ data.id }}
     {% endif %}
     
 

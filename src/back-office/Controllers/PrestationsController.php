@@ -66,7 +66,7 @@ class PrestationsController extends Controller {
         }
 
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, 'static');
+            $img = new Image($_FILES['file'], 5000, '../../static');
             if(count($img->getError()) == 0) {
                 if(file_exists(PrestationsManager::selectPathImg($id))) {
                     unlink(PrestationsManager::selectPathImg($id));
@@ -92,7 +92,7 @@ class PrestationsController extends Controller {
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $form = new Form($this::FIELDS_REF, $_POST);   
-            $img = new Image($_FILES['file'], 5000, 'static');
+            $img = new Image($_FILES['file'], 5000, '../../static');
             if(count($form->getError()) == 0 AND count($img->getError()) == 0) {
                 PrestationsManager::insertPrestation($form->getFields());
                 PrestationsManager::updatePathImg(PrestationsManager::selectIdLastPrestation(), $img->getPath());
@@ -114,7 +114,6 @@ class PrestationsController extends Controller {
             unlink(PrestationsManager::selectPathImg($id));
         }
         PrestationsManager::deletePrestation($id);
-        echo (json_encode($this->getError()));
         $this->showPrestations();
     }
 
@@ -125,7 +124,6 @@ class PrestationsController extends Controller {
         } else {
             $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
         }
-        echo (json_encode($this->getError()));
         $this->showPrestation($id);
     }
 

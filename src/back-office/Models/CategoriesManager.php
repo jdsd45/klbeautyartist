@@ -5,7 +5,7 @@ class CategoriesManager extends BddManager {
     public static function selectCategories() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT id, nom
+            SELECT id, nom, url
             FROM prestations_categories
             ORDER BY nom
         ');
@@ -13,32 +13,28 @@ class CategoriesManager extends BddManager {
         return $data;
     }
 
-    public static function categerieNameNotExist($data) {
-        $bdd = parent::bddConnect();
-        $req = $bdd->prepare('
-            SELECT nom
-            FROM prestations_categories
-            WHERE nom=:nom
-        ');
-        $req->execute(array(
-            'nom'   => $data['nom']
-        ));
-        if($req->fetch()) {
-            return false;
-        } 
-        return true;
-    }
-
     public static function selectCategorie($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT id, nom
+            SELECT id, nom, url
             FROM prestations_categories 
             WHERE id = ?');
         $req->execute(array($id));
         $data = $req->fetch(PDO::FETCH_ASSOC);
         return $data;        
     }
+
+    public static function insertCategorie($data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('
+            INSERT INTO prestations_categories (nom, url)
+            VALUES(:nom, :url)    
+        ');
+        $req->execute(array(
+            'nom' => $data['nom'],
+            'url' => Regex::tr
+        ));
+    }    
 
     public static function updateCategorie($id, $data) {
         $bdd = parent::bddConnect();
@@ -76,16 +72,21 @@ class CategoriesManager extends BddManager {
 
     }
 
-    public static function insertCategorie($data) {
+    public static function categerieNameNotExist($data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            INSERT INTO prestations_categories (nom)
-            VALUES(:nom)    
+            SELECT nom
+            FROM prestations_categories
+            WHERE nom=:nom
         ');
         $req->execute(array(
-            'nom' => $data['nom'],
+            'nom'   => $data['nom']
         ));
-    }
+        if($req->fetch()) {
+            return false;
+        } 
+        return true;
+    }    
 
 
 }

@@ -48,16 +48,16 @@ export default {
         },
 
     },
-    created: function() {
+/*     created: function() {
         axios
             .get('/static/prestations.json')
             .then(response => (this.prestations = response.data))
-    },
-/*     created: function() {
+    }, */
+    created: function() {
         axios
             .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
             .then(response => (this.prestations = response.data))
-    },  */
+    }, 
     computed : {
         prestationsFiltrees: function() {
             if(this.prestations != null) return this.prestations.filter(this.selectInCategories)

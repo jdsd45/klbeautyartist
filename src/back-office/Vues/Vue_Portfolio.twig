@@ -15,14 +15,12 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Album</th>
                 <th scope="col">Titre</th>    
+                <th scope="col">Album</th>
                 <th scope="col">Mots clés</th>    
                 <th scope="col">Image</th>    
                 <th scope="col">En Ligne</th>    
-                <th scope="col"></th>    
-                <th scope="col"></th>    
-                <th scope="col"></th>    
+                <th scope="col"></th>        
             </tr>
         </thead>
         {% for photo in data %}
@@ -31,35 +29,39 @@
                     {{ loop.index }} 
                 </th>
                 <td>
-                    {{ photo.album }}
-                </td>                            
-                <td>
                     {{ photo.titre }}
                 </td>                            
                 <td>
-                    {{ photos.mots_cles }}
+                    {{ photo.album }}
                 </td>                            
                 <td>
-                    {{ photo.lien_image }}
+                    {{ photo.mots_cles }}
                 </td>                            
                 <td>
-                    {{ photo.en_ligne }}
+                    <img class="img_portfolio" src="{{ photo.lien_img }}" alt="">
+                    
+                </td>                            
+                <td>
+                    {% if photo.en_ligne %}
+                        oui
+                    {% else %}
+                        non
+                    {% endif %}
+                    
                 </td>  
                 <td> 
-                    <a class="text-primary" href="index.php?p=portfolio&q=visibility&id={{ prestation.id }}" />
-                    {% if photographie.en_ligne == true %}
+                    <a class="text-primary" href="index.php?p=portfolio&q=visibility&id={{ photo.id }}" />
+                    {% if photo.en_ligne == true %}
                         Mettre hors-ligne
                     {% else %}
                         Mettre en ligne
                     {% endif %}
                     </a>
-                </td>                                         
-                <td> 
-                    <a class="text-primary" href="index.php?p=portfolio&id={{ prestation.id }}" />Modifier</a>
-                </td>                                         
-                <td> 
-                    <a class="text-danger" href="index.php?p=portfolio&q=delete&id={{ prestation.id }}" />Supprimer</a>
-                </td>                                         
+                    <hr>
+                    <a class="text-primary" href="index.php?p=portfolio&id={{ photo.id }}" />Modifier</a>
+                    <hr>
+                    <a class="text-danger" href="index.php?p=portfolio&q=delete&id={{ photo.id }}" />Supprimer</a>
+                </td>                                                                                
             </tr>
         {% endfor %}
     </table>

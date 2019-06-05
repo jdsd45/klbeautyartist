@@ -28,6 +28,21 @@ class PrestationsManager extends BddManager {
         return $donnees;        
     }
 
+    public static function insertPrestation($data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('
+            INSERT INTO prestations(fk_categorie, titre, prix, temps, detail)
+            VALUES(:categorie, :titre, :prix, :temps, :detail)    
+        ');
+        $req->execute(array(
+            'categorie' => $data['categorie'],
+            'titre'     => $data['titre'],
+            'prix'      => $data['prix'],
+            'temps'     => $data['temps'],
+            'detail'    => $data['detail']
+        ));
+    }    
+
     public static function updatePrestation($id, $data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare("
@@ -56,20 +71,6 @@ class PrestationsManager extends BddManager {
         $req->execute(array($id));
     }
 
-    public static function insertPrestation($data) {
-        $bdd = parent::bddConnect();
-        $req = $bdd->prepare('
-            INSERT INTO prestations(fk_categorie, titre, prix, temps, detail)
-            VALUES(:categorie, :titre, :prix, :temps, :detail)    
-        ');
-        $req->execute(array(
-            'categorie' => $data['categorie'],
-            'titre'     => $data['titre'],
-            'prix'      => $data['prix'],
-            'temps'     => $data['temps'],
-            'detail'    => $data['detail']
-        ));
-    }
 
     public static function selectIdLastPrestation() {
         $bdd = parent::bddConnect();
@@ -94,7 +95,6 @@ class PrestationsManager extends BddManager {
 			'path' => $path
 		));
     }
-
 
     public static function selectPathImg($id) {
         $bdd = parent::bddConnect();

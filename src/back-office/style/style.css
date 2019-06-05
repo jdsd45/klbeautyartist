@@ -7,3 +7,7 @@
 .img_frm {
     width:100%;
 }
+
+.img_portfolio {
+    max-height: 150px;
+}

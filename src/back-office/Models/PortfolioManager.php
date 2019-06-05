@@ -28,32 +28,6 @@ class PortfolioManager extends BddManager {
         return $donnees;        
     }
 
-    public static function updatePhoto($id, $data) {
-        $bdd = parent::bddConnect();
-        $req = $bdd->prepare("
-            UPDATE portfolio_photos
-            SET titre=:titre, 
-                fk_album=(SELECT id FROM portfolio_albums WHERE id=:album), 
-                mots_cles=:mots_cles,
-                en_ligne=:en_ligne
-            WHERE id=:id
-        ");
-        $req->execute(array(
-            'id'        => $id,
-            'album'     => $data['album'],
-            'titre'     => $data['titre'],
-            'mots_cles' => $data['mots_cles'],
-            'en_ligne'  => $data['en_ligne']
-        ));
-    }
-
-    public static function deletePhoto($id)
-    {
-        $bdd = parent::bddConnect();
-        $req = $bdd->prepare('DELETE FROM portfolio_photos WHERE id = ?');
-        $req->execute(array($id));
-    }
-
     public static function insertPhoto($data, $path) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
@@ -65,9 +39,35 @@ class PortfolioManager extends BddManager {
             'titre'     => $data['titre'],
             'mots_cles' => $data['mots_cles'],
             'lien_img'  => $path,
-            'en_ligne'  => $data['en_ligne']
+            'en_ligne'  => true
+        ));
+    }    
+
+    public static function updatePhoto($id, $data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare("
+            UPDATE portfolio_photos
+            SET titre=:titre, 
+                fk_album=(SELECT id FROM portfolio_albums WHERE id=:album), 
+                mots_cles=:mots_cles
+            WHERE id=:id
+        ");
+        $req->execute(array(
+            'id'        => $id,
+            'album'     => $data['album'],
+            'titre'     => $data['titre'],
+            'mots_cles' => $data['mots_cles']
         ));
     }
+
+    public static function deletePhoto($id)
+    {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('DELETE FROM portfolio_photos WHERE id = ?');
+        $req->execute(array($id));
+    }
+
+
 
     public static function selectIdLastPhoto() {
         $bdd = parent::bddConnect();
@@ -103,5 +103,21 @@ class PortfolioManager extends BddManager {
         $data = $req->fetch();
         return $data['lien_img'];        
     }    
+
+    public static function updateVisibility($id) {
+		$bdd = parent::bddConnect();
+		$req = $bdd->prepare("
+            UPDATE portfolio_photos 
+            SET en_ligne=
+                (CASE
+                    WHEN en_ligne = 1 THEN '0'
+                    ELSE '1'
+                END)            
+            WHERE id=:id");
+		
+		$req->execute(array(
+            'id'   => $id,
+		));        
+    }
 
 }
