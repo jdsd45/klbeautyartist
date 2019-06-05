@@ -82,19 +82,6 @@ class PrestationsManager extends BddManager {
         return $data['id'];
     }
 
-/*     public static function insertPathImg($id, $path) {
-		$bdd = parent::bddConnect();
-		$req = $bdd->prepare('
-            INSERT INTO prestations(lien_img)
-            VALUES (lien_img=:path)
-            WHERE id=:id');
-		$req->execute(array(
-            'id'   => $id,
-			'path' => $path
-		));
-
-    } */
-
 	public static function updatePathImg($id, $path) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
@@ -107,6 +94,7 @@ class PrestationsManager extends BddManager {
 			'path' => $path
 		));
     }
+
 
     public static function selectPathImg($id) {
         $bdd = parent::bddConnect();

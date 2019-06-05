@@ -1,73 +1,59 @@
 {% extends "template.twig" %}
 
 {% block head %}
-    <title>Prestation</title>
+    <title>Portfolio</title>
 {% endblock %}
 
 {% block content %}
 
 <div>
-    <h1>Prestation : {{ data.titre }}</h1>
+    <h1>Portfolio : {{ data.titre }}</h1>
 </div> 
 
-<a href="index.php?p=prestations">Retour</a>
+<a href="index.php?p=portfolio">Retour</a>
 
-<div class="alert" role="alert" id="alert_prestation_modifyadd"></div>
+<div class="alert" role="alert" id="alert_photo_modifyadd"></div>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
     <div class="form-row">
 
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-6">
             <div class="form-row">
                 <div class="form-group col">
                     <label for="titre">Titre</label>
-                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required>
+                    <textarea id="titre" class="form-control" type="text" name="titre" rows="3" minlength="5" maxlength="250" required>{{ data.titre }}</textarea>                    
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-8">
-                    <label for="categorie">Catégorie</label>
-                    <select class="form-control" name="categorie" id="categorie" required>
-                            {% for categorie in categories %}
-                                {% if categorie.nom == data.categorie %}
-                                    <option value="{{ categorie.id }}" selected="selected">{{ categorie.nom }}</option>
+                <div class="form-group col-md-12">
+                    <label for="album">Album</label>
+                    <select class="form-control" name="album" id="album" required>
+                            {% for album in albums %}
+                                {% if album.titre == data.album %}
+                                    <option value="{{ album.id }}" selected="selected">{{ album.titre }}</option>
                                 {% else %}
-                                    <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+                                    <option value="{{ album.id }}">{{ album.titre }}</option>
                                 {% endif %}
                             {% endfor %}          
                     </select>
                 </div>
-                <div class="form-group col-md-2">
-                    <div class="form-group">
-                        <label for="prix">Prix</label>
-                        <input id="prix" class="form-control" type="text" name="prix" value="{{ data.prix }}" minlength="1" maxlength="10" placeholder="ex: 80.00" required>
-                    </div>
-                </div>
-                <div class="form-group col-md-2">
-                    <div class="form-group">
-                        <label for="temps">Temps</label>
-                        <input id="temps" class="form-control" type="text" name="temps" value="{{ data.temps }}" minlength="1" maxlength="10" placeholder="ex: 2h30" required>
-                    </div>
-                </div>
             </div>
-            <div class="form-group">
-                <label for="detail">Detail</label>
-                <textarea id="detail" class="form-control" type="text" name="detail" rows="10" maxlength="5000">{{ data.detail }}</textarea>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="mots_cles">Mots clés</label>
+                    <input id="mots_cles" class="form-control" type="text" name="mots_cles" value="{{ data.mots_cles }}" maxlength="250" placeholder="ex: beauté, ongles, maquillage">
+                </div>
             </div>
         </div>
 
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label for="image">Image de la prestation</label>
             <input type="file" class="form-control-file" id="fichier" name="file">
             {% if data.lien_img %}
                 <hr>
                 <span>Image actuelle</span>
-                <img class="img_prestation_frm" src="{{ data.lien_img }}" alt="">
-                <hr>
-                <a class="btn btn-danger" href="index.php?p=prestations&q=deleteImg&id={{ data.id }}">
-                    Supprimer l'image
-                </a>                
+                <img class="img_frm" src="{{ data.lien_img }}" alt="">              
             {% endif %}
         </div>
     </div>
@@ -108,7 +94,7 @@
     })
 
     function displayResponse(rep) {
-        let fenetre = document.getElementById('alert_prestation_modifyadd');
+        let fenetre = document.getElementById('alert_photo_modifyadd');
         fenetre.style.display = 'block';
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
@@ -117,7 +103,7 @@
             }, 1500);
             fenetre.classList.remove('alert-danger');
             fenetre.classList.add('alert-success');
-            fenetre.textContent = "La prestation a bien été ajoutée/modifiée";
+            fenetre.textContent = "La photo a bien été ajoutée/modifiée";
             $('#frm')[0].reset();
         } else {
             let errors = [];

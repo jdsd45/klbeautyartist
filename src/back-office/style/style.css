@@ -1,9 +1,9 @@
 
 
-#alert_prestation_modifyadd {
+#alert_prestation_modifyadd, #alert_photo_modifyadd {
     display: none;
 }
 
-.img_prestation_frm {
+.img_frm {
     width:100%;
 }

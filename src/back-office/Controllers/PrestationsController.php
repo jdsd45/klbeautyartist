@@ -31,6 +31,8 @@ class PrestationsController extends Controller {
             $this->addPrestation();
         } elseif($action == 'delete' && $id) {
             $this->deletePrestation($id);
+        } elseif($action == 'deleteImg' && $id) {
+            $this->deleteImg($id);
         } else {
             $this->showDefault();
         }
@@ -69,15 +71,15 @@ class PrestationsController extends Controller {
                 if(file_exists(PrestationsManager::selectPathImg($id))) {
                     unlink(PrestationsManager::selectPathImg($id));
                 } 
-                $img->register();
-                PrestationsManager::updatePathImg($id, $img->getPath());
+                if($img->register()){
+                    PrestationsManager::updatePathImg($id, $img->getPath());
+                }
             }
             $this->setErrors('image', $img->getError());
-        }    
-        
+        }  
+        $this->setErrors('form', $form->getError());
         echo (json_encode($this->getError()));        
     }
-
 
     protected function addPrestation() {
         if(!isset($_POST) || empty($_POST)) {
@@ -87,6 +89,7 @@ class PrestationsController extends Controller {
             $this->run();                
             exit();
         } 
+        
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $form = new Form($this::FIELDS_REF, $_POST);   
             $img = new Image($_FILES['file'], 5000, 'static');
@@ -109,13 +112,21 @@ class PrestationsController extends Controller {
     protected function deletePrestation($id) {
         if(file_exists(PrestationsManager::selectPathImg($id))) {
             unlink(PrestationsManager::selectPathImg($id));
+        }
+        PrestationsManager::deletePrestation($id);
+        echo (json_encode($this->getError()));
+        $this->showPrestations();
+    }
+
+    protected function deleteImg($id) {
+        if(file_exists(PrestationsManager::selectPathImg($id))) {
+            unlink(PrestationsManager::selectPathImg($id));
+            PrestationsManager::updatePathImg($id, null);
         } else {
             $this->setError('image', 'Erreur dans la suppression de l\'image, la prestation n\'a pu être supprimmée');
         }
-        
-        PrestationsManager::deletePrestation($id);
-        $this->showPrestations();
-        //echo (json_encode($this->getError()));
+        echo (json_encode($this->getError()));
+        $this->showPrestation($id);
     }
 
     protected function run() {
