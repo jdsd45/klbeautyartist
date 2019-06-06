@@ -1,32 +1,33 @@
 <?php
 
-class AboutManager extends BddManager {
+class ContactManager extends BddManager {
 
-    public static function selectAbout() {
+    public static function selectContact() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT content, lien_img
-            FROM about
+            SELECT content_1, content_2, lien_img
+            FROM contact
         ');
         $data = $req->fetch(PDO::FETCH_ASSOC);
         return $data;
     }
     
-    public static function updateAbout($data) {
+    public static function updateContact($data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare("
-            UPDATE about
-            SET content=:content
+            UPDATE contact
+            SET content_1=:content_1, content_2=:content_2
         ");
         $req->execute(array(
-            'content' => $data['content']         
+            'content_1' => $data['content_1'],         
+            'content_2' => $data['content_2'],         
         ));
     }
 
 	public static function updatePathImg($path) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
-            UPDATE about 
+            UPDATE contact 
             SET lien_img=:path
             ');
 		
@@ -39,7 +40,7 @@ class AboutManager extends BddManager {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
             SELECT lien_img
-            FROM about 
+            FROM contact 
             ');
         $data = $req->fetch();
         return $data['lien_img'];        

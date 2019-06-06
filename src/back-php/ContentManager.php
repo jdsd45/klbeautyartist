@@ -39,6 +39,16 @@ class ContentManager extends BddManager {
         return $data;
     }    
 
+    public static function getContact() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT content_1, content_2, lien_img
+            FROM contact
+        ');
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }    
+
 }
 
 

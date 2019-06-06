@@ -1,6 +1,6 @@
 <?php 
 
-class AboutController extends Controller {
+class ContactController extends Controller {
 
     protected $img;
     protected $error = [
@@ -9,7 +9,8 @@ class AboutController extends Controller {
     ];
 
     const FIELDS_REF = [
-        'content'     => ['lengthMin' => 5, 'lengthMax' => 9999, 'regex' => null]
+        'content_1'     => ['lengthMin' => 5, 'lengthMax' => 2000, 'regex' => null],
+        'content_2'     => ['lengthMin' => 5, 'lengthMax' => 2000, 'regex' => null],
     ];
 
     public function __construct()
@@ -19,25 +20,25 @@ class AboutController extends Controller {
 
     public function hub($action=null, $id=null) {
         if(!$action) {
-            $this->showAbout();
+            $this->showContact();
         } elseif($action == 'modify') {
-            $this->modifyAbout();
+            $this->modifyContact();
         } else {
             $this->showDefault();
         }
     }    
 
     protected function showDefault() {
-        $this->showAbout();
+        $this->showContact();
     }
 
-    protected function showAbout() {
-        $this->setData(AboutManager::selectAbout());
-        $this->setVue('Vue_About.twig');
+    protected function showContact() {
+        $this->setData(ContactManager::selectContact());
+        $this->setVue('Vue_Contact.twig');
         $this->run();
     }
 
-    protected function modifyAbout() {
+    protected function modifyContact() {
         if(!isset($_POST) || empty($_POST)) {
             $this->setError('form', 'Aucun formulaire reçu');
             echo (json_encode($this->getError()));
@@ -45,18 +46,18 @@ class AboutController extends Controller {
         } 
         $form = new Form($this::FIELDS_REF, $_POST);
         if(count($form->getError()) == 0) {
-            AboutManager::updateAbout($form->getFields());
+            ContactManager::updateContact($form->getFields());
         }
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, '../../static');
+            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
             //$img = new Image($_FILES['file'], 5000, '../static');
             if(count($img->getError()) == 0) {
-                if(file_exists(AboutManager::selectPathImg())) {
-                    unlink(AboutManager::selectPathImg());
+                if(file_exists(ContactManager::selectPathImg())) {
+                    unlink(ContactManager::selectPathImg());
                 } 
                 if($img->register()) {
-                    AboutManager::updatePathImg($img->getPath());
+                    ContactManager::updatePathImg($img->getPath());
                 }
             }
             $this->setErrors('image', $img->getError());

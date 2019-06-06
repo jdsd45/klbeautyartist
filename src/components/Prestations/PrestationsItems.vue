@@ -23,12 +23,8 @@
                                 {{ prestation.temps }}
                             </span>
                         </div>
-<!--                         <p class="prest-detail">
+                        <p class="prest-detail">
                             {{ prestation.detail }}
-                        </p> -->
-                        <!-- <p class="prest-detail" v-for="(detail, index) in (prestation.detail.split('\n'))" v-bind:key="index" > -->
-                        <p class="prest-detail" v-for="(detail, index) in details(prestation)" v-bind:key="index" >
-                            {{ detail }}
                         </p>
                     </div>
                 </div>
@@ -53,17 +49,14 @@ export default {
     },   
     created: function() {
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
-            //.get('back-php/index.php?q=prestations')
+            //.get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
+            .get('back-php/index.php?q=prestations')
             .then(response => (this.prestations = response.data))
     },                             
     methods: {
         selectInCategories: function(prestation) {
             return prestation.categorie == this.currentcategory
-        },
-        details : function(prestation) {
-            return prestation.detail.split('\n')
-        }   
+        }  
     }
 }
 </script>

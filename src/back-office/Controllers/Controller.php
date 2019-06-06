@@ -6,6 +6,8 @@ class Controller {
     protected $data;
     protected $vue;
     protected $filtre;
+    //protected $folderImg = '../../static';
+    protected $folderImg = '../static';
 
     protected function setTwig() {
         $loader = new \Twig\Loader\FilesystemLoader('./Vues/');
@@ -50,6 +52,14 @@ class Controller {
 
     protected function getFiltre() {
         return $this->filtre;
+    }
+    
+    protected function setFolderImg($folderImg) {
+        $this->folderImg = $folderImg;
+    }
+
+    protected function getFolderImg() {
+        return $this->folderImg;
     }
 
 }

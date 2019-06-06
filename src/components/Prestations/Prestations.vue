@@ -33,8 +33,8 @@ export default {
     },
     async created() {
         try {
-            let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
-            //let response = await axios.get('back-php/index.php?q=categories')
+            //let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            let response = await axios.get('back-php/index.php?q=categories')
             this.categories = response.data
 
             let route = this.$route.params.categorie;
@@ -48,7 +48,7 @@ export default {
                 this.currentcategory = this.categories[0].nom
             }
         } catch (error) {
-            console.log(error)
+
         }
     },
     methods: {

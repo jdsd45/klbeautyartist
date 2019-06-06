@@ -14,6 +14,9 @@ if(isset($_GET['q'])) {
         case 'about';
             $data = ContentManager::getAbout();
         break;
+        case 'contact';
+            $data = ContentManager::getContact();
+        break;
         default:
             exit();
         break;
