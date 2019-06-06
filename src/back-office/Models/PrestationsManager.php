@@ -1,27 +1,14 @@
 <?php
 
-require 'BddManager.php';
-
 class PrestationsManager extends BddManager {
-
-/*     public static function selectCategories(){
-        $bdd = parent::bddConnect();
-        $req = $bdd->query('
-            SELECT DISTINCT categorie 
-            FROM prestations
-            ORDER BY categorie
-        ');
-        while($data = $req->fetch()) {
-            $result[] = $data['categorie'];
-        }   
-        return $result;
-    } */
 
     public static function selectPrestations() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT id, categorie, titre, prix, temps, lien_img, detail
-            FROM prestations
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            FROM prestations p
+            LEFT JOIN prestations_categories cat
+            ON cat.id = p.fk_categorie
             ORDER BY categorie
         ');
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -31,21 +18,42 @@ class PrestationsManager extends BddManager {
     public static function selectPrestation($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT id, categorie, titre, prix, temps, lien_img, detail
-            FROM prestations 
-            WHERE id = ?');
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            FROM prestations p
+            LEFT JOIN prestations_categories cat
+            ON cat.id = p.fk_categorie            
+            WHERE p.id = ?');
         $req->execute(array($id));
         $donnees = $req->fetch(PDO::FETCH_ASSOC);
         return $donnees;        
     }
 
-    public static function updatePrestation($id, $data) {
+    public static function insertPrestation($data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            UPDATE prestations
-            SET titre=:titre, categorie=:categorie, prix=:prix, temps=:temps, detail=:detail
-            WHERE id=:id
+            INSERT INTO prestations(fk_categorie, titre, prix, temps, detail)
+            VALUES(:categorie, :titre, :prix, :temps, :detail)    
         ');
+        $req->execute(array(
+            'categorie' => $data['categorie'],
+            'titre'     => $data['titre'],
+            'prix'      => $data['prix'],
+            'temps'     => $data['temps'],
+            'detail'    => $data['detail']
+        ));
+    }    
+
+    public static function updatePrestation($id, $data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare("
+            UPDATE prestations
+            SET titre=:titre, 
+                fk_categorie=(SELECT id FROM prestations_categories WHERE id=:categorie), 
+                prix=:prix, 
+                temps=:temps, 
+                detail=:detail
+            WHERE id=:id
+        ");
         $req->execute(array(
             'id'        => $id,
             'categorie' => $data['categorie'],
@@ -58,25 +66,21 @@ class PrestationsManager extends BddManager {
 
     public static function deletePrestation($id)
     {
-        $bdd = PersonnageManager::bddConnect();
-        $requete = $bdd->prepare('DELETE FROM prestations WHERE id = ?');
-        $requete->execute(array($id));
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('DELETE FROM prestations WHERE id = ?');
+        $req->execute(array($id));
     }
 
-    public static function insertPrestation($data, $path) {
+
+    public static function selectIdLastPrestation() {
         $bdd = parent::bddConnect();
-        $req = $bdd->prepare('
-            INSERT INTO prestations(categorie, titre, prix, temps, lien_img, detail)
-            VALUES(:categorie, :titre, :prix, :temps, :lien_img, :detail)    
+        $req = $bdd->query('
+            SELECT id
+            FROM prestations
+            ORDER BY id DESC LIMIT 0, 1
         ');
-        $req->execute(array(
-            'categorie' => $data['categorie'],
-            'titre'     => $data['titre'],
-            'prix'      => $data['prix'],
-            'temps'     => $data['temps'],
-            'lien_img'  => $path,
-            'detail'    => $data['detail']
-        ));
+        $data = $req->fetch();
+        return $data['id'];
     }
 
 	public static function updatePathImg($id, $path) {
@@ -87,6 +91,7 @@ class PrestationsManager extends BddManager {
             WHERE id=:id');
 		
 		$req->execute(array(
+            'id'   => $id,
 			'path' => $path
 		));
     }
@@ -101,12 +106,5 @@ class PrestationsManager extends BddManager {
         $data = $req->fetch();
         return $data['lien_img'];        
     }    
-
-
-    public static function getCategories() {
-        $data = file_get_contents('static/categories.json');
-        $data = json_decode($data);
-        return $data;
-    } 
 
 }

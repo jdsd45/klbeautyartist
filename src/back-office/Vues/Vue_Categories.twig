@@ -1,0 +1,73 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Catégories</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Catégories</h1>
+</div> 
+
+<a href="index.php?p=prestations">Retour</a>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col"></th>    
+                <th scope="col"></th>    
+            </tr>
+        </thead>
+        {% for categorie in data %}
+            <tr>
+                <th scope="row"> 
+                    {{ loop.index }} 
+                </th>
+            {% if categorie.nom == 'Autre' %}
+                <td>
+                    {{ categorie.nom }}
+                </td>                            
+                <td>
+                </td>  
+                <td>
+                </td>   
+            {% else %}                                                                                           
+                <form action="index.php?p=categories&q=modify&id={{ categorie.id }}" method="post">
+                    <td>
+                        <input id="nom_categorie" class="form-control" type="text" value="{{ categorie.nom }}" name="nom" minlength="1" maxlength="200" placeholder="ex: Beauté des mains" required>
+                    </td>                            
+                    <td>
+                            <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+                    </td>  
+                </form>                            
+                <td>
+                    <a class="text-danger" href="index.php?p=categories&q=del&id={{ categorie.id }}" />Supprimer</a>    
+                </td>   
+            {% endif %}
+            </tr>
+        {% endfor %}
+            <tr>
+                <th scope="row"> 
+                </th>
+                <form action="index.php?p=categories&q=add" method="post">
+                <td>
+                    <input id="nom_categorie" class="form-control" type="text" name="nom" minlength="1" maxlength="200" placeholder="ex: Beauté des mains" required>
+                </td>                            
+                <td>
+                    <button type="submit" class="btn btn-primary mb-2">Ajouter une nouvelle catégorie</button>
+                </td>  
+                </form>                          
+                <td>
+                      
+                </td>                                                                                            
+            </tr>
+    </table>
+</div>
+
+
+{% endblock %}
+

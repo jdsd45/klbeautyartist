@@ -1,0 +1,133 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Portfolio</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Portfolio : {{ data.titre }}</h1>
+</div> 
+
+<a href="index.php?p=portfolio">Retour</a>
+
+<div class="alert" role="alert" id="alert_photo_modifyadd"></div>
+
+<form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
+
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="titre">Titre</label>
+                    <textarea id="titre" class="form-control" type="text" name="titre" rows="3" minlength="5" maxlength="250" required>{{ data.titre }}</textarea>                    
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="album">Album</label>
+                    <select class="form-control" name="album" id="album" required>
+                            {% for album in albums %}
+                                {% if album.titre == data.album %}
+                                    <option value="{{ album.id }}" selected="selected">{{ album.titre }}</option>
+                                {% else %}
+                                    <option value="{{ album.id }}">{{ album.titre }}</option>
+                                {% endif %}
+                            {% endfor %}          
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="mots_cles">Mots clés</label>
+                    <input id="mots_cles" class="form-control" type="text" name="mots_cles" value="{{ data.mots_cles }}" maxlength="250" placeholder="ex: beauté, ongles, maquillage">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file" id="fichier" name="file">
+            {% if data.lien_img %}
+                <hr>
+                <span>Image actuelle</span>
+                <img class="img_frm" src="{{ data.lien_img }}" alt="">              
+            {% endif %}
+        </div>
+    </div>
+
+    {% if filtre == 'addPhoto' %}
+        <button type="submit" class="btn btn-primary mb-2">Ajouter une nouvelle photo</button>
+    {% else %}
+        <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+    {% endif %}
+        
+</form>
+
+<script>
+
+    {% if filtre == 'addPhoto' %}
+        let url = 'index.php?p=portfolio&q=add'
+    {% else %}
+        let url = 'index.php?p=portfolio&q=modify&id='+{{ data.id }}
+    {% endif %}
+    
+
+    $('#frm').submit(function(e) {
+        e.preventDefault();
+        let form = $('#frm')[0];
+        let formData = new FormData(form);
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(reponse) {
+                let rep = JSON.parse(reponse);
+                displayResponse(rep)
+            }
+        })
+    })
+
+    function displayResponse(rep) {
+        let fenetre = document.getElementById('alert_photo_modifyadd');
+        fenetre.style.display = 'block';
+        fenetre.textContent = "";
+        if(rep.form.length == 0 & rep.image.length == 0) {
+            setTimeout(function() {
+                document.location.reload(true)
+            }, 1500);
+            fenetre.classList.remove('alert-danger');
+            fenetre.classList.add('alert-success');
+            fenetre.textContent = "La photo a bien été ajoutée/modifiée";
+            $('#frm')[0].reset();
+        } else {
+            let errors = [];
+            let listErrors = document.createElement('ul');
+            for(let i=0; i<rep.form.length; i++){
+                errors.push(rep.form[i]);
+            }
+            for(let i=0; i<rep.image.length; i++){
+                errors.push(rep.image[i]);
+            }
+
+            for(let i=0; i<errors.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = errors[i];
+                listErrors.appendChild(li);
+            }
+            fenetre.appendChild(listErrors);
+            fenetre.classList.remove('alert-success');
+            fenetre.classList.add('alert-danger');
+        }
+    }
+
+</script>
+
+
+{% endblock %}
+

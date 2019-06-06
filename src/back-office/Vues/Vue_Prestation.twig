@@ -10,6 +10,9 @@
     <h1>Prestation : {{ data.titre }}</h1>
 </div> 
 
+<a href="index.php?p=prestations">Retour</a>
+
+<div class="alert" role="alert" id="alert_prestation_modifyadd"></div>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
@@ -26,18 +29,13 @@
                 <div class="form-group col-md-8">
                     <label for="categorie">Catégorie</label>
                     <select class="form-control" name="categorie" id="categorie" required>
-                        {# {% if data %} #}
-                            {% for categorie in data.categories %}
-                                {% if categorie == data.categorie %}
-                                    <option value="{{ categorie }}" selected="selected">{{ categorie }}</option>
+                            {% for categorie in categories %}
+                                {% if categorie.nom == data.categorie %}
+                                    <option value="{{ categorie.id }}" selected="selected">{{ categorie.nom }}</option>
                                 {% else %}
-                                    <option value="{{ categorie }}">{{ categorie }}</option>
+                                    <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
                                 {% endif %}
                             {% endfor %}          
-                        {# {% else %}
-                                <option value="Autre">Autre</option>
-                        {% endif %} #}
-                        
                     </select>
                 </div>
                 <div class="form-group col-md-2">
@@ -61,11 +59,15 @@
 
         <div class="form-group col-md-4">
             <label for="image">Image de la prestation</label>
+            <input type="file" class="form-control-file" id="fichier" name="file">
             {% if data.lien_img %}
-                <input type="file" class="form-control-file" id="fichier" name="file">
-                <img src="{{ data.lien_img }}" alt="">
-            {% else %}
-                <input type="file" class="form-control-file" id="fichier" name="file" required>
+                <hr>
+                <span>Image actuelle</span>
+                <img class="img_frm" src="{{ data.lien_img }}" alt="">
+                <hr>
+                <a class="btn btn-danger" href="index.php?p=prestations&q=deleteImg&id={{ data.id }}">
+                    Supprimer l'image
+                </a>                
             {% endif %}
         </div>
     </div>
@@ -76,8 +78,6 @@
         <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
     {% endif %}
         
-    
-
 </form>
 
 <script>
@@ -101,10 +101,45 @@
             processData: false,
             contentType: false,
             success: function(reponse) {
-                console.log('success reponse');
+                let rep = JSON.parse(reponse);
+                displayResponse(rep)
             }
         })
     })
+
+    function displayResponse(rep) {
+        let fenetre = document.getElementById('alert_prestation_modifyadd');
+        fenetre.style.display = 'block';
+        fenetre.textContent = "";
+        if(rep.form.length == 0 & rep.image.length == 0) {
+            setTimeout(function() {
+                document.location.reload(true)
+            }, 1500);
+            fenetre.classList.remove('alert-danger');
+            fenetre.classList.add('alert-success');
+            fenetre.textContent = "La prestation a bien été ajoutée/modifiée";
+            $('#frm')[0].reset();
+        } else {
+            let errors = [];
+            let listErrors = document.createElement('ul');
+            for(let i=0; i<rep.form.length; i++){
+                errors.push(rep.form[i]);
+            }
+            for(let i=0; i<rep.image.length; i++){
+                errors.push(rep.image[i]);
+            }
+
+            for(let i=0; i<errors.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = errors[i];
+                listErrors.appendChild(li);
+            }
+            fenetre.appendChild(listErrors);
+            fenetre.classList.remove('alert-success');
+            fenetre.classList.add('alert-danger');
+        }
+    }
+
 </script>
 
 

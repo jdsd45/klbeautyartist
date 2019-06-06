@@ -1,0 +1,26 @@
+[
+	{
+        "id":1,
+        "album":"Album 1",
+        "titre":"Maquillage mariée",
+        "link":"maquillage-mariee",
+        "keys" : ["mot 1", "mot 2", "mot 3"],
+        "lien_img":"https://picsum.photos/id/600/500/600"
+    },
+	{
+        "id":2,
+        "album":"Album 2",
+        "titre":"Maquillage mode",
+        "link":"maquillage-mode",        
+        "keys" : ["mot 1", "mot 2", "mot 3"],
+        "lien_img":"https://picsum.photos/id/399/700/600"
+    },
+	{
+        "id":3,
+        "album":"Album 3",
+        "titre":"Maquillage évènementiel",
+        "link":"maquillage-evenementiel",
+        "keys" : ["mot 1", "mot 2", "mot 3"],
+        "lien_img":"https://picsum.photos/id/400/500/600"
+    }
+]

@@ -1,7 +1,5 @@
 <?php
 
-require 'BddManager.php';
-
 class MessagesManager extends BddManager {
 
     public static function getMessages() {
@@ -12,8 +10,8 @@ class MessagesManager extends BddManager {
             WHERE date_suppression IS NULL
             ORDER BY date_message 
             ');
-        $donnees = $req->fetchAll(PDO::FETCH_ASSOC);
-        return $donnees;
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     public static function getMessagesSupprimes() {

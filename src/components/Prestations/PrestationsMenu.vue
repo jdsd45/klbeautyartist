@@ -6,9 +6,9 @@
             v-bind:categorie="categorie"
             v-bind:index="index"
             v-bind:key="index"
-            v-bind:class="{ catSelected: currentcategory === categorie.name }"
-            v-on:click="$emit('updatecategorie', categorie.name)">
-                {{categorie.name}}
+            v-bind:class="{ catSelected: currentcategory === categorie.nom }"
+            v-on:click="$emit('updatecategorie', categorie.nom)">
+                {{categorie.nom}}
             </li>
         </ul>
     </div>
@@ -17,8 +17,9 @@
 <script>
 export default {
     name: 'PrestationsMenu',
-    props: ['currentcategory'],
-    data () {
+    props: ['currentcategory', 'categories'],
+    //props: ['currentcategory'],
+/*     data () {
         return {
             categories: [
                 {name: 'Maquillage semi-permanent'}, 
@@ -26,6 +27,10 @@ export default {
                 {name: 'Beauté des cils'}
             ]        
         }
+    } */
+    mounted: function() {
+/*         console.log('test ');
+        console.log(this.currentcategory); */
     }
 }
 </script>
@@ -37,8 +42,8 @@ export default {
         text-align: center;
         padding-left: 0;
         padding-right: 0;
-        padding-top: 10px;
-        padding-bottom: 8px;
+        padding-top: 15px;
+        padding-bottom: 10px;
         margin-bottom:0;
         white-space: nowrap;  
         overflow-x: auto;
@@ -51,22 +56,27 @@ export default {
         text-align: center;
         padding-left: 3%;
         padding-right: 3%;  
-        padding-bottom: 5px;
-        padding-top: 5px;
+        padding-bottom: 8px;
+        padding-top: 8px;
         background-color: #C5A164;
         border-radius: 5px;
         margin-right:6px;
         margin-left: 6px;
         color:white;
-
         box-shadow: inset 0 0 3px white;
 
         }
 
     .catSelected {
         background-color: white;
-        border-bottom: 3px solid #A164C5;  
-        color: #A164C5;
-        box-shadow: inset 0 0 3px #A164C5;
+        border-bottom: 3px solid #C5A164;  
+        color: #C5A164;
+        box-shadow: inset 0 0 5px #C5A164;
     }
+
+    .item-cat-prestations:not(.catSelected):hover {
+        border-bottom: 3px solid #C5A164;  
+        background-color: rgb(169,169,169);
+    }
+
 </style>

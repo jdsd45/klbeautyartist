@@ -4,8 +4,8 @@
             :perPage="1"
             :perPageCustom="[[1024,2]]"
             :paginationEnabled="true"
-            :paginationSize="10"
-            :paginationActiveColor="'#FF0831'"
+            :paginationSize="13"
+            :paginationActiveColor="'#C5A164'"
             :paginationPosition="'bottom-overlay'"
             >
             <slide class="slide-carousel-home">
@@ -40,7 +40,7 @@ export default {
     }
     .slide-carousel-home img {
         width:100%; 
-        height:40vh;
+        height:50vh;
         object-fit: cover;
     }
 

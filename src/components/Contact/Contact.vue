@@ -1,19 +1,20 @@
 <template>
-    <div class="container-fluid">
-        <div class="row" id="cont-contact">
-            <div class="col-md-7" v-if="donnees != null">
+    <div class="container" id="cont-contact">
+        <div class="row" id="">
+            <div class="col-md-12" v-if="donnees != null">
                 <h2>Me contacter</h2>
                 <div class="row">
-                    <div class="col-md-7" id="carte">
+                    <div class="col-md-6" id="carte">
                         <Carte></Carte>
                     </div>
-                    <div class="col-md-5" id="contact_haut_droite">
+                    <div class="col-md-6" id="contact_haut_droite">
                         <p v-for="content in donnees.contents.haut_droite" :key="content.index">
         
                             {{ content }}
                         </p>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-md-7" id="contact_bas_gauche">
                         <p v-for="content in donnees.contents.bas_gauche" :key="content.index"> 
@@ -25,7 +26,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
                 <h2>Formulaire de contact</h2>
                 <FormContact></FormContact>
             </div>
@@ -61,6 +65,10 @@ export default {
 
 #img-salon {
     max-width:100%;
+}
+
+#cont-contact {
+    padding-bottom: 10px;
 }
 
 </style>

@@ -1,14 +1,13 @@
 <template>
-    <div id="app">
-        <div>
-            <Menu></Menu>
-        </div>
-        <div class="" id="main-content">
-            <router-view></router-view>
-        </div>
-        <div class="push"></div>
-        <Footer></Footer>
+
+<div id="app">
+    <Menu></Menu>
+    <div class="" id="main-content">
+        <router-view></router-view>
     </div>
+    <Footer></Footer>
+</div>
+
 </template>
 
 <script>
@@ -20,6 +19,17 @@ export default {
     components: {
         'Menu' : Menu,
         'Footer' : Footer
+    }, 
+    methods : {
+        setHeightFooter () {
+            let heightFooter = document.getElementById('footer').offsetHeight;
+            let main = document.getElementById('main-content');
+            main.style.paddingBottom = heightFooter + "px";
+        }
+    },
+    mounted: function() {
+        this.setHeightFooter();
+        window.onresize = this.setHeightFooter;
     }
 }
 </script>
@@ -32,18 +42,6 @@ export default {
     overflow-x: hidden;
 }
 
-.push {
-    height:50px
-}
-
-/* body {
-    background-color: #D9AA8F;
-} */
-
-#app {
-
-}
-
 p, span, li {
     font-family: 'Source Sans Pro', sans-serif;
 
@@ -54,6 +52,14 @@ h1, h2, h3, h4, h5 {
     color: #C5A164;
 }
 
+html, body {
+    height: 100%;
+}
+
+#app {
+    position: relative;
+    min-height: 100%;
+}
 
 
 </style>

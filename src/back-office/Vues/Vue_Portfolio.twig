@@ -1,0 +1,77 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Portfolio</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Portofolio</h1>
+</div> 
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>    
+                <th scope="col">Album</th>
+                <th scope="col">Mots clés</th>    
+                <th scope="col">Image</th>    
+                <th scope="col">En Ligne</th>    
+                <th scope="col"></th>        
+            </tr>
+        </thead>
+        {% for photo in data %}
+            <tr>
+                <th scope="row"> 
+                    {{ loop.index }} 
+                </th>
+                <td>
+                    {{ photo.titre }}
+                </td>                            
+                <td>
+                    {{ photo.album }}
+                </td>                            
+                <td>
+                    {{ photo.mots_cles }}
+                </td>                            
+                <td>
+                    <img class="img_portfolio" src="{{ photo.lien_img }}" alt="">
+                    
+                </td>                            
+                <td>
+                    {% if photo.en_ligne %}
+                        oui
+                    {% else %}
+                        non
+                    {% endif %}
+                    
+                </td>  
+                <td> 
+                    <a class="text-primary" href="index.php?p=portfolio&q=visibility&id={{ photo.id }}" />
+                    {% if photo.en_ligne == true %}
+                        Mettre hors-ligne
+                    {% else %}
+                        Mettre en ligne
+                    {% endif %}
+                    </a>
+                    <hr>
+                    <a class="text-primary" href="index.php?p=portfolio&id={{ photo.id }}" />Modifier</a>
+                    <hr>
+                    <a class="text-danger" href="index.php?p=portfolio&q=delete&id={{ photo.id }}" />Supprimer</a>
+                </td>                                                                                
+            </tr>
+        {% endfor %}
+    </table>
+        <a class="btn btn-primary" href="index.php?p=portfolio&q=add">
+            Ajouter une nouvelle photo
+        </a>
+{#         <a class="btn btn-primary" href="index.php?p=albums">
+            Gérer les albums
+        </a> #}
+</div>
+
+{% endblock %}
+

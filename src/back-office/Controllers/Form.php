@@ -45,10 +45,6 @@ class Form {
         $this->fields_ref = $fields_ref;
     }
 
-    private function getFields_ref() {
-        return $this->fields_ref;
-    }
-
     private function setFields($fields) {
         foreach ($fields as $fieldName => $value) {
             $fields[$fieldName] = htmlspecialchars($value, ENT_NOQUOTES);
@@ -56,18 +52,22 @@ class Form {
         }
         $this->fields = $fields;
     }
-
-    public function getFields() {
-        return $this->fields;
-    }    
     
     public function setError(string $log) : void {
         $this->error[] = $log;
     }
-
+    
     public function getError() : array {
         return $this->error;
     }
+    
+    public function getFields_ref() {
+        return $this->fields_ref;
+    }    
+
+    public function getFields() {
+        return $this->fields;
+    }    
 
 }
 

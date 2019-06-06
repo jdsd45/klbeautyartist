@@ -1,0 +1,13 @@
+
+
+#alert_prestation_modifyadd, #alert_photo_modifyadd {
+    display: none;
+}
+
+.img_frm {
+    width:100%;
+}
+
+.img_portfolio {
+    max-height: 150px;
+}
