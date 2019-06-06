@@ -23,8 +23,12 @@
                                 {{ prestation.temps }}
                             </span>
                         </div>
-                        <p class="prest-detail">
+<!--                         <p class="prest-detail">
                             {{ prestation.detail }}
+                        </p> -->
+                        <!-- <p class="prest-detail" v-for="(detail, index) in (prestation.detail.split('\n'))" v-bind:key="index" > -->
+                        <p class="prest-detail" v-for="(detail, index) in details(prestation)" v-bind:key="index" >
+                            {{ detail }}
                         </p>
                     </div>
                 </div>
@@ -42,27 +46,25 @@ export default {
             prestations: null
         }
     },
+    computed : {
+        prestationsFiltrees: function() {
+            if(this.prestations != null) return this.prestations.filter(this.selectInCategories)
+        }          
+    },   
+    created: function() {
+        axios
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
+            //.get('back-php/index.php?q=prestations')
+            .then(response => (this.prestations = response.data))
+    },                             
     methods: {
         selectInCategories: function(prestation) {
             return prestation.categorie == this.currentcategory
         },
-
-    },
-/*     created: function() {
-        axios
-            .get('/static/prestations.json')
-            .then(response => (this.prestations = response.data))
-    }, */
-    created: function() {
-        axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
-            .then(response => (this.prestations = response.data))
-    }, 
-    computed : {
-        prestationsFiltrees: function() {
-            if(this.prestations != null) return this.prestations.filter(this.selectInCategories)
-        }
-    }                                
+        details : function(prestation) {
+            return prestation.detail.split('\n')
+        }   
+    }
 }
 </script>
 

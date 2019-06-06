@@ -77,6 +77,7 @@ class Image {
         if(in_array($type, $this::TYPES_AUTORISES)) {
             $this->type = $type;
         } else {
+            var_dump($type);
             $this->setError('Erreur dans le type de fichier (fichiers autorisés : ' . implode(', ', $this::TYPES_AUTORISES) . ')');
         }
     }

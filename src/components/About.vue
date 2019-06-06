@@ -4,11 +4,11 @@
         <hr>
         <div class="row">
             <div class="col-md-4">
-                <img :src="donnees.lien_img" alt="Photographie de Keslène DENIS" id="img-keslene">
+                <img :src="content.lien_img" alt="Photographie de Keslène DENIS" id="img-keslene">
             </div>
             <div class="col-md-7 about-par">
-                <p v-for="content in donnees.contents" v-bind:key="content.index">
-                    {{ content }}
+                <p v-for="(paragraphe, index) in splitParagraphes(content.content)" v-bind:key="index">
+                    {{ paragraphe }}
                 </p>
             </div>
         </div>
@@ -21,14 +21,19 @@ export default {
     name: 'About',
     data() {
         return {
-            donnees: ''
+            content: ''
         }
     },
     created: function() {
         axios
-            .get('static/a-propos_content.json')
-            .then(response => (this.donnees = response.data))
-   }                                             
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=about')
+            .then(response => (this.content = response.data))
+   },
+    methods: {
+        splitParagraphes : function(content) {
+            return content.split('\n')
+        }   
+    }                                           
 }
 </script>
 

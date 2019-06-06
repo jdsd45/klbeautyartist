@@ -28,14 +28,10 @@ export default {
             categoriesPrestations: null
         }
     },
-/*     created: function() {
-        axios
-            .get('static/home_content.json')
-            .then(response => (this.homeContent = response.data))        
-    } */
     created: function() {
         axios
             .get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            //.get('back-php/index.php?q=categories')
             .then(response => (this.categoriesPrestations = response.data))
     },     
 }
