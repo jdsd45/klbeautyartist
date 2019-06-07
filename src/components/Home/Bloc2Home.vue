@@ -30,8 +30,8 @@ export default {
     },
     created: function() {
         axios
-            //.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
-            .get('back-php/index.php?q=categories')
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
+            //.get('back-php/index.php?q=categories')
             .then(response => (this.categoriesPrestations = response.data))
     },     
 }

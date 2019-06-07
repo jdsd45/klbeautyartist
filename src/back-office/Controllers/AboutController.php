@@ -50,7 +50,6 @@ class AboutController extends Controller {
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
-            //$img = new Image($_FILES['file'], 5000, '../static');
             if(count($img->getError()) == 0) {
                 if(file_exists(AboutManager::selectPathImg())) {
                     unlink(AboutManager::selectPathImg());

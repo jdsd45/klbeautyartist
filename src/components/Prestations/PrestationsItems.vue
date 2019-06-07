@@ -49,8 +49,8 @@ export default {
     },   
     created: function() {
         axios
-            //.get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
-            .get('back-php/index.php?q=prestations')
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=prestations')
+            //.get('back-php/index.php?q=prestations')
             .then(response => (this.prestations = response.data))
     },                             
     methods: {

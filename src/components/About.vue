@@ -26,8 +26,8 @@ export default {
     },
     created: function() {
         axios
-            //.get('http://localhost/projet-keslene/src/back-php/index.php?q=about')
-            .get('back-php/index.php?q=about')
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=about')
+            //.get('back-php/index.php?q=about')
             .then(response => (this.content = response.data))
    },
     methods: {

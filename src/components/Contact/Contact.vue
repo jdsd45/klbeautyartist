@@ -53,8 +53,8 @@ export default {
     },
     created: function() {
         axios
-            //.get('http://localhost/projet-keslene/src/back-php/index.php?q=contact')
-            .get('back-php/index.php?q=contact')
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=contact')
+            //.get('back-php/index.php?q=contact')
             .then(response => (this.content = response.data))
     },
     methods: {
