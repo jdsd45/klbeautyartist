@@ -28,7 +28,7 @@ if (!isset($_GET['p']))
 }
 
 $p = $_GET['p'];
-$pages = ['messages', 'prestations', 'categories', 'portfolio', 'about', 'contact'];
+$pages = ['messages', 'prestations', 'categories', 'portfolio', 'portfolioAlbums', 'about', 'contact'];
 
 if(!in_array($p, $pages)) {
     echo $twig->render('Vue_Accueil.twig');
