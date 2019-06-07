@@ -2,6 +2,7 @@
 
 class BddManager
 {
+    
 /* 	private const DB_NAME = 'jdsdfrcjkmjojo';
     private const DB_HOST = 'jdsdfrcjkmjojo.mysql.db';
     private const DB_USER = 'jdsdfrcjkmjojo';

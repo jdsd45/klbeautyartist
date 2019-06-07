@@ -72,7 +72,8 @@ class PortfolioController extends Controller {
             exit();
         }
         $form = new Form($this::FIELDS_REF, $_POST);   
-        $img = new Image($_FILES['file'], 5000, '../../static');
+        $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
+
         if(count($form->getError()) == 0 AND count($img->getError()) == 0) {
             if($img->register()) {
                 PortfolioManager::insertPhoto($form->getFields(), $img->getPath());
@@ -97,7 +98,7 @@ class PortfolioController extends Controller {
         }
 
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, '../../static');
+            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
             if(count($img->getError()) == 0) {
                 if(file_exists(PortfolioManager::selectPathImg($id))) {
                     unlink(PortfolioManager::selectPathImg($id));

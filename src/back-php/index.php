@@ -11,6 +11,12 @@ if(isset($_GET['q'])) {
         case 'categories';
             $data = ContentManager::getCategories();
         break;
+        case 'about';
+            $data = ContentManager::getAbout();
+        break;
+        case 'contact';
+            $data = ContentManager::getContact();
+        break;
         default:
             exit();
         break;

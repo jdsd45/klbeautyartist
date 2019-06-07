@@ -1,28 +1,27 @@
 <template>
     <div class="container" id="cont-contact">
         <div class="row" id="">
-            <div class="col-md-12" v-if="donnees != null">
+            <div class="col-md-12" v-if="content != null">
                 <h2>Me contacter</h2>
                 <div class="row">
                     <div class="col-md-6" id="carte">
                         <Carte></Carte>
                     </div>
                     <div class="col-md-6" id="contact_haut_droite">
-                        <p v-for="content in donnees.contents.haut_droite" :key="content.index">
-        
-                            {{ content }}
-                        </p>
+                        <p v-for="(paragraphe, index) in splitParagraphes(content.content_1)" v-bind:key="index">
+                            {{ paragraphe }}
+                        </p>                        
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-7" id="contact_bas_gauche">
-                        <p v-for="content in donnees.contents.bas_gauche" :key="content.index"> 
-                            {{ content }}
-                        </p>
+                        <p v-for="(paragraphe, index) in splitParagraphes(content.content_2)" v-bind:key="index">
+                            {{ paragraphe }}
+                        </p>   
                     </div>
                     <div class="col-md-5">
-                        <img :src="donnees.lien_img" alt="Photographie du salon où je réalise mes prestations" id="img-salon">
+                        <img :src="content.lien_img" alt="Photographie du salon où je réalise mes prestations" id="img-salon">
                     </div>
                 </div>
             </div>
@@ -45,7 +44,7 @@ export default {
     name: 'Contact',
     data() {
         return {
-            donnees : null
+            content : null
         }
     },
     components: {
@@ -54,9 +53,15 @@ export default {
     },
     created: function() {
         axios
-            .get('static/contact_content.json')
-            .then(response => (this.donnees = response.data))
-    }
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=contact')
+            //.get('back-php/index.php?q=contact')
+            .then(response => (this.content = response.data))
+    },
+    methods: {
+        splitParagraphes : function(content) {
+            return content.split('\n')
+        }   
+    }      
 }
 </script>
 

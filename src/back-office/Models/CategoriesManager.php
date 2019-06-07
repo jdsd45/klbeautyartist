@@ -53,10 +53,6 @@ class CategoriesManager extends BddManager {
     public static function deleteCategorie($id)
     {
         $bdd = parent::bddConnect();
-        $req = $bdd->prepare("DELETE FROM prestations_categories WHERE id = ? AND nom != 'Autre'");
-        $req->execute(array($id));
-        $req->closeCursor();
-
         $req = $bdd->prepare("
             UPDATE prestations
             SET fk_categorie=(
@@ -69,7 +65,11 @@ class CategoriesManager extends BddManager {
         $req->execute(array(
             'idCatDelete' => $id
         ));
-        $req->closeCursor();    
+        
+        $req = $bdd->prepare("DELETE FROM prestations_categories WHERE id = ? AND nom != 'Autre'");
+        $req->execute(array($id));
+
+
 
     }
 

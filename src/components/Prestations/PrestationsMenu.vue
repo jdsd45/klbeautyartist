@@ -18,20 +18,6 @@
 export default {
     name: 'PrestationsMenu',
     props: ['currentcategory', 'categories'],
-    //props: ['currentcategory'],
-/*     data () {
-        return {
-            categories: [
-                {name: 'Maquillage semi-permanent'}, 
-                {name: 'Maquillage professionnel'}, 
-                {name: 'Beauté des cils'}
-            ]        
-        }
-    } */
-    mounted: function() {
-/*         console.log('test ');
-        console.log(this.currentcategory); */
-    }
 }
 </script>
 
