@@ -13,15 +13,16 @@ class PortfolioAlbumsManager extends BddManager {
         return $data;
     }
 
-    public static function albumNameNotExist($data) {
+    public static function albumNameNotExist($id, $data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
             SELECT titre
             FROM portfolio_albums
-            WHERE titre=:titre
+            WHERE titre=:titre AND id!=:id
         ');
         $req->execute(array(
-            'titre'   => $data['titre']
+            'titre'   => $data['titre'],
+            'id'      => $id
         ));
         if($req->fetch()) {
             return false;
@@ -43,15 +44,17 @@ class PortfolioAlbumsManager extends BddManager {
         ));
     }
 
-	public static function updatePathImg($path) {
+	public static function updatePathImg($id, $path) {
 		$bdd = parent::bddConnect();
 		$req = $bdd->prepare('
             UPDATE portfolio_albums 
             SET lien_img=:path
+            WHERE id=:id
             ');
 		
 		$req->execute(array(
-			'path' => $path
+            'path' => $path,
+            'id'   => $id
 		));
     }
 

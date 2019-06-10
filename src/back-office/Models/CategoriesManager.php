@@ -73,14 +73,15 @@ class CategoriesManager extends BddManager {
 
     }
 
-    public static function categerieNameNotExist($data) {
+    public static function categerieNameNotExist($id, $data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
             SELECT nom
             FROM prestations_categories
-            WHERE nom=:nom
+            WHERE nom=:nom AND id!=:id
         ');
         $req->execute(array(
+            'id'    => $id,
             'nom'   => $data['nom']
         ));
         if($req->fetch()) {

@@ -8,6 +8,6 @@
     width:100%;
 }
 
-.img_portfolio {
+.img_portfolio, .img_frm_tab {
     max-height: 150px;
 }

@@ -44,24 +44,22 @@ class PortfolioAlbumsController extends Controller {
 
         $form = new Form($this::FIELDS_REF, $_POST);
         if(count($form->getError()) == 0) {
-            if(PortfolioAlbumsManager::albumNameNotExist($form->getFields())) {
+            if(PortfolioAlbumsManager::albumNameNotExist($id, $form->getFields())) {
                 PortfolioAlbumsManager::updateAlbum($id, $form->getFields());
             } else {
                 $form->setError('Un album de ce nom existe déjà');
                 echo (json_encode($this->getError()));
-                exit();
             }            
         }
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            var_dump('test');
             $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
             if(count($img->getError()) == 0) {
                 if(file_exists(PortfolioAlbumsManager::selectPathImg())) {
                     unlink(PortfolioAlbumsManager::selectPathImg());
                 } 
                 if($img->register()) {
-                    PortfolioAlbumsManager::updatePathImg($img->getPath());
+                    PortfolioAlbumsManager::updatePathImg($id, $img->getPath());
                 }
             }
             $this->setErrors('image', $img->getError());

@@ -22,6 +22,7 @@
                 <th scope="col">Album</th>
                 <th scope="col">Image actuelle</th>    
                 <th scope="col"></th>    
+                <th scope="col"></th>    
             </tr>
         </thead>
         {% for album in data %}
@@ -34,8 +35,8 @@
                         <input id="titre_album" class="form-control" type="text" value="{{ album.titre }}" name="titre" minlength="1" maxlength="150" placeholder="ex: Maquillage mariée" required>
                     </td>
                     <td>
-                        {% if data.lien_img %}
-                            <img class="img_frm" src="{{ data.lien_img }}" alt="">           
+                        {% if album.lien_img %}
+                            <img class="img_frm_tab" src="{{ album.lien_img }}" alt="">           
                         {% endif %}      
                     </td>
                     <td>
