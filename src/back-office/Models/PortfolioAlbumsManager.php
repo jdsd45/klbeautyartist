@@ -5,7 +5,7 @@ class PortfolioAlbumsManager extends BddManager {
     public static function selectAlbums() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT id, titre, lien, mots_cles, lien_img
+            SELECT id, titre, url, mots_cles, lien_img
             FROM portfolio_albums
             ORDER BY titre
         ');
@@ -13,21 +13,62 @@ class PortfolioAlbumsManager extends BddManager {
         return $data;
     }
 
-/*     public static function categerieNameNotExist($data) {
+    public static function albumNameNotExist($id, $data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT nom
-            FROM prestations_categories
-            WHERE nom=:nom
+            SELECT titre
+            FROM portfolio_albums
+            WHERE titre=:titre AND id!=:id
         ');
         $req->execute(array(
-            'nom'   => $data['nom']
+            'titre'   => $data['titre'],
+            'id'      => $id
         ));
         if($req->fetch()) {
             return false;
         } 
         return true;
     }
+
+    public static function updateAlbum($id, $data) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare("
+            UPDATE portfolio_albums
+            SET titre=:titre, url=:url
+            WHERE id=:id
+        ");
+        $req->execute(array(
+            'id' => $id,
+            'titre' => $data['titre'],
+            'url' => Regex::transformInUrl($data['titre'])
+        ));
+    }
+
+	public static function updatePathImg($id, $path) {
+		$bdd = parent::bddConnect();
+		$req = $bdd->prepare('
+            UPDATE portfolio_albums 
+            SET lien_img=:path
+            WHERE id=:id
+            ');
+		
+		$req->execute(array(
+            'path' => $path,
+            'id'   => $id
+		));
+    }
+
+    public static function selectPathImg() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT lien_img
+            FROM portfolio_albums 
+            ');
+        $data = $req->fetch();
+        return $data['lien_img'];        
+    }        
+
+    /*
 
     public static function selectCategorie($id) {
         $bdd = parent::bddConnect();

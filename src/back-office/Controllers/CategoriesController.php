@@ -50,7 +50,7 @@ class CategoriesController extends Controller {
         } 
         $form = new Form($this::FIELDS_REF, $_POST);
         if(count($form->getError()) == 0 AND CategoriesManager::categerieNameNotExist(($form->getFields()))) {
-            if(CategoriesManager::categerieNameNotExist(($form->getFields()))) {
+            if(CategoriesManager::categerieNameNotExist($id, $form->getFields())) {
                 CategoriesManager::updateCategorie($id, $form->getFields());
             } else {
                 $form->setError('Une catégorie de ce nom existe déjà');

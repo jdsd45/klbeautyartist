@@ -12,7 +12,7 @@
 
 <a href="index.php?p=portfolio">Retour</a>
 
-<div class="alert" role="alert" id="alert_photo_modifyadd"></div>
+<div class="alert alert-field" role="alert"></div>
 
 <form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
@@ -94,7 +94,7 @@
     })
 
     function displayResponse(rep) {
-        let fenetre = document.getElementById('alert_photo_modifyadd');
+        let fenetre = document.getElementById('.alert-field');
         fenetre.style.display = 'block';
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
