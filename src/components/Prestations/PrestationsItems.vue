@@ -1,9 +1,9 @@
 <template>
     <div id="list-prestations" class="row">
         <div class="col-md-12 cont-prestation"
-            v-for="prestation in prestationsFiltrees"
-            v-bind:id="'prestation-' + prestation.id"
-            v-bind:key="prestation.id">
+            v-for="(prestation, index) in prestationsFiltrees"
+            v-bind:id="'prestation-' + index"
+            v-bind:key="index">
             <hr>
             <h3 class="prest-titre">{{ prestation.titre }} </h3>
             <div class="row">
@@ -94,8 +94,6 @@ export default {
     .cont-prest-infos {
         text-align: left;
     }
-
-
  
     .img-prestations {
         width:100%;
