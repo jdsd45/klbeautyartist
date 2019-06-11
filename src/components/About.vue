@@ -25,6 +25,7 @@ export default {
         }
     },
     created: function() {
+        document.title = 'Keslène DENIS, maquilleuse Paris/banlieue'
         axios
             .get('http://localhost/projet-keslene/src/back-php/index.php?q=about')
             //.get('back-php/index.php?q=about')

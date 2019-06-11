@@ -98,8 +98,9 @@ export default {
 
  
     .img-prestations {
-        max-width:100%;
-/*         object-fit: cover; */
+        width:100%;
+        max-height: 400px;
+        object-fit: cover;
     } 
 
 </style>

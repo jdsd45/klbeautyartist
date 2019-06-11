@@ -94,7 +94,7 @@
     })
 
     function displayResponse(rep) {
-        let fenetre = document.getElementById('.alert-field');
+        let fenetre = document.getElementsByClassName('alert-field')[0];
         fenetre.style.display = 'block';
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {

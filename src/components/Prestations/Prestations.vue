@@ -31,6 +31,9 @@ export default {
         PrestationsMenu,
         PrestationsItems
     },
+    created() {
+        document.title = 'Prestations : maquillage professionnel, semi-permanent, cils'
+    },    
     async created() {
         try {
             let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')

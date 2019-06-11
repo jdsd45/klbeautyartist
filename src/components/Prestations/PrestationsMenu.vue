@@ -29,12 +29,15 @@ export default {
         padding-left: 0;
         padding-right: 0;
         padding-top: 15px;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
         margin-bottom:0;
         white-space: nowrap;  
         overflow-x: auto;
         cursor: pointer;
         user-select: none;
+        background-color: #F1F1F1
+
+;
         }
 
     .item-cat-prestations {
@@ -62,7 +65,8 @@ export default {
 
     .item-cat-prestations:not(.catSelected):hover {
         border-bottom: 3px solid #C5A164;  
-        background-color: rgb(169,169,169);
+        /* background-color: rgb(169,169,169); */
+        background-color: #EDCF9C;
     }
 
 </style>
