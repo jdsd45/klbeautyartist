@@ -7,14 +7,20 @@
 {% block content %}
 
 <div>
-    <h1>Portfolio : {{ data.titre }}</h1>
-</div> 
+    
+</div>
+{% if filtre == 'addPhoto' %}
+    <h1>Ajouter une photo</h1>
+{% else %}
+    <h1>Photo : {{ data.titre }}</h1>   
+{% endif %} 
 
 <a href="index.php?p=portfolio">Retour</a>
 
 <div class="alert alert-field" role="alert"></div>
 
-<form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
+<form 
+    action={% if filtre == 'addPhoto' %}'index.php?p=portfolio&q=add'{% else %}'index.php?p=portfolio&q=modify&id='+{{ data.id }}{% endif %} method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
     <div class="form-row">
 
@@ -66,23 +72,14 @@
         
 </form>
 
-<script>
-
-    {% if filtre == 'addPhoto' %}
-        let url = 'index.php?p=portfolio&q=add'
-    {% else %}
-        let url = 'index.php?p=portfolio&q=modify&id='+{{ data.id }}
-    {% endif %}
-    
-
+<script> 
     $('#frm').submit(function(e) {
         e.preventDefault();
-        let form = $('#frm')[0];
+        let form = $(this)[0];
         let formData = new FormData(form);
-
         $.ajax({
             type: 'POST',
-            url: url,
+            url: this.action,
             data: formData,
             processData: false,
             contentType: false,
@@ -114,7 +111,6 @@
             for(let i=0; i<rep.image.length; i++){
                 errors.push(rep.image[i]);
             }
-
             for(let i=0; i<errors.length; i++) {
                 let li = document.createElement('li');
                 li.textContent = errors[i];

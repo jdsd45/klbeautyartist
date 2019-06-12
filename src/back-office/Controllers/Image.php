@@ -14,7 +14,6 @@ class Image {
 
     public function __construct($file, int $size_max, string $folderDestination) {
         $this->setFile($file);
-        var_dump($this->getFile()['type']);
         $this->checkSize($size_max);
         $this->checkType();
         $this->setExtension();

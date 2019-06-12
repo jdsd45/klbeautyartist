@@ -65,7 +65,7 @@ class PortfolioController extends Controller {
             $this->run();                
             exit();
         } 
-        if(!isset($_FILES['file']) || $_FILES['file']['error'] != 0) { 
+        if(!isset($_FILES['file']) || $_FILES['file']['error'] !== 0) { 
             $this->setError('image', 'Aucune image reçue');
             if(!isset($_POST) || empty($_POST)) {
                 $this->setError('form', 'Aucun formulaire reçu');
