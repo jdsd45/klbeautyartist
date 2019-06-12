@@ -10,6 +10,8 @@ class CategoriesController extends Controller {
         'nom'     => ['lengthMin' => 2, 'lengthMax' => 200, 'regex' => null],
     ];
 
+    const IMG_SIZE_MAX = 3000;
+
     public function __construct()
     {
         $this->setTwig();

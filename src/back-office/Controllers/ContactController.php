@@ -13,6 +13,8 @@ class ContactController extends Controller {
         'content_2'     => ['lengthMin' => 5, 'lengthMax' => 2000, 'regex' => null],
     ];
 
+    const IMG_SIZE_MAX = 3000;
+
     public function __construct()
     {
         $this->setTwig();
@@ -50,7 +52,7 @@ class ContactController extends Controller {
         }
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
+            $img = new Image($_FILES['file'], $this::IMG_SIZE_MAX, $this->getFolderImg());
             if(count($img->getError()) == 0) {
                 if(file_exists(ContactManager::selectPathImg())) {
                     unlink(ContactManager::selectPathImg());
