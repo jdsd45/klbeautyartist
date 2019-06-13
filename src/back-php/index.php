@@ -22,8 +22,8 @@ if(isset($_GET['q'])) {
         break;
     }
     
-    $json = json_encode($data);
     header("Access-Control-Allow-Origin: *");
+    $json = json_encode($data);
     echo $json;
 
 } else {
@@ -33,6 +33,7 @@ if(isset($_GET['q'])) {
     $checkNbFields = (FormCheck::checkNbFields($data)) ? true : stopScript();
     $fatalError = false;
     foreach ($data as $field => $value) {
+        $data->$field = htmlspecialchars($value);
         FormCheck::checkFieldName($field) == true ? true : ($fatalError = true);
     }
     $fatalError == false ? : stopScript();

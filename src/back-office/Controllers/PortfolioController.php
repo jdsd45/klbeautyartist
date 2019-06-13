@@ -3,7 +3,6 @@
 class PortfolioController extends Controller {
 
     protected $albums;
-    protected $img;
     protected $error = [
         'image' => [],
         'form' => []
@@ -12,7 +11,7 @@ class PortfolioController extends Controller {
     const FIELDS_REF = [
         'titre'     => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null],
         'album'     => ['lengthMin' => 0, 'lengthMax' => 10, 'regex' => null],
-        'mots_cles' => ['lengthMin' => 1, 'lengthMax' => 250, 'regex' => null]
+        'mots_cles' => ['lengthMin' => 0, 'lengthMax' => 250, 'regex' => null]
     ];
 
     const IMG_SIZE_MAX = 3000;
@@ -136,6 +135,10 @@ class PortfolioController extends Controller {
             'filtre' => $this->getFiltre()
         ]); 
     }    
+    
+    protected function setAlbums() {
+        $this->albums = PortfolioAlbumsManager::selectAlbums();
+    }
 
     protected function setError($type, $error) {
         $this->error[$type][] = $error;
@@ -151,20 +154,9 @@ class PortfolioController extends Controller {
         return $this->error;
     }
 
-    protected function setImg($img) {
-        $this->img = $img;
-    }
-
-    protected function getImg() {
-        return $this->img;
-    }
-
     protected function getAlbums() {
         return $this->albums;
     }
 
-    protected function setAlbums() {
-        $this->albums = PortfolioAlbumsManager::selectAlbums();
-    }
 
 }

@@ -55,7 +55,9 @@
 
         <div class="form-group col-md-6">
             <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="fichier" name="file">
+            
+                
+            <input type="file" class="form-control-file" id="fichier" name="file" {% if data.lien_img == null %} required {% endif %} >
             {% if data.lien_img %}
                 <hr>
                 <span>Image actuelle</span>
@@ -96,7 +98,7 @@
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
             setTimeout(function() {
-                document.location.reload(true)
+                //document.location.reload(true)
             }, 1500);
             fenetre.classList.remove('alert-danger');
             fenetre.classList.add('alert-success');
