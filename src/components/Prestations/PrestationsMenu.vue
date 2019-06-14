@@ -6,9 +6,9 @@
             v-bind:categorie="categorie"
             v-bind:index="index"
             v-bind:key="index"
-            v-bind:class="{ catSelected: currentcategory === categorie.nom }"
-            v-on:click="$emit('updatecategory', categorie.nom)">
-                {{categorie.nom}}
+            v-bind:class="{ catSelected: currentcategory === categorie.titre }"
+            v-on:click="$emit('updatecategory', categorie.titre)">
+                {{categorie.titre}}
             </li>
         </ul>
     </div>

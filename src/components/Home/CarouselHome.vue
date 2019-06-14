@@ -8,20 +8,10 @@
             :paginationActiveColor="'#C5A164'"
             :paginationPosition="'bottom-overlay'"
             >
-            <slide class="slide-carousel-home">
-                <img src="https://picsum.photos/id/10/800/400" alt="">
-            </slide>
-            <slide class="slide-carousel-home">
-                <img src="https://picsum.photos/id/30/800/400" alt="">
-            </slide>
-            <slide class="slide-carousel-home">
-                <img src="https://picsum.photos/id/40/800/400" alt="">
-            </slide>
-            <slide class="slide-carousel-home">
-                <img src="https://picsum.photos/id/20/800/400" alt="">
-            </slide>
-            <slide class="slide-carousel-home">
-                <img src="https://picsum.photos/id/50/800/400" alt="">
+            <slide class="slide-carousel-home"
+                v-for="(photo, index) in photosCarousel"
+                :key="index">
+                <img :src="photo.lien_img">
             </slide>
         </carousel>
     </div>
@@ -31,6 +21,17 @@
 import { Carousel, Slide } from 'vue-carousel'
 export default {
     name: 'CarouselHome', 
+    data() {
+        return {
+            photosCarousel: null
+        }
+    },
+    created: function() {
+        axios
+            .get('http://localhost/projet-keslene/src/back-php/index.php?q=carousel')
+            //.get('back-php/index.php?q=categories')
+            .then(response => (this.photosCarousel = response.data))
+    },       
 }
 </script>
 

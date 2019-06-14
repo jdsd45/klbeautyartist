@@ -5,9 +5,9 @@ class CategoriesManager extends BddManager {
     public static function selectCategories() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT id, nom, url
+            SELECT id, titre, url, lien_img
             FROM prestations_categories
-            ORDER BY nom
+            ORDER BY titre
         ');
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
         return $data;
@@ -16,7 +16,7 @@ class CategoriesManager extends BddManager {
     public static function selectCategorie($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT id, nom, url
+            SELECT id, titre, url, lien_img
             FROM prestations_categories 
             WHERE id = ?');
         $req->execute(array($id));
@@ -24,15 +24,16 @@ class CategoriesManager extends BddManager {
         return $data;        
     }
 
-    public static function insertCategorie($data) {
+    public static function insertCategorie($data, $path) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            INSERT INTO prestations_categories (nom, url)
-            VALUES(:nom, :url)    
+            INSERT INTO prestations_categories (titre, url, lien_img)
+            VALUES(:titre, :url, :lien_img)    
         ');
         $req->execute(array(
-            'nom' => $data['nom'],
-            'url' => Regex::transformInUrl($data['nom'])
+            'titre' => $data['titre'],
+            'url' => Regex::transformInUrl($data['titre']),
+            'lien_img'  => $path
         ));
     }    
 
@@ -40,13 +41,13 @@ class CategoriesManager extends BddManager {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare("
             UPDATE prestations_categories
-            SET nom=:nom, url=:url
-            WHERE id=:id AND nom != 'Autre'
+            SET titre=:titre, url=:url
+            WHERE id=:id AND titre != 'Autre'
             ");
         $req->execute(array(
             'id'    => $id,
-            'nom'   => $data['nom'],     
-            'url'   => Regex::transformInUrl($data['nom'])
+            'titre'   => $data['titre'],     
+            'url'   => Regex::transformInUrl($data['titre'])
         ));
     }
 
@@ -58,7 +59,7 @@ class CategoriesManager extends BddManager {
             SET fk_categorie=(
                 SELECT id
                 FROM prestations_categories
-                WHERE nom='Autre'
+                WHERE titre='Autre'
             )
             WHERE fk_categorie =:idCatDelete
         ");
@@ -66,23 +67,20 @@ class CategoriesManager extends BddManager {
             'idCatDelete' => $id
         ));
         
-        $req = $bdd->prepare("DELETE FROM prestations_categories WHERE id = ? AND nom != 'Autre'");
+        $req = $bdd->prepare("DELETE FROM prestations_categories WHERE id = ? AND titre != 'Autre'");
         $req->execute(array($id));
-
-
-
     }
 
-    public static function categerieNameNotExist($id, $data) {
+    public static function categorieNameNotExist($id, $data) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT nom
+            SELECT titre
             FROM prestations_categories
-            WHERE nom=:nom AND id!=:id
+            WHERE titre=:titre AND id!=:id
         ');
         $req->execute(array(
             'id'    => $id,
-            'nom'   => $data['nom']
+            'titre'   => $data['titre']
         ));
         if($req->fetch()) {
             return false;
@@ -90,5 +88,28 @@ class CategoriesManager extends BddManager {
         return true;
     }    
 
+	public static function updatePathImg($id, $path) {
+		$bdd = parent::bddConnect();
+		$req = $bdd->prepare('
+            UPDATE prestations_categories 
+            SET lien_img=:path
+            WHERE id=:id');
+		
+		$req->execute(array(
+            'id'   => $id,
+			'path' => $path
+		));
+    }
+
+    public static function selectPathImg($id) {
+        $bdd = parent::bddConnect();
+        $req = $bdd->prepare('
+            SELECT lien_img
+            FROM prestations_categories 
+            WHERE id = ?');
+        $req->execute(array($id));
+        $data = $req->fetch();
+        return $data['lien_img'];        
+    }     
 
 }

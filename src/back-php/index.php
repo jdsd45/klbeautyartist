@@ -17,13 +17,16 @@ if(isset($_GET['q'])) {
         case 'contact';
             $data = ContentManager::getContact();
         break;
+        case 'carousel';
+            $data = ContentManager::getPhotosCarousel();
+        break;
         default:
             exit();
         break;
     }
     
-    header("Access-Control-Allow-Origin: *");
     $json = json_encode($data);
+    header("Access-Control-Allow-Origin: *");
     echo $json;
 
 } else {

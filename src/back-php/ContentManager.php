@@ -4,10 +4,21 @@ require 'BddManager.php';
 
 class ContentManager extends BddManager {
 
+    public static function getPhotosCarousel() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT id, titre, lien_img
+            FROM carousel
+            ORDER BY titre
+        ');
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }    
+
     public static function getPrestations() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.titre AS categorie
             FROM prestations p
             LEFT JOIN prestations_categories cat
             ON cat.id = p.fk_categorie
@@ -20,10 +31,10 @@ class ContentManager extends BddManager {
     public static function getCategories() {
         $bdd = parent::bddConnect();
         $req = $bdd->query("
-            SELECT id, nom, url
+            SELECT id, titre, url, lien_img
             FROM prestations_categories
-            WHERE nom!='Autre'
-            ORDER BY nom
+            WHERE titre!='Autre'
+            ORDER BY titre
         ");
         $data = $req->fetchAll(PDO::FETCH_ASSOC);
         return $data;

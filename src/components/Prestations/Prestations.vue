@@ -42,11 +42,11 @@ export default {
             if(this.$route.params.categorie) {
                 this.categories.forEach(element => {
                     if(element.url == this.$route.params.categorie) {
-                        this.currentcategory = element.nom
+                        this.currentcategory = element.titre
                     }
                 });
             } else {
-                this.currentcategory = this.categories[0].nom
+                this.currentcategory = this.categories[0].titre
             }
         } catch (error) {
 

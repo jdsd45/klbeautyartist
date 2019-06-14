@@ -89,6 +89,5 @@ class PortfolioAlbumsController extends Controller {
     protected function getError() {
         return $this->error;
     }
-
 }
 
