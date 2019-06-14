@@ -6,9 +6,9 @@
             v-bind:categorie="categorie"
             v-bind:index="index"
             v-bind:key="index"
-            v-bind:class="{ catSelected: currentcategory === categorie.nom }"
-            v-on:click="$emit('updatecategorie', categorie.nom)">
-                {{categorie.nom}}
+            v-bind:class="{ catSelected: currentcategory === categorie.titre }"
+            v-on:click="$emit('updatecategory', categorie.titre)">
+                {{categorie.titre}}
             </li>
         </ul>
     </div>
@@ -29,12 +29,13 @@ export default {
         padding-left: 0;
         padding-right: 0;
         padding-top: 15px;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
         margin-bottom:0;
         white-space: nowrap;  
         overflow-x: auto;
         cursor: pointer;
         user-select: none;
+        background-color: #F1F1F1;
         }
 
     .item-cat-prestations {
@@ -50,7 +51,6 @@ export default {
         margin-left: 6px;
         color:white;
         box-shadow: inset 0 0 3px white;
-
         }
 
     .catSelected {
@@ -58,11 +58,12 @@ export default {
         border-bottom: 3px solid #C5A164;  
         color: #C5A164;
         box-shadow: inset 0 0 5px #C5A164;
-    }
+        }
 
     .item-cat-prestations:not(.catSelected):hover {
         border-bottom: 3px solid #C5A164;  
-        background-color: rgb(169,169,169);
-    }
+        /* background-color: rgb(169,169,169); */
+        background-color: #EDCF9C;
+        }
 
 </style>

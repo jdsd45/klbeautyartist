@@ -16,6 +16,8 @@ class PrestationsController extends Controller {
         'categorie' => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null]
     ];
 
+    const IMG_SIZE_MAX = 3000;
+
     public function __construct()
     {
         $this->setTwig();
@@ -66,7 +68,7 @@ class PrestationsController extends Controller {
         }
 
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
+            $img = new Image($_FILES['file'], $this::IMG_SIZE_MAX, $this->getFolderImg());
             if(count($img->getError()) == 0) {
                 if(file_exists(PrestationsManager::selectPathImg($id))) {
                     unlink(PrestationsManager::selectPathImg($id));
@@ -92,7 +94,7 @@ class PrestationsController extends Controller {
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $form = new Form($this::FIELDS_REF, $_POST);   
-            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
+            $img = new Image($_FILES['file'], $this::IMG_SIZE_MAX, $this->getFolderImg());
 
             if(count($form->getError()) == 0 AND count($img->getError()) == 0) {
                 PrestationsManager::insertPrestation($form->getFields());

@@ -1,0 +1,131 @@
+{% extends "template.twig" %}
+
+{% block head %}
+    <title>Carousel</title>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Carousel</h1>
+</div> 
+
+<div class="alert alert-field" role="alert"></div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Image actuelle</th>    
+                <th scope="col"></th>    
+                <th scope="col"></th>    
+                <th scope="col"></th>    
+            </tr>
+        </thead>
+        {% for photo in data %}
+            <tr>
+                <th scope="row"> 
+                    {{ loop.index }} 
+                </th>                                                                                        
+                <form class="frm" action="index.php?p=carousel&q=modify&id={{ photo.id }}" method="post">
+                    <td>
+                        <input class="form-control" type="text" value="{{ photo.titre }}" name="titre" minlength="5" maxlength="150" placeholder="ex: Atelier maquillage du 2 mai 2019" required>
+                    </td>
+                    <td>
+                        {% if photo.lien_img %}
+                            <img class="img_frm_tab" src="{{ photo.lien_img }}" alt="">           
+                        {% endif %}      
+                    </td>
+                    <td>
+                        <input type="file" class="form-control-file" id="fichier" name="file">
+                    </td>                            
+                    <td>
+                        <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger"  href="index.php?p=carousel&q=del&id={{ photo.id }}" />Supprimer</a>     
+                    </td>                         
+                </form>                             
+            </tr>
+        {% endfor %}
+            <tr>
+                <th scope="row"> 
+                </th>
+                <form action="index.php?p=carousel&q=add" method="post" class="frm">
+                <td>
+                    <input class="form-control" type="text" name="titre" minlength="1" maxlength="200" placeholder="ex: Atelier maquillage du 2 mai 2019" required>
+                </td> 
+                <td></td>                           
+                <td>
+                    <input type="file" class="form-control-file" id="fichier" name="file" required>
+                </td>                            
+                <td>
+                    <button type="submit" class="btn btn-primary mb-2">Ajouter une photo</button>
+                </td>  
+                </form>                                                                                                                     
+            </tr>        
+    </table>
+</div>
+
+
+<script>
+
+    $('.frm').submit(function(e) {
+        e.preventDefault();
+        let form = $(this)[0];
+        let formData = new FormData(form);
+
+        $.ajax({
+            type: 'POST',
+            url: this.action,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(reponse) {
+                let rep = JSON.parse(reponse);
+                displayResponse(rep)
+            }
+        })
+    })
+
+    function displayResponse(rep) {
+        let fenetre = document.getElementsByClassName('alert-field')[0];
+        fenetre.style.display = 'block';
+        fenetre.textContent = "";
+        if(rep.form.length == 0 & rep.image.length == 0) {
+            setTimeout(function() {
+                document.location.reload(true)
+            }, 1500);
+            fenetre.classList.remove('alert-danger');
+            fenetre.classList.add('alert-success');
+            fenetre.textContent = "La photo a bien été ajoutée/modifiée";
+        } else {
+            let errors = [];
+            let listErrors = document.createElement('ul');
+            for(let i=0; i<rep.form.length; i++){
+                errors.push(rep.form[i]);
+            }
+            for(let i=0; i<rep.image.length; i++){
+                errors.push(rep.image[i]);
+            }
+
+            for(let i=0; i<errors.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = errors[i];
+                listErrors.appendChild(li);
+            }
+            fenetre.appendChild(listErrors);
+            fenetre.classList.remove('alert-success');
+            fenetre.classList.add('alert-danger');
+        }
+    }
+
+</script>
+
+
+{% endblock %}
+
+
+

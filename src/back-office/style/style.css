@@ -1,6 +1,6 @@
 
 
-#alert_prestation_modifyadd, #alert_photo_modifyadd, #alert_about_modify, #alert_contact_modify {
+#alert_prestation_modifyadd, #alert_photo_modifyadd, #alert_about_modify, #alert_contact_modify, .alert-field {
     display: none;
 }
 
@@ -10,4 +10,6 @@
 
 .img_portfolio, .img_frm_tab {
     max-height: 150px;
+    width:100px;
+    object-fit: cover;
 }

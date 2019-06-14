@@ -17,6 +17,9 @@ if(isset($_GET['q'])) {
         case 'contact';
             $data = ContentManager::getContact();
         break;
+        case 'carousel';
+            $data = ContentManager::getPhotosCarousel();
+        break;
         default:
             exit();
         break;
@@ -33,6 +36,7 @@ if(isset($_GET['q'])) {
     $checkNbFields = (FormCheck::checkNbFields($data)) ? true : stopScript();
     $fatalError = false;
     foreach ($data as $field => $value) {
+        $data->$field = htmlspecialchars($value);
         FormCheck::checkFieldName($field) == true ? true : ($fatalError = true);
     }
     $fatalError == false ? : stopScript();

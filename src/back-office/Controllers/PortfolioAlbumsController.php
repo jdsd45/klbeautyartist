@@ -55,8 +55,8 @@ class PortfolioAlbumsController extends Controller {
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
             $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
             if(count($img->getError()) == 0) {
-                if(file_exists(PortfolioAlbumsManager::selectPathImg())) {
-                    unlink(PortfolioAlbumsManager::selectPathImg());
+                if(file_exists(PortfolioAlbumsManager::selectPathImg($id))) {
+                    unlink(PortfolioAlbumsManager::selectPathImg($id));
                 } 
                 if($img->register()) {
                     PortfolioAlbumsManager::updatePathImg($id, $img->getPath());
@@ -89,5 +89,5 @@ class PortfolioAlbumsController extends Controller {
     protected function getError() {
         return $this->error;
     }
-
 }
+

@@ -13,7 +13,10 @@ export default {
     name: 'Portfolio',
     components: {
         PortfolioMenu
-    }
+    },
+    created() {
+        document.title = 'Mon Portfolio'
+    },    
 }
 </script>
 

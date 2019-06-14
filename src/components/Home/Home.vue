@@ -20,7 +20,10 @@ export default {
         Slide,
         CarouselHome,
         Bloc2Home
-    }
+    },
+    created() {
+        document.title = 'Accueil'
+    },
 }
 </script>
 

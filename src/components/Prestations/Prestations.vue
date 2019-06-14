@@ -3,7 +3,7 @@
         <PrestationsMenu
             v-bind:currentcategory="currentcategory"
             v-bind:categories="categories"
-            v-on:updatecategorie="updatecategorie"
+            v-on:updatecategory="updatecategory"
             >
             </PrestationsMenu>
         <div class="container" id="cont-prestations">
@@ -30,8 +30,9 @@ export default {
     components: {
         PrestationsMenu,
         PrestationsItems
-    },
+    },    
     async created() {
+        document.title = 'Prestations : maquillage professionnel, semi-permanent, cils'
         try {
             let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
             //let response = await axios.get('back-php/index.php?q=categories')
@@ -41,18 +42,18 @@ export default {
             if(this.$route.params.categorie) {
                 this.categories.forEach(element => {
                     if(element.url == this.$route.params.categorie) {
-                        this.currentcategory = element.nom
+                        this.currentcategory = element.titre
                     }
                 });
             } else {
-                this.currentcategory = this.categories[0].nom
+                this.currentcategory = this.categories[0].titre
             }
         } catch (error) {
 
         }
     },
     methods: {
-        updatecategorie: function(newVal) {
+        updatecategory: function(newVal) {
             this.currentcategory = newVal
         }                
     }

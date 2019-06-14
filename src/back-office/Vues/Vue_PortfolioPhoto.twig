@@ -7,14 +7,20 @@
 {% block content %}
 
 <div>
-    <h1>Portfolio : {{ data.titre }}</h1>
-</div> 
+    
+</div>
+{% if filtre == 'addPhoto' %}
+    <h1>Ajouter une photo</h1>
+{% else %}
+    <h1>Photo : {{ data.titre }}</h1>   
+{% endif %} 
 
 <a href="index.php?p=portfolio">Retour</a>
 
 <div class="alert alert-field" role="alert"></div>
 
-<form action="" method="POST" id="frm" name="frm" enctype="multipart/form-data">
+<form 
+    action={% if filtre == 'addPhoto' %}'index.php?p=portfolio&q=add'{% else %}'index.php?p=portfolio&q=modify&id='+{{ data.id }}{% endif %} method="POST" id="frm" name="frm" enctype="multipart/form-data">
 
     <div class="form-row">
 
@@ -49,7 +55,9 @@
 
         <div class="form-group col-md-6">
             <label for="image">Image</label>
-            <input type="file" class="form-control-file" id="fichier" name="file">
+            
+                
+            <input type="file" class="form-control-file" id="fichier" name="file" {% if data.lien_img == null %} required {% endif %} >
             {% if data.lien_img %}
                 <hr>
                 <span>Image actuelle</span>
@@ -66,23 +74,14 @@
         
 </form>
 
-<script>
-
-    {% if filtre == 'addPhoto' %}
-        let url = 'index.php?p=portfolio&q=add'
-    {% else %}
-        let url = 'index.php?p=portfolio&q=modify&id='+{{ data.id }}
-    {% endif %}
-    
-
+<script> 
     $('#frm').submit(function(e) {
         e.preventDefault();
-        let form = $('#frm')[0];
+        let form = $(this)[0];
         let formData = new FormData(form);
-
         $.ajax({
             type: 'POST',
-            url: url,
+            url: this.action,
             data: formData,
             processData: false,
             contentType: false,
@@ -94,12 +93,12 @@
     })
 
     function displayResponse(rep) {
-        let fenetre = document.getElementById('.alert-field');
+        let fenetre = document.getElementsByClassName('alert-field')[0];
         fenetre.style.display = 'block';
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
             setTimeout(function() {
-                document.location.reload(true)
+                //document.location.reload(true)
             }, 1500);
             fenetre.classList.remove('alert-danger');
             fenetre.classList.add('alert-success');
@@ -114,7 +113,6 @@
             for(let i=0; i<rep.image.length; i++){
                 errors.push(rep.image[i]);
             }
-
             for(let i=0; i<errors.length; i++) {
                 let li = document.createElement('li');
                 li.textContent = errors[i];

@@ -9,7 +9,7 @@
                 >
                 <router-link :to="'/prestations/'+categorie.url" class="rubrique-home">
                     <img class="img-home-bloc2 rounded mx-auto d-block" :src="categorie.lien_img">
-                    <h2 class="rubrique-titre"> {{ categorie.nom }} </h2>
+                    <h2 class="rubrique-titre"> {{ categorie.titre }} </h2>
                 </router-link>
                 </div>
             </div>
@@ -45,7 +45,9 @@ export default {
     }
 
     .img-home-bloc2 {
-        max-width: 35vh;
+        width: 35vh;
+        height: 28vh;
+        object-fit: cover;
     }
 
     .rubrique-home h2{

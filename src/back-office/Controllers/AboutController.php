@@ -12,6 +12,8 @@ class AboutController extends Controller {
         'content'     => ['lengthMin' => 5, 'lengthMax' => 9999, 'regex' => null]
     ];
 
+    const IMG_SIZE_MAX = 3000;    
+
     public function __construct()
     {
         $this->setTwig();
@@ -49,7 +51,7 @@ class AboutController extends Controller {
         }
         
         if(isset($_FILES['file']) AND $_FILES['file']['error'] == 0) {
-            $img = new Image($_FILES['file'], 5000, $this->getFolderImg());
+            $img = new Image($_FILES['file'], $this::IMG_SIZE_MAX, $this->getFolderImg());
             if(count($img->getError()) == 0) {
                 if(file_exists(AboutManager::selectPathImg())) {
                     unlink(AboutManager::selectPathImg());

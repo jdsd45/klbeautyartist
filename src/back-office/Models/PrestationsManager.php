@@ -5,7 +5,7 @@ class PrestationsManager extends BddManager {
     public static function selectPrestations() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.titre AS categorie
             FROM prestations p
             LEFT JOIN prestations_categories cat
             ON cat.id = p.fk_categorie
@@ -18,7 +18,7 @@ class PrestationsManager extends BddManager {
     public static function selectPrestation($id) {
         $bdd = parent::bddConnect();
         $req = $bdd->prepare('
-            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.nom AS categorie
+            SELECT p.id, p.titre, p.prix, p.temps, p.lien_img, p.detail, cat.titre AS categorie
             FROM prestations p
             LEFT JOIN prestations_categories cat
             ON cat.id = p.fk_categorie            
