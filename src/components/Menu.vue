@@ -44,7 +44,7 @@ export default {
     background-color : black;
 }
 .nav-item a, .navbar-brand {
-    color: #C5A164;
+    color: var(--dore);
 }
 
 .nav-item a:hover, .navbar-brand:hover {

@@ -67,7 +67,7 @@ export default {
             console.log('postForm');
              axios({
                 method:'post',
-                url: 'back-php/index.php',
+                url: process.env.BASE_URL + 'index.php',
                 data: this.form
             })
                 .then(function(response){

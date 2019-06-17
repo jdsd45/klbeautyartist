@@ -54,7 +54,7 @@ export default {
     created: function() {
         document.title = 'A propos de Keslène DENIS'
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=contact')
+            .get(process.env.BASE_URL + 'index.php?q=contact')
             //.get('back-php/index.php?q=contact')
             .then(response => (this.content = response.data))
     },

@@ -30,7 +30,7 @@ export default {
     },
     created: function() {
         axios
-            .get('/static/portfolio.json')
+            .get(process.env.BASE_URL + 'index.php?q=albums')
             .then(response => (this.photos = response.data))
     }     
 }

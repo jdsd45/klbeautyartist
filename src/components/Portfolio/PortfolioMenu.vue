@@ -2,14 +2,15 @@
 
     <div id="portfolio-dossier-cont">
         <div class="portfolio-dossier-cont-img"
-            v-for="dossier in dossiers"
-            v-bind:key="dossier.id">
-            <router-link :to="'/portfolio/'+dossier.link">
+            v-for="album in albums"
+            v-bind:key="album.id">
+            <router-link :to="'/portfolio/maquillage-mariee'">
+            <!-- <router-link :to="'/portfolio/'+album.url"> -->
                 <div class="portfolio-dossier-txt">
-                    {{ dossier.titre }} 
+                    {{ album.titre }} 
                 </div>
                 <img class="portfolio-dossier-img" 
-                    v-bind:src="dossier.lien_img" 
+                    v-bind:src="album.lien_img" 
                     v-bind:style="{height: heightContImgPortfolio}">
             </router-link>         
         </div>
@@ -27,7 +28,7 @@ export default {
     name: 'PortfolioMenu',
     data() {
         return {
-            dossiers: null,
+            albums: null,
             heightContImgPortfolio: '20vh'
         }
     },
@@ -52,8 +53,8 @@ export default {
     },
     created: function() {
         axios
-            .get('/static/portfolio-dossier.json')
-            .then(response => (this.dossiers = response.data))
+            .get(process.env.BASE_URL + 'index.php?q=portfolio')
+            .then(response => (this.albums = response.data))
     } 
 }
 </script>

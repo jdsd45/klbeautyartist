@@ -83,7 +83,7 @@ export default {
 
     .infos-prix, .infos-temps {
         font-size: 1.7rem;
-        color: #C5A164;
+        color: var(--dore);
         margin-right: 20px;
     }
 

@@ -28,7 +28,7 @@ export default {
     },
     created: function() {
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=carousel')
+            .get(process.env.BASE_URL + 'index.php?q=carousel')
             //.get('back-php/index.php?q=categories')
             .then(response => (this.photosCarousel = response.data))
     },       

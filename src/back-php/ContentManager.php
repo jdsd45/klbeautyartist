@@ -60,6 +60,30 @@ class ContentManager extends BddManager {
         return $data;
     }    
 
+    public static function getPhotosPortfolio() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT p.id, p.titre, p.mots_cles, p.lien_img, p.en_ligne, album.titre AS album
+            FROM portfolio_photos p
+            LEFT JOIN portfolio_albums album
+            ON album.id = p.fk_album
+            ORDER BY album
+        ');
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }   
+    
+    public static function getAlbums() {
+        $bdd = parent::bddConnect();
+        $req = $bdd->query('
+            SELECT id, titre, url, mots_cles, lien_img
+            FROM portfolio_albums
+            ORDER BY titre
+        ');
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;        
+    }
+
 }
 
 
