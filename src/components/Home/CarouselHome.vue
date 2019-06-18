@@ -28,8 +28,7 @@ export default {
     },
     created: function() {
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=carousel')
-            //.get('back-php/index.php?q=categories')
+            .get(process.env.BASE_URL + 'index.php?q=carousel')
             .then(response => (this.photosCarousel = response.data))
     },       
 }
@@ -41,7 +40,7 @@ export default {
     }
     .slide-carousel-home img {
         width:100%; 
-        height:50vh;
+        height:45vh;
         object-fit: cover;
     }
 

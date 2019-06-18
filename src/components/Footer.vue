@@ -6,14 +6,16 @@
             <div class="col-4 ksl">
                 <span>Keslène DENIS, 2019</span>
                 <br>
-                <span>07.05.20.30.40</span>
+                <span>8 rue Auguste Renoir 78400 CHATOU</span>
+                <br>
+                <span>06.61.35.53.37</span>
             </div>
             <div class="col-4">
                 <span>
-                    <i class="fab fa-instagram ic-footer"></i>
+                    <a href="https://www.instagram.com/kl_beauty_artist/?hl=fr"><i class="fab fa-instagram ic-footer"></i></a>
                 </span>
                 <span>
-                    <i class="fab fa-facebook-square ic-footer"></i>
+                    <a href="https://www.facebook.com/klbeautyartist/"><i class="fab fa-facebook-square ic-footer"></i></a>
                 </span>
             </div>
             <div class="col-4">

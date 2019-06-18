@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="album">Album</label>
-                    <select class="form-control" name="album" id="album" required>
+                    <select class="form-control" name="album" id="album">
                             {% for album in albums %}
                                 {% if album.titre == data.album %}
                                     <option value="{{ album.id }}" selected="selected">{{ album.titre }}</option>
@@ -57,7 +57,7 @@
             <label for="image">Image</label>
             
                 
-            <input type="file" class="form-control-file" id="fichier" name="file" {% if data.lien_img == null %} required {% endif %} >
+            <input type="file" class="form-control-file" id="fichier" name="file" {% if data.lien_img == null %} {% endif %} >
             {% if data.lien_img %}
                 <hr>
                 <span>Image actuelle</span>

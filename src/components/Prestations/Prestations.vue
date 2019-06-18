@@ -3,14 +3,10 @@
         <PrestationsMenu
             v-bind:currentcategory="currentcategory"
             v-bind:categories="categories"
-            v-on:updatecategory="updatecategory"
-            >
+            v-on:updatecategory="updatecategory">
             </PrestationsMenu>
         <div class="container" id="cont-prestations">
-            <PrestationsItems 
-            id="cont-prestation"
-            v-bind:currentcategory="currentcategory"
-            ></PrestationsItems>
+            <PrestationsItems id="cont-prestation" v-bind:currentcategory="currentcategory"></PrestationsItems>
         </div>
     </div>
 </template>
@@ -34,10 +30,8 @@ export default {
     async created() {
         document.title = 'Prestations : maquillage professionnel, semi-permanent, cils'
         try {
-            let response = await axios.get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
-            //let response = await axios.get('back-php/index.php?q=categories')
+            let response = await axios.get(process.env.BASE_URL + 'index.php?q=categories')
             this.categories = response.data
-
             let route = this.$route.params.categorie;
             if(this.$route.params.categorie) {
                 this.categories.forEach(element => {

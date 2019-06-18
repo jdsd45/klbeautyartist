@@ -1,33 +1,27 @@
 <template>
-
     <div id="portfolio-dossier-cont">
         <div class="portfolio-dossier-cont-img"
-            v-for="dossier in dossiers"
-            v-bind:key="dossier.id">
-            <router-link :to="'/portfolio/'+dossier.link">
+            v-for="album in albums"
+            v-bind:key="album.id">
+            <router-link :to="'/portfolio/'+album.url">
                 <div class="portfolio-dossier-txt">
-                    {{ dossier.titre }} 
+                    {{ album.titre }} 
                 </div>
                 <img class="portfolio-dossier-img" 
-                    v-bind:src="dossier.lien_img" 
+                    v-bind:src="album.lien_img" 
                     v-bind:style="{height: heightContImgPortfolio}">
             </router-link>         
         </div>
     </div>
-
-  <!--   <router-link :to="'/prestations/'+content.url" class="rubrique-home">
-        <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-        <h2 class="rubrique-titre"> {{ content.titre }} </h2>
-    </router-link>   -->  
-
 </template>
 
 <script>
 export default {
     name: 'PortfolioMenu',
+    props: ['albums'],
     data() {
         return {
-            dossiers: null,
+            //albums: null,
             heightContImgPortfolio: '20vh'
         }
     },
@@ -49,17 +43,16 @@ export default {
         window.addEventListener('resize', () => {
             this.setHeightContImgPortfolio();
         })
-    },
+    }/* ,
     created: function() {
         axios
-            .get('/static/portfolio-dossier.json')
-            .then(response => (this.dossiers = response.data))
-    } 
+            .get(process.env.BASE_URL + 'index.php?q=albums')
+            .then(response => (this.albums = response.data))
+    }  */
 }
 </script>
 
 <style>
-
     #portfolio-dossier-cont {
         display: flex;
     }

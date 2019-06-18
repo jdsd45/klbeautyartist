@@ -13,9 +13,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 
 const axios = axiosApi.create({
-/*     baseURL: process.env.BASE_URL,
-    headers: {"Access-Control-Allow-Origin": "*"},
-    withCredentials: true */
+
 });
 
 //Use the window object to make it available globally.

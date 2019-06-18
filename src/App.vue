@@ -1,5 +1,4 @@
 <template>
-
 <div id="app">
     <Menu></Menu>
     <div class="" id="main-content">
@@ -7,7 +6,6 @@
     </div>
     <Footer></Footer>
 </div>
-
 </template>
 
 <script>
@@ -44,22 +42,24 @@ export default {
 
 p, span, li {
     font-family: 'Source Sans Pro', sans-serif;
-
 }
 
 h1, h2, h3, h4, h5 {
     font-family: 'Open Sans', sans-serif;
-    color: #C5A164;
+    color: var(--dore);
+    
+}
+
+body {
+    --dore: #C5A164;
 }
 
 html, body {
-    height: 100%;
+    height: 100%; 
 }
 
 #app {
     position: relative;
     min-height: 100%;
 }
-
-
 </style>

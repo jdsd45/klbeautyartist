@@ -20,6 +20,13 @@ if(isset($_GET['q'])) {
         case 'carousel';
             $data = ContentManager::getPhotosCarousel();
         break;
+        case 'portfolio';
+            $data = ContentManager::getPhotosPortfolio();
+        break;
+        case 'albums';
+            $data = ContentManager::getAlbumsPortfolio();
+            
+        break;
         default:
             exit();
         break;

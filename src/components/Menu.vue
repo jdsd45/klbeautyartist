@@ -1,10 +1,14 @@
 <template>
 
 <nav class="navbar navbar-expand-lg fixed-top" id="menu">
-    <a class="navbar-brand" href="#">Keslène</a>
+
+    <router-link to="/">
+        <a class="navbar-brand">
+            <img id="logo" src="static/logo-kl-beauty.png" alt="">
+        </a>
+    </router-link>
     <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon">   
-
         </span>
     </button>
 
@@ -39,12 +43,15 @@ export default {
 
 <style>
 
+#logo {
+    width: 150px;
+}
 
 #menu {
     background-color : black;
 }
 .nav-item a, .navbar-brand {
-    color: #C5A164;
+    color: var(--dore);
 }
 
 .nav-item a:hover, .navbar-brand:hover {

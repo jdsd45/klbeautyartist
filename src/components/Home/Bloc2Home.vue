@@ -14,8 +14,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            
+        <div class="col-md-4 text-center">
+<iframe id="video-fb" src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fklbeautyartist%2Fvideos%2F322605641766144%2F&show_text=0&width=476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
         </div>
     </div>
 </template>
@@ -30,8 +30,7 @@ export default {
     },
     created: function() {
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=categories')
-            //.get('back-php/index.php?q=categories')
+            .get(process.env.BASE_URL + 'index.php?q=categories')
             .then(response => (this.categoriesPrestations = response.data))
     },     
 }
@@ -45,8 +44,9 @@ export default {
     }
 
     .img-home-bloc2 {
-        width: 35vh;
-        height: 28vh;
+/*         width: 35vh; */
+        width:100%;
+        height: 30vh;
         object-fit: cover;
     }
 
@@ -71,6 +71,11 @@ export default {
     .rubrique-home:hover .img-home-bloc2 {
         opacity: 1;
         filter: grayscale(0%);
+    }
+
+    #video-fb {
+        max-width: 100%;
+        height: 300px;
     }
 
 </style>
