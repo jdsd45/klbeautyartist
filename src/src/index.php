@@ -21,10 +21,11 @@ if(isset($_GET['q'])) {
             $data = ContentManager::getPhotosCarousel();
         break;
         case 'portfolio';
-            $data = ContentManager::getPhotosCarousel();
+            $data = ContentManager::getPhotosPortfolio();
         break;
         case 'albums';
             $data = ContentManager::getAlbumsPortfolio();
+            
         break;
         default:
             exit();

@@ -1,5 +1,4 @@
 <template>
-
 <div id="app">
     <Menu></Menu>
     <div class="" id="main-content">
@@ -7,7 +6,6 @@
     </div>
     <Footer></Footer>
 </div>
-
 </template>
 
 <script>

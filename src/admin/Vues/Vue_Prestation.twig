@@ -30,10 +30,10 @@
                     <label for="categorie">Catégorie</label>
                     <select class="form-control" name="categorie" id="categorie" required>
                             {% for categorie in categories %}
-                                {% if categorie.nom == data.categorie %}
-                                    <option value="{{ categorie.id }}" selected="selected">{{ categorie.nom }}</option>
+                                {% if categorie.titre == data.categorie %}
+                                    <option value="{{ categorie.id }}" selected="selected">{{ categorie.titre }}</option>
                                 {% else %}
-                                    <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+                                    <option value="{{ categorie.id }}">{{ categorie.titre }}</option>
                                 {% endif %}
                             {% endfor %}          
                     </select>
@@ -141,7 +141,5 @@
     }
 
 </script>
-
-
 {% endblock %}
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>{{ this.titre_album }} </h2>
+        <h2>{{ titre_album }} </h2>
         <div id="album-cont">
             <div v-for="photo in photosAlbum" v-bind:key="photo.id" class="album-img-cont"> 
                 <img :src="photo.lien_img" :alt="photo.titre" class="album-img">
@@ -24,20 +24,19 @@ export default {
             if(this.photos != null) return this.photos.filter(photo => photo.album == this.album) 
         },
         titre_album: function() {
-            const titres = {"maquillage-mariee":"Maquillage mariée", "maquillage-mode":"Maquillage mode", "maquillage-evenementiel": "Maquillage évènementiel"};
-            return titres[this.album]
+            if(this.photosAlbum != null) return this.photosAlbum[0].albumTitre
         }
     },
-    created: function() {
+    created: function() {        
         axios
-            .get(process.env.BASE_URL + 'index.php?q=albums')
+            .get(process.env.BASE_URL + 'index.php?q=portfolio')
             .then(response => (this.photos = response.data))
+            
     }     
 }
 </script>
 
 <style>
-
 #album-cont {
     display:flex;
     flex-wrap: wrap;
@@ -74,8 +73,6 @@ export default {
     background-color: rgb(255, 255, 255, 0.6);    
     visibility: visible;
 }
-
-
 
 @media(max-width: 767.98px) {
     .album-img {
@@ -116,6 +113,4 @@ export default {
         font-size:1.4rem;
     }
 }
-
-
 </style>

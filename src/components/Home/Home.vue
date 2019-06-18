@@ -29,6 +29,6 @@ export default {
 
 <style>
     #separateurHome {
-        height:50px;
+        height:20px;
     }
 </style>

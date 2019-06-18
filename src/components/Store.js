@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store ({
     state: {
-        baseUrl: process.env.BASE_URL
+        test2: process.env.BASE_URL
     },
     mutations: {},
     actions: {}

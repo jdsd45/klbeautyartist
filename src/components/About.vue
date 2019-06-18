@@ -2,7 +2,8 @@
     <div class="container">
         <h2>Keslène DENIS</h2>
         <hr>
-        <div class="row">
+        <div class="row" 
+            v-if="content">
             <div class="col-md-4">
                 <img :src="content.lien_img" alt="Photographie de Keslène DENIS" id="img-keslene">
             </div>
@@ -21,19 +22,18 @@ export default {
     name: 'About',
     data() {
         return {
-            content: ''
+            content: null
         }
     },
     created: function() {
         document.title = 'Keslène DENIS, maquilleuse Paris/banlieue'
         axios
-            .get('http://localhost/projet-keslene/src/back-php/index.php?q=about')
-            //.get('back-php/index.php?q=about')
+            .get(process.env.BASE_URL + 'index.php?q=about')
             .then(response => (this.content = response.data))
    },
     methods: {
         splitParagraphes : function(content) {
-            return content.split('\n')
+            if(content != null) return content.split('\n')
         }   
     }                                           
 }

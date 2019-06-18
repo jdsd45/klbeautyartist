@@ -63,7 +63,7 @@ class ContentManager extends BddManager {
     public static function getPhotosPortfolio() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
-            SELECT p.id, p.titre, p.mots_cles, p.lien_img, p.en_ligne, album.titre AS album
+            SELECT p.id, p.titre, p.mots_cles, p.lien_img, p.en_ligne, album.url AS album, album.titre AS albumTitre
             FROM portfolio_photos p
             LEFT JOIN portfolio_albums album
             ON album.id = p.fk_album
@@ -73,7 +73,7 @@ class ContentManager extends BddManager {
         return $data;
     }   
     
-    public static function getAlbums() {
+    public static function getAlbumsPortfolio() {
         $bdd = parent::bddConnect();
         $req = $bdd->query('
             SELECT id, titre, url, mots_cles, lien_img

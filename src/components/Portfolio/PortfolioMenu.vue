@@ -1,11 +1,9 @@
 <template>
-
     <div id="portfolio-dossier-cont">
         <div class="portfolio-dossier-cont-img"
             v-for="album in albums"
             v-bind:key="album.id">
-            <router-link :to="'/portfolio/maquillage-mariee'">
-            <!-- <router-link :to="'/portfolio/'+album.url"> -->
+            <router-link :to="'/portfolio/'+album.url">
                 <div class="portfolio-dossier-txt">
                     {{ album.titre }} 
                 </div>
@@ -15,20 +13,15 @@
             </router-link>         
         </div>
     </div>
-
-  <!--   <router-link :to="'/prestations/'+content.url" class="rubrique-home">
-        <img class="img-home-bloc2 rounded mx-auto d-block" :src="content.lien_img">
-        <h2 class="rubrique-titre"> {{ content.titre }} </h2>
-    </router-link>   -->  
-
 </template>
 
 <script>
 export default {
     name: 'PortfolioMenu',
+    props: ['albums'],
     data() {
         return {
-            albums: null,
+            //albums: null,
             heightContImgPortfolio: '20vh'
         }
     },
@@ -50,17 +43,16 @@ export default {
         window.addEventListener('resize', () => {
             this.setHeightContImgPortfolio();
         })
-    },
+    }/* ,
     created: function() {
         axios
-            .get(process.env.BASE_URL + 'index.php?q=portfolio')
+            .get(process.env.BASE_URL + 'index.php?q=albums')
             .then(response => (this.albums = response.data))
-    } 
+    }  */
 }
 </script>
 
 <style>
-
     #portfolio-dossier-cont {
         display: flex;
     }

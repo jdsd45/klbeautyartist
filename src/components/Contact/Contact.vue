@@ -55,7 +55,6 @@ export default {
         document.title = 'A propos de Keslène DENIS'
         axios
             .get(process.env.BASE_URL + 'index.php?q=contact')
-            //.get('back-php/index.php?q=contact')
             .then(response => (this.content = response.data))
     },
     methods: {

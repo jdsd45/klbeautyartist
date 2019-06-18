@@ -6,7 +6,9 @@
             <div class="col-4 ksl">
                 <span>Keslène DENIS, 2019</span>
                 <br>
-                <span>07.05.20.30.40</span>
+                <span>8 rue Auguste Renoir 78400 CHATOU</span>
+                <br>
+                <span>06.61.35.53.37</span>
             </div>
             <div class="col-4">
                 <span>

@@ -2,16 +2,16 @@
 
 class BddManager
 {
-    
-/* 	private const DB_NAME = 'jdsdfrcjkmjojo';
-    private const DB_HOST = 'jdsdfrcjkmjojo.mysql.db';
-    private const DB_USER = 'jdsdfrcjkmjojo';
-    private const DB_PASS = 'Adramyttium1908Geomorpho191'; */
 
     private const DB_NAME = 'keslene';
     private const DB_HOST = 'localhost';
     private const DB_USER = 'root';
     private const DB_PASS = '';
+
+/*     private const DB_NAME = 'klbeautyttnenene';
+    private const DB_HOST = 'klbeautyttnenene.mysql.db';
+    private const DB_USER = 'klbeautyttnenene';
+    private const DB_PASS = 'C1SuperKstorAvec78Dents'; */
 
     protected static function bddConnect()
     {
