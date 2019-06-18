@@ -21,7 +21,6 @@ export default {
     props: ['albums'],
     data() {
         return {
-            //albums: null,
             heightContImgPortfolio: '20vh'
         }
     },
@@ -43,12 +42,7 @@ export default {
         window.addEventListener('resize', () => {
             this.setHeightContImgPortfolio();
         })
-    }/* ,
-    created: function() {
-        axios
-            .get(process.env.BASE_URL + 'index.php?q=albums')
-            .then(response => (this.albums = response.data))
-    }  */
+    }
 }
 </script>
 
