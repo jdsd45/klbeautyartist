@@ -57,7 +57,6 @@ export default {
 </script>
 
 <style>
-
 @media(min-width:767px){
     .prest-detail {
         line-height: 150%;
@@ -95,7 +94,4 @@ export default {
         max-height: 400px;
         object-fit: cover;
     } 
-
 </style>
-
-
