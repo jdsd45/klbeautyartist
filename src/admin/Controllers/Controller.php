@@ -2,12 +2,14 @@
 
 class Controller {
     protected $twig;
-    protected $default;
     protected $data;
     protected $vue;
     protected $filtre;
-    //protected $folderImg = '../../static';
-    protected $folderImg = '../static';
+    protected $folderImg = '../static';  
+    protected $error = [
+        'image' => [],
+        'form' => []
+    ];    
 
     protected function setTwig() {
         $loader = new \Twig\Loader\FilesystemLoader('./Vues/');
@@ -23,8 +25,26 @@ class Controller {
         $this->vue = $vue;
     }
 
-    protected function getVue() {
-        return $this->vue;
+    protected function setData($data) {
+        $this->data = $data;
+    }
+
+    protected function setFiltre($filtre) {
+        $this->filtre = $filtre;
+    }
+
+    protected function setFolderImg($folderImg) {
+        $this->folderImg = $folderImg;
+    }
+
+    protected function setError($type, $error) {
+        $this->error[$type][] = $error;
+    }
+
+    protected function setErrors($type, $errors) {
+        foreach ($errors as $error) {
+            $this->error[$type][] = $error;
+        }
     }
 
     public function getParam($param) {
@@ -34,32 +54,9 @@ class Controller {
         return false;
     }
 
-    protected function setData($data) {
-        $this->data = $data;
-    }
-
-    protected function pushData($field, $data) {
-        $this->data[$field] = $data;
-    }
-
-    protected function getData() {
-        return $this->data;
-    }
-
-    protected function setFiltre($filtre) {
-        $this->filtre = $filtre;
-    }
-
-    protected function getFiltre() {
-        return $this->filtre;
-    }
-    
-    protected function setFolderImg($folderImg) {
-        $this->folderImg = $folderImg;
-    }
-
-    protected function getFolderImg() {
-        return $this->folderImg;
-    }
-
+    protected function getVue() { return $this->vue; }
+    protected function getData() { return $this->data; }
+    protected function getFiltre() { return $this->filtre; }
+    protected function getFolderImg() { return $this->folderImg; }    
+    protected function getError() { return $this->error; }    
 }
