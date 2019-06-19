@@ -2,45 +2,33 @@
 
 require 'vendor/autoload.php';
 
-function chargerClasse($nom_classe)
+function loadClass($class_name)
 {
-    $file = $nom_classe . '.php';
-    $chemins = array("Controllers/", "Models/");
+    $file = $class_name . '.php';
+    $paths = array("Controllers/", "Models/");
 
-    foreach($chemins as $chemin)
+    foreach($paths as $path)
     {
-        if(file_exists($chemin.$file))
+        if(file_exists($path.$file))
         {
-            require $chemin.$file;
+            require $path.$file;
             break;
         }
     }
 }
-spl_autoload_register('chargerClasse');
+spl_autoload_register('loadClass');
 
-$loader = new \Twig\Loader\FilesystemLoader('./Vues/');
-$twig   = new Twig_Environment($loader);
-
-if (!isset($_GET['p']))
-{
-    echo $twig->render('Vue_Accueil.twig');
-    exit();
-}
-
-$p = $_GET['p'];
 $pages = ['carousel', 'messages', 'prestations', 'categories', 'portfolio', 'portfolioAlbums', 'about', 'contact'];
 
-if(!in_array($p, $pages)) {
+if(!isset($_GET['p']) || !in_array($_GET['p'], $pages)) {
+    $loader = new \Twig\Loader\FilesystemLoader('./Vues/');
+    $twig   = new Twig_Environment($loader);
     echo $twig->render('Vue_Accueil.twig');
     exit();
 }
 
-
-$controllerName = ucfirst($p) . 'Controller';
+$controllerName = ucfirst($_GET['p']) . 'Controller';
 $controller = new $controllerName();
 $action = $controller->getParam('q');
 $id     = $controller->getParam('id');
 $controller->hub($action, $id);
-
-
-

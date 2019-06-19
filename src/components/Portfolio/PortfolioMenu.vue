@@ -21,14 +21,13 @@ export default {
     props: ['albums'],
     data() {
         return {
-            //albums: null,
             heightContImgPortfolio: '20vh'
         }
     },
     methods: {
         setHeightContImgPortfolio () {
             let height;
-            if(window.outerWidth > 991.98) {
+            if(window.outerWidth > 991.98 && document.getElementById('portfolio-dossier-cont') != null) {
                 let heightMenu = document.getElementById('menu').offsetHeight;
                 let heightTitre = document.getElementById('portfolio-dossier-cont').previousElementSibling.offsetHeight;
                 height = "calc(100vh - " + (heightMenu + heightTitre) + "px)"
@@ -43,12 +42,7 @@ export default {
         window.addEventListener('resize', () => {
             this.setHeightContImgPortfolio();
         })
-    }/* ,
-    created: function() {
-        axios
-            .get(process.env.BASE_URL + 'index.php?q=albums')
-            .then(response => (this.albums = response.data))
-    }  */
+    }
 }
 </script>
 
@@ -76,15 +70,8 @@ export default {
         transform: translate(-50%, -50%);
         font-size: 2rem;
         text-align: center;
-/*         opacity: 0;
-        transition-property: opacity;
-        transition-duration: 0.7s; */
         z-index: 1000;
     } 
-
-/*     .portfolio-dossier-cont-img:hover .portfolio-dossier-txt {
-        opacity: 1;
-    } */
 
     .portfolio-dossier-cont-img:hover .portfolio-dossier-img {
         filter: grayscale(0%);
@@ -100,7 +87,6 @@ export default {
         font-size: 2.2rem;
     }
     .portfolio-dossier-img {
-/*         height: 50vh;     */
         width: 100vw;
     }
 }

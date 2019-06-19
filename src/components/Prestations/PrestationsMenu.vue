@@ -45,7 +45,7 @@ export default {
     padding-right: 3%;  
     padding-bottom: 8px;
     padding-top: 8px;
-    background-color: #C5A164;
+    background-color: var(--dore);
     border-radius: 5px;
     margin-right:6px;
     margin-left: 6px;
@@ -55,13 +55,13 @@ export default {
 
 .catSelected {
     background-color: white;
-    border-bottom: 3px solid #C5A164;  
-    color: #C5A164;
-    box-shadow: inset 0 0 5px #C5A164;
+    border-bottom: 3px solid var(--dore);  
+    color: var(--dore);
+    box-shadow: inset 0 0 5px var(--dore);
     }
 
 .item-cat-prestations:not(.catSelected):hover {
-    border-bottom: 3px solid #C5A164;  
+    border-bottom: 3px solid var(--dore);  
     background-color: #EDCF9C;
     }
 </style>

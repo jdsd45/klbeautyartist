@@ -4,15 +4,11 @@ class PrestationsController extends Controller {
 
     protected $categories;
     protected $img;
-    protected $error = [
-        'image' => [],
-        'form' => []
-    ];
     const FIELDS_REF = [
         'titre'     => ['lengthMin' => 5, 'lengthMax' => 200, 'regex' => null],
         'detail'    => ['lengthMin' => 0, 'lengthMax' => 5000, 'regex' => null],
-        'temps'     => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
-        'prix'      => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null],
+        'temps'     => ['lengthMin' => 2, 'lengthMax' => 10, 'regex' => null],
+        'prix'      => ['lengthMin' => 2, 'lengthMax' => 10, 'regex' => null],
         'categorie' => ['lengthMin' => 1, 'lengthMax' => 10, 'regex' => null]
     ];
 
@@ -36,13 +32,9 @@ class PrestationsController extends Controller {
         } elseif($action == 'deleteImg' && $id) {
             $this->deleteImg($id);
         } else {
-            $this->showDefault();
+            $this->showPrestations();
         }
     }    
-
-    protected function showDefault() {
-        $this->showPrestations();
-    }
     
     protected function showPrestations() {
         $this->setData(PrestationsManager::selectPrestations());
@@ -139,28 +131,6 @@ class PrestationsController extends Controller {
         ]); 
     }    
 
-    protected function setError($type, $error) {
-        $this->error[$type] = $error;
-    }
-
-    protected function setErrors($type, $errors) {
-        foreach ($errors as $error) {
-            $this->error[$type][] = $error;
-        }
-    }
-
-    protected function getError() {
-        return $this->error;
-    }
-
-    protected function setImg($img) {
-        $this->img = $img;
-    }
-
-    protected function getImg() {
-        return $this->img;
-    }
-
     protected function getCategories() {
         return $this->categories;
     }
@@ -168,5 +138,4 @@ class PrestationsController extends Controller {
     protected function setCategories() {
         $this->categories = CategoriesManager::selectCategories();
     }
-
 }

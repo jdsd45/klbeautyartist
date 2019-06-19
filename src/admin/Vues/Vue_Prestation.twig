@@ -22,7 +22,7 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label for="titre">Titre</label>
-                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200" required>
+                    <input id="titre" class="form-control" type="text" name="titre" value="{{ data.titre }}" minlength="5" maxlength="200">
                 </div>
             </div>
             <div class="form-row">
@@ -113,7 +113,7 @@
         fenetre.textContent = "";
         if(rep.form.length == 0 & rep.image.length == 0) {
             setTimeout(function() {
-                document.location.reload(true)
+                //document.location.reload(true)
             }, 1600);
             fenetre.classList.remove('alert-danger');
             fenetre.classList.add('alert-success');
