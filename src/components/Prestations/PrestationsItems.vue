@@ -36,23 +36,13 @@
 <script>
 export default {
     name: 'PrestationsItems',
-    props: ['currentcategory'],       
-    data () {
-        return {
-            prestations: null
-        }
-    },
+    props: ['currentcategory', 'prestations'],       
     computed : {
         prestationsFiltrees: function() {
             if(this.prestations != null && this.currentcategory != null) 
             return this.prestations.filter(prestation => prestation.categorie == this.currentcategory)
         }          
-    },   
-    created: function() {
-        axios
-            .get(process.env.BASE_URL + 'index.php?q=prestations')
-            .then(response => (this.prestations = response.data))
-    }                           
+    }                         
 }
 </script>
 

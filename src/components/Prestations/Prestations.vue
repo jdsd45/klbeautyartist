@@ -4,9 +4,12 @@
             v-bind:currentcategory="currentcategory"
             v-bind:categories="categories"
             v-on:updatecategory="updatecategory">
-            </PrestationsMenu>
+        </PrestationsMenu>
         <div class="container" id="cont-prestations">
-            <PrestationsItems id="cont-prestation" v-bind:currentcategory="currentcategory"></PrestationsItems>
+            <PrestationsItems id="cont-prestation"
+                v-bind:currentcategory="currentcategory"
+                v-bind:prestations="prestations">
+            </PrestationsItems>
         </div>
     </div>
 </template>
@@ -19,7 +22,8 @@ export default {
     data () {
         return {
             currentcategory: null,
-            categories: null
+            categories: null,  
+            prestations: null
         }
     },
     components: {
@@ -40,6 +44,9 @@ export default {
         } else {
             this.currentcategory = this.categories[0].titre
         }
+        axios
+            .get(process.env.BASE_URL + 'index.php?q=prestations')
+            .then(response => (this.prestations = response.data))        
     },
     methods: {
         updatecategory: function(newVal) {
