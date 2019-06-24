@@ -3,7 +3,7 @@
         <h2>{{ titre_album }} </h2>
         <div id="album-cont">
             <div v-for="photo in photosAlbum" v-bind:key="photo.id" class="album-img-cont"> 
-                <img :src="photo.lien_img" :alt="photo.titre" class="album-img">
+                <img :src="photo.lien_img" :alt="'Photographie de '+photo.titre" class="album-img">
                 <div class="album-img-txt"> {{ photo.titre}} </div>
             </div>
         </div>

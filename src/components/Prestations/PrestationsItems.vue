@@ -2,15 +2,16 @@
     <div id="list-prestations" class="row">
         <div class="col-md-12 cont-prestation"
             v-for="(prestation, index) in prestationsFiltrees"
-            v-bind:id="'prestation-' + index"
-            v-bind:key="index">
+            :id="'prestation-' + index"
+            :key="index">
             <hr>
             <h3 class="prest-titre">{{ prestation.titre }} </h3>
             <div class="row">
                 <div class="col-md-6">
                     <div class="cont-prest-img">
                         <img class="img-prestations" 
-                        :src="prestation.lien_img">
+                        :src="prestation.lien_img"
+                        :alt="'Photographie de la prestation '+prestation.titre">
                     </div>
                 </div>
                 <div class="col-md-6 cont-prest-infos">

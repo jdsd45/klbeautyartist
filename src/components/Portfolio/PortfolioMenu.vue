@@ -8,8 +8,9 @@
                     {{ album.titre }} 
                 </div>
                 <img class="portfolio-dossier-img" 
-                    v-bind:src="album.lien_img" 
-                    v-bind:style="{height: heightContImgPortfolio}">
+                    :src="album.lien_img" 
+                    :style="{height: heightContImgPortfolio}"
+                    :alt="'Photographie de couverture de l\'album '+album.titre">
             </router-link>         
         </div>
     </div>

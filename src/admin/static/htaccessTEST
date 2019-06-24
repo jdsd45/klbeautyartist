@@ -1,6 +1,0 @@
-deny from all
-
-<Files ~ “^w+.(gif|jpg|jpeg|png|txt)$”>
-order deny,allow
-allow from all
-</Files>

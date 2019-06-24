@@ -11,7 +11,7 @@
             <slide class="slide-carousel-home"
                 v-for="(photo, index) in photosCarousel"
                 :key="index">
-                <img :src="photo.lien_img">
+                <img :src="photo.lien_img" :alt="'Photographie de '+photo.titre">
             </slide>
         </carousel>
     </div>

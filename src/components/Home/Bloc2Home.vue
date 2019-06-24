@@ -8,7 +8,7 @@
                     :id="'home-cont' + categorie.id"
                 >
                 <router-link :to="'/prestations/'+categorie.url" class="rubrique-home">
-                    <img class="img-home-bloc2 rounded mx-auto d-block" :src="categorie.lien_img">
+                    <img class="img-home-bloc2 rounded mx-auto d-block" :src="categorie.lien_img" :alt="'Photographie de la catégorie '+categorie.titre">
                     <h2 class="rubrique-titre"> {{ categorie.titre }} </h2>
                 </router-link>
                 </div>

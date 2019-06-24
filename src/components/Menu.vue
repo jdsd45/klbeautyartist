@@ -4,7 +4,7 @@
 
     <router-link to="/">
         <a class="navbar-brand">
-            <img id="logo" src="static/logo-kl-beauty.png" alt="">
+            <img id="logo" src="static/logo-kl-beauty.png" alt="Logo de KL Beauty Artist">
         </a>
     </router-link>
     <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
