@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@chenfengyuan/vue-carousel": "^1.0.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "vue": "^2.6.10",
     "vue-carousel": "^0.18.0",
     "vue-router": "^3.0.1",
